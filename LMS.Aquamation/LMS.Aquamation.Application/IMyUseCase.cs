@@ -1,5 +1,5 @@
 namespace LMS.Aquamation.Application;
 
-public interface IYourUseCase {
+public interface IMyUseCase {
     Task<ItemDto> GetItemAsync(int id);
 }

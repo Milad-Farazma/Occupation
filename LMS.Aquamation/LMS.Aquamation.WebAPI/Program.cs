@@ -1,4 +1,5 @@
 using LMS.Aquamation.WebAPI;
+using LMS.Aquamation.WebAPI.GrpcServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapGrpcService<YourGrpcService>();
+app.MapGrpcService<MyGrpcService>();
 app.MapControllers();
 
 app.Run();

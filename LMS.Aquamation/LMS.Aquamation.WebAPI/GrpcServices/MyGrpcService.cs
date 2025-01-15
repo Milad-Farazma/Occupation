@@ -1,10 +1,10 @@
 using Grpc.Core;
 using LMS.Aquamation.Application;
-using YourApp.Grpc;
+using MyApp.Grpc;
 
-namespace LMS.Aquamation.WebAPI;
+namespace LMS.Aquamation.WebAPI.GrpcServices;
 
-public class YourGrpcService(IYourUseCase useCase) : YourService.YourServiceBase {
+public class MyGrpcService(IMyUseCase useCase) : MyService.MyServiceBase {
     public override async Task<GetItemResponse> GetItem(GetItemRequest request, ServerCallContext context) {
         var result = await useCase.GetItemAsync(request.Id);
 
