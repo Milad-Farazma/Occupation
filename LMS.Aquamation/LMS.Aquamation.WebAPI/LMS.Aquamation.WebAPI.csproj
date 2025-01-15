@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.69.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
@@ -15,5 +20,11 @@
     <ProjectReference Include="..\LMS.Aquamation.Application\LMS.Aquamation.Application.csproj" />
     <ProjectReference Include="..\LMS.Aquamation.Infrastructure\LMS.Aquamation.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\MyService.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+
 
 </Project>

@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddGrpc();
 
 var connectionString = builder.Configuration.GetConnectionString("Default")
                        ?? throw new ArgumentException("Can not find database connection string.");
@@ -27,6 +28,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.MapGrpcService<YourGrpcService>();
 app.MapControllers();
 
 app.Run();
