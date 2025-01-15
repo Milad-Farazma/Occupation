@@ -1,0 +1,6 @@
+@LearningManagement.Occupation.WebAPI_HostAddress = http://localhost:5000
+
+GET {{LearningManagement.Occupation.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
