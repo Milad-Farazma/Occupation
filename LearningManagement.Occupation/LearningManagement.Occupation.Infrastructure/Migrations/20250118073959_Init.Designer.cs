@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250115130712_Init")]
+    [Migration("20250118073959_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Company.Company", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,11 +42,11 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.Property<long>("CertificateCode")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CreaorUserId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAtUtcDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatorUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -86,7 +86,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Company.CompanyType", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.CompanyType", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,11 +159,11 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.Property<long>("ContactInfoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CreaorUserId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAtUtcDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatorUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -209,9 +209,9 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.ToTable("DepartmentType");
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Company.Company", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
                 {
-                    b.HasOne("LearningManagement.Occupation.Domain.Company.CompanyType", "Type")
+                    b.HasOne("LearningManagement.Occupation.Domain.Companies.Models.CompanyType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
 
@@ -220,7 +220,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Models.Department", b =>
                 {
-                    b.HasOne("LearningManagement.Occupation.Domain.Company.Company", "Company")
+                    b.HasOne("LearningManagement.Occupation.Domain.Companies.Models.Company", "Company")
                         .WithMany("Department")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -245,7 +245,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Company.Company", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
                 {
                     b.Navigation("Department");
                 });
