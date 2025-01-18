@@ -1,9 +1,8 @@
 using LearningManagement.Occupation.Domain.Companies.Models;
-
-namespace LearningManagement.Occupation.Infrastructure;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace LearningManagement.Occupation.Infrastructure.Companies.EntityFramework.Configurations;
 
 public class CompanyConfiguration : IEntityTypeConfiguration<Company> {
     public void Configure(EntityTypeBuilder<Company> builder) {

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Companies\Contracts\" />
+  </ItemGroup>
+
 </Project>

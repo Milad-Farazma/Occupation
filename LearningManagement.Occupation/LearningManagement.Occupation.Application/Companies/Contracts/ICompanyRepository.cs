@@ -1,10 +1,10 @@
 using LearningManagement.Occupation.Domain.Companies.Models;
 
-namespace LearningManagement.Occupation.Domain.Companies;
+namespace LearningManagement.Occupation.Application.Companies.Contracts;
 
 public interface ICompanyRepository {
     Task<List<Company>> GetAllAsync(bool asNoTracking = true, CancellationToken cancellationToken = default);
-    Task<Company?> GetByIdAsync(long id, bool asNoTracking = true, CancellationToken cancellationToken = default);
+    Task<Company?> FindByIdAsync(long id, bool asNoTracking = true, CancellationToken cancellationToken = default);
     void Add(Company company);
     void Update(Company product);
     void Remove(Company product);

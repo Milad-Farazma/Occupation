@@ -2,11 +2,11 @@ using LearningManagement.Occupation.Application.Companies.Dto;
 using LearningManagement.Occupation.Domain.Companies.Models;
 using Mapster;
 
-namespace LearningManagement.Occupation.Infrastructure.Companies;
+namespace LearningManagement.Occupation.Infrastructure.Companies.Mappings;
 
 public class CompanyMappingConfig : IRegister {
     public void Register(TypeAdapterConfig config) {
-        TypeAdapterConfig<CreateCompanyCommand, Company>.NewConfig()
+        TypeAdapterConfig<CreateCompanyRequest, Company>.NewConfig()
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.Description, src => src.Description)
             .Map(dest => dest.LogoUrl, src => src.LogoUrl);
@@ -15,7 +15,7 @@ public class CompanyMappingConfig : IRegister {
             .Map(dest => dest.Title, src => src.Title)
             .Map(dest => dest.IsApproved, src => src.IsApproved);
 
-        TypeAdapterConfig<UpdateCompanyCommand, Company>.NewConfig()
+        TypeAdapterConfig<UpdateCompanyRequest, Company>.NewConfig()
             .Map(dest => dest.Title, src => src.NewTitle);
     }
 }

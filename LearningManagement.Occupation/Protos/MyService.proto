@@ -5,6 +5,7 @@ option csharp_namespace = "MyApp.Grpc";
 package MyApp;
 
 service MyService {
+  
   rpc GetData (GetDataRequest) returns (GetDataResponse);
 }
 

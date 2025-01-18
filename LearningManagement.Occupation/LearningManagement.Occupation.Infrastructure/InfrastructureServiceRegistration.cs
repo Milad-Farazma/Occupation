@@ -1,14 +1,16 @@
 using Framework.Auditability;
 using Framework.Deletable;
-using LearningManagement.Occupation.Infrastructure.Companies;
-using LearningManagement.Occupation.Application.Contracts;
-using LearningManagement.Occupation.Domain.Companies;
+using Framework.Mappers;
+using LearningManagement.Occupation.Application.Companies.Contracts;
+using LearningManagement.Occupation.Infrastructure.Companies.EntityFramework.Repositories;
+using LearningManagement.Occupation.Infrastructure.Shared;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Infrastructure;
 
+//TODO: Refactor
 public static class InfrastructureServiceRegistration {
     public static void AddServices(IServiceCollection service, string sqlServerConnectionString) {
         service.AddDbContext<AppDbContext>((serviceProvider, options) => {
@@ -17,11 +19,11 @@ public static class InfrastructureServiceRegistration {
                 .AddInterceptors(serviceProvider.GetRequiredService<AuditabilityInterceptor>());
         });
 
-        service.AddScoped<ICompanyRepository, CompanyRepository>();
+        service.AddScoped<ICompanyRepository, EfCompanyRepository>();
         service.AddScoped<SoftDeleteInterceptor>();
         service.AddScoped<AuditabilityInterceptor>();
 
-        service.AddSingleton<IMapper, Mapper.Mapper>();
+        service.AddSingleton<IMapper, Mapper>();
         var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
         typeAdapterConfig.Scan(typeof(InfrastructureServiceRegistration).Assembly);
     }

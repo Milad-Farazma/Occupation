@@ -1,4 +1,4 @@
-using LearningManagement.Occupation.Application.Companies;
+using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Application.Companies.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +8,8 @@ namespace LearningManagement.Occupation.WebAPI.Companies;
 [Route("api/[controller]")]
 public class CompanyController(ICompanyService companyService) : ControllerBase {
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command, CancellationToken cancellationToken) {
-        var company = await companyService.CreateAsync(command, cancellationToken);
+    public async Task<IActionResult> Create([FromBody] CreateCompanyRequest request, CancellationToken cancellationToken) {
+        var company = await companyService.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = company.Id }, company);
     }
 
@@ -27,13 +27,13 @@ public class CompanyController(ICompanyService companyService) : ControllerBase 
     }
 
     [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update(long id, [FromBody] UpdateCompanyCommand command, CancellationToken cancellationToken) {
+    public async Task<IActionResult> Update(long id, [FromBody] UpdateCompanyRequest request, CancellationToken cancellationToken) {
         // Assuming UpdateCompanyCommand contains the company Id or it can be set in the service
-        if (id != command.Id) {
+        if (id != request.Id) {
             return BadRequest("Company ID mismatch.");
         }
 
-        await companyService.UpdateAsync(command, cancellationToken);
+        await companyService.UpdateAsync(request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 

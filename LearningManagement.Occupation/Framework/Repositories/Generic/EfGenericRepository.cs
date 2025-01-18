@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Framework.Repositories.Generic;
 
-public class EfGenericRepository<TEntity, TId>(DbContext context)
+public class EfGenericRepository<TEntity>(DbContext context)
     where TEntity : BaseEntity {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
@@ -14,7 +14,7 @@ public class EfGenericRepository<TEntity, TId>(DbContext context)
         return query.ToListAsync(cancellationToken);
     }
 
-    public async Task<TEntity?> FindByIdAsync(TId id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
+    public async Task<TEntity?> FindByIdAsync(long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
         var entity = await DbSet.FindAsync([id], cancellationToken);
         if (entity == null || !asNoTracking) return entity;
 
@@ -22,15 +22,7 @@ public class EfGenericRepository<TEntity, TId>(DbContext context)
         return entity;
     }
 
-    public async Task<TEntity?> GetByIdAsync(TId id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
-        var entity = await DbSet.FindAsync([id], cancellationToken);
-        if (entity == null || !asNoTracking) return entity;
-
-        context.Entry(entity).State = EntityState.Detached;
-        return entity;
-    }
-
-    public TEntity? GetById(TId id, bool asNoTracking = true) {
+    public TEntity? GetById(long id, bool asNoTracking = true) {
         var entity = DbSet.Find(id);
         if (entity == null || !asNoTracking) return entity;
 
@@ -38,11 +30,11 @@ public class EfGenericRepository<TEntity, TId>(DbContext context)
         return entity;
     }
 
-    public async Task<bool> ExistsAsync(TId id, CancellationToken cancellationToken = default) {
+    public async Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default) {
         return await DbSet.FindAsync([id], cancellationToken) != null;
     }
 
-    public bool Exists(TId id) {
+    public bool Exists(long id) {
         return DbSet.Find(id) != null;
     }
 

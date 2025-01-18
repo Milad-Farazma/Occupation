@@ -1,9 +1,12 @@
 using System.IO.Compression;
-using LearningManagement.Occupation.Application.Companies;
+using LearningManagement.Occupation.Application.Companies.Contracts;
+using LearningManagement.Occupation.Application.Companies.Services;
 using LearningManagement.Occupation.Application.SampleGrpc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Application;
+
+//TODO: Move to shared and others
 
 public static class ApplicationServiceRegistration {
     public static void AddServices(IServiceCollection service) {
