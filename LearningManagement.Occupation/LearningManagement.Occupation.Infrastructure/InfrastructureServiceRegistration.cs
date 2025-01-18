@@ -1,3 +1,4 @@
+using Framework.Deletable;
 using LearningManagement.Aquamation.Infrastructure.Companies;
 using LearningManagement.Occupation.Application;
 using LearningManagement.Occupation.Domain.Companies;
@@ -10,8 +11,10 @@ namespace LearningManagement.Aquamation.Infrastructure;
 
 public static class InfrastructureServiceRegistration {
     public static void AddServices(IServiceCollection service, string sqlServerConnectionString) {
-        service.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(sqlServerConnectionString));
+        service.AddDbContext<AppDbContext>((serviceProvider, options) => {
+            options.UseSqlServer(sqlServerConnectionString)
+                .AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>());
+        });
 
         service.AddScoped<ICompanyRepository, CompanyRepository>();
 
