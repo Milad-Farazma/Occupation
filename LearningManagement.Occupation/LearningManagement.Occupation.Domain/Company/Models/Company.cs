@@ -1,6 +1,7 @@
 using Framework;
+using LearningManagement.Occupation.Domain.Models;
 
-namespace LearningManagement.Occupation.Domain.Models;
+namespace LearningManagement.Occupation.Domain.Company.Models;
 
 public class Company : BaseAuditableAndSoftDeletableEntity {
     public long? TypeId { get; set; }
@@ -15,8 +16,9 @@ public class Company : BaseAuditableAndSoftDeletableEntity {
     public long ApprovedAtUtcDateTime { get; set; }
     public long CertificateCode { get; set; }
     public string Description { get; set; }
+
     public string LogoUrl { get; set; }
 
     public CompanyType Type { get; set; }
-    public ICollection<Department> Department { get; set; } = [];
+    public ICollection<Department> Department { get; set; }
 }

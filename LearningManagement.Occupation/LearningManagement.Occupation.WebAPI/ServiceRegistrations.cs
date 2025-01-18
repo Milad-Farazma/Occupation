@@ -7,9 +7,9 @@ namespace LearningManagement.Occupation.WebAPI;
 
 public static class ServiceRegistrations {
     public static void AddServices(IServiceCollection service, string sqlConnectionString) {
+        DomainServiceRegistration.AddServices(service);
         ApplicationServiceRegistration.AddServices(service);
         InfrastructureServiceRegistration.AddServices(service, sqlConnectionString);
-        DomainServiceRegistration.AddServices(service);
         AddWebApiServices(service);
     }
 

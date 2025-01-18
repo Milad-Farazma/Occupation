@@ -9,7 +9,7 @@ public class Department : BaseAuditableAndSoftDeletableEntity {
     public long? ContactId { get; set; }
 
 
-    public Company Company { get; set; }
+    public Company.Models.Company Company { get; set; }
     public DepartmentType Type { get; set; }
     public ContactInfo ContactInfo { get; set; }
 }
