@@ -1,11 +1,13 @@
+using LearningManagement.Occupation.Domain.Companies.Models;
+
 namespace LearningManagement.Occupation.Domain.Companies;
 
 public interface ICompanyRepository {
-    Task<List<Models.Company>> GetAllAsync(bool asNoTracking = true);
-    Task<Models.Company?> GetByIdAsync(long id, bool asNoTracking = true);
-    void Add(Models.Company company);
-    void Update(Models.Company product);
-    void Remove(Models.Company product);
+    Task<List<Company>> GetAllAsync(bool asNoTracking = true);
+    Task<Company?> GetByIdAsync(long id, bool asNoTracking = true);
+    void Add(Company company);
+    void Update(Company product);
+    void Remove(Company product);
     Task<int> SaveChangesAsync();
     Task<bool> ExistsAsync(long id);
 }
