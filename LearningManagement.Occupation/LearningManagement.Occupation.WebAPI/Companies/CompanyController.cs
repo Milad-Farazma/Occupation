@@ -8,14 +8,14 @@ namespace LearningManagement.Occupation.WebAPI.Companies;
 [Route("api/[controller]")]
 public class CompanyController(ICompanyService companyService) : ControllerBase {
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command) {
-        var company = await companyService.CreateAsync(command);
+    public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command, CancellationToken cancellationToken) {
+        var company = await companyService.CreateAsync(command, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = company.Id }, company);
     }
 
     [HttpGet("{id:long}")]
-    public async Task<ActionResult<CompanyDto>> GetById(long id) {
-        var company = await companyService.GetByIdAsync(id);
+    public async Task<ActionResult<CompanyDto>> GetById(long id, CancellationToken cancellationToken) {
+        var company = await companyService.GetByIdAsync(id, cancellationToken);
         if (company == null) return NotFound();
         return Ok(company);
     }
