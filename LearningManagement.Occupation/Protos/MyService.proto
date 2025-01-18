@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "MyApp.Grpc";
+
+package MyApp;
+
+service MyService {
+  rpc GetData (GetDataRequest) returns (GetDataResponse);
+}
+
+message GetDataRequest {
+  string id = 1;
+}
+
+message GetDataResponse {
+  string data = 1;
+}

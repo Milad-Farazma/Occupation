@@ -1,4 +1,5 @@
 using LearningManagement.Occupation.Application.Companies.Dto;
+using LearningManagement.Occupation.Application.Contracts;
 using LearningManagement.Occupation.Domain.Companies;
 using LearningManagement.Occupation.Domain.Companies.Models;
 

@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application;
+namespace LearningManagement.Occupation.Application.Contracts;
 
 public interface IMapper {
     public TResult Adapt<TSource, TResult>(TSource source);

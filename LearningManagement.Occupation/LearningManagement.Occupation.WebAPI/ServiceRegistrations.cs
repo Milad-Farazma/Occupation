@@ -1,4 +1,3 @@
-using System.IO.Compression;
 using LearningManagement.Occupation.Application;
 using LearningManagement.Occupation.Infrastructure;
 using LearningManagement.Occupation.Domain;
@@ -13,16 +12,5 @@ public static class ServiceRegistrations {
         AddWebApiServices(service);
     }
 
-    public static void AddWebApiServices(IServiceCollection services) {
-        #region Grpc Client Config
-
-        services.AddGrpc(options => {
-            options.ResponseCompressionLevel = CompressionLevel.Optimal;
-            options.ResponseCompressionAlgorithm = "gzip";
-            options.MaxSendMessageSize = 1024 * 1024 * 1024; // 1 GB
-            options.MaxReceiveMessageSize = 1024 * 1024 * 1024; // 1 GB
-        });
-
-        #endregion
-    }
+    public static void AddWebApiServices(IServiceCollection services) { }
 }

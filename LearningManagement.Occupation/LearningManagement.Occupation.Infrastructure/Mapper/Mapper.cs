@@ -1,4 +1,4 @@
-using LearningManagement.Occupation.Application;
+using LearningManagement.Occupation.Application.Contracts;
 using Mapster;
 
 namespace LearningManagement.Occupation.Infrastructure.Mapper;

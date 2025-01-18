@@ -1,6 +1,6 @@
 using Framework.Deletable;
 using LearningManagement.Occupation.Infrastructure.Companies;
-using LearningManagement.Occupation.Application;
+using LearningManagement.Occupation.Application.Contracts;
 using LearningManagement.Occupation.Domain.Companies;
 using Mapster;
 using Microsoft.EntityFrameworkCore;

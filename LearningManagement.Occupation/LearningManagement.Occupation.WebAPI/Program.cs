@@ -1,5 +1,5 @@
+using LearningManagement.Occupation.Application.SampleGrpc;
 using LearningManagement.Occupation.WebAPI;
-using LearningManagement.Occupation.WebAPI.GrpcServices;
 using LearningManagement.Occupation.WebAPI.Middlewares;
 using Serilog;
 
@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddGrpc();
 
 var connectionString = builder.Configuration.GetConnectionString("Default")
                        ?? throw new ArgumentException("Can not find database connection string.");
@@ -21,7 +20,6 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .WriteTo.Console()
         .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
 );
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +40,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapGrpcService<MyGrpcService>();
+//TODO: Move to infrastructure layer
+app.MapGrpcService<GrpcClientService>();
+
 app.MapControllers();
 
 app.Run();
