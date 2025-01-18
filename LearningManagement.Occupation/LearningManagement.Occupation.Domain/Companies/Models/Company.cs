@@ -1,7 +1,7 @@
 using Framework;
 using LearningManagement.Occupation.Domain.Models;
 
-namespace LearningManagement.Occupation.Domain.Company.Models;
+namespace LearningManagement.Occupation.Domain.Companies.Models;
 
 public class Company : BaseAuditableAndSoftDeletableEntity {
     public long? TypeId { get; set; }

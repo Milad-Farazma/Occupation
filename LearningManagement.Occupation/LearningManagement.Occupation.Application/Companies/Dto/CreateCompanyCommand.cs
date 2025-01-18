@@ -1,3 +1,3 @@
-namespace LearningManagement.Occupation.Application.Company.Dto;
+namespace LearningManagement.Occupation.Application.Companies.Dto;
 
 public record CreateCompanyCommand(string Title, string Description, string LogoUrl);

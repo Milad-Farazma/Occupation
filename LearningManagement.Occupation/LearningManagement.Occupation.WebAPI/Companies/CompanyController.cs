@@ -1,8 +1,8 @@
-using LearningManagement.Occupation.Application.Company;
-using LearningManagement.Occupation.Application.Company.Dto;
+using LearningManagement.Occupation.Application.Companies;
+using LearningManagement.Occupation.Application.Companies.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LearningManagement.Occupation.WebAPI.Company;
+namespace LearningManagement.Occupation.WebAPI.Companies;
 
 [ApiController]
 [Route("api/[controller]")]

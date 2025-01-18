@@ -1,11 +1,12 @@
-using LearningManagement.Occupation.Application.Company.Dto;
-using LearningManagement.Occupation.Domain.Company;
+using LearningManagement.Occupation.Application.Companies.Dto;
+using LearningManagement.Occupation.Domain.Companies;
+using LearningManagement.Occupation.Domain.Companies.Models;
 
-namespace LearningManagement.Occupation.Application.Company;
+namespace LearningManagement.Occupation.Application.Companies;
 
 public class CompanyService(ICompanyRepository repo, IMapper mapper) : ICompanyService {
     public async Task<CompanyDto> CreateAsync(CreateCompanyCommand command) {
-        var company = mapper.Adapt<Domain.Company.Models.Company>(command);
+        var company = mapper.Adapt<Company>(command);
         repo.Add(company);
         await repo.SaveChangesAsync();
 
@@ -24,9 +25,9 @@ public class CompanyService(ICompanyRepository repo, IMapper mapper) : ICompanyS
     public async Task UpdateAsync(UpdateCompanyCommand command) {
         var company = await repo.GetByIdAsync(command.Id);
         if (company is null) return; //TODO: Throw error
-        company = mapper.Adapt<Domain.Company.Models.Company>(command);
+        company = mapper.Adapt<Company>(command);
         repo.Update(company);
-        
+
         await repo.SaveChangesAsync();
     }
 

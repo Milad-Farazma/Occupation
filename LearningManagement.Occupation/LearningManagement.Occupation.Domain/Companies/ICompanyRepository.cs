@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Domain.Company;
+namespace LearningManagement.Occupation.Domain.Companies;
 
 public interface ICompanyRepository {
     Task<List<Models.Company>> GetAllAsync(bool asNoTracking = true);

@@ -1,4 +1,4 @@
-using LearningManagement.Occupation.Application.Company;
+using LearningManagement.Occupation.Application.Companies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Application;

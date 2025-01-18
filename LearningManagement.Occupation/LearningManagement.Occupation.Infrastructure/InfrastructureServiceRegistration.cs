@@ -1,6 +1,6 @@
-using LearningManagement.Aquamation.Infrastructure.Company;
+using LearningManagement.Aquamation.Infrastructure.Companies;
 using LearningManagement.Occupation.Application;
-using LearningManagement.Occupation.Domain.Company;
+using LearningManagement.Occupation.Domain.Companies;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

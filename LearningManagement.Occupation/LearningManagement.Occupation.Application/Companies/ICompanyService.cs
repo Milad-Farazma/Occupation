@@ -1,6 +1,6 @@
-using LearningManagement.Occupation.Application.Company.Dto;
+using LearningManagement.Occupation.Application.Companies.Dto;
 
-namespace LearningManagement.Occupation.Application.Company;
+namespace LearningManagement.Occupation.Application.Companies;
 
 public interface ICompanyService {
     Task<CompanyDto> CreateAsync(CreateCompanyCommand command);
