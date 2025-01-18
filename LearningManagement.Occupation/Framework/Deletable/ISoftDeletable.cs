@@ -1,6 +1,6 @@
 namespace Framework.Deletable;
 
 public interface ISoftDeletable : IDeletable {
-    bool IsDeleted { get; }
-    DateTime? DeletedAt { get; }
+    bool IsDeleted { get; set; }
+    DateTime? DeletedAt { get; set; }
 }
