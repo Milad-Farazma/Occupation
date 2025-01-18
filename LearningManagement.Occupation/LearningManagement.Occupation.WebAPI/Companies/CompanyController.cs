@@ -19,4 +19,27 @@ public class CompanyController(ICompanyService companyService) : ControllerBase 
         if (company == null) return NotFound();
         return Ok(company);
     }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CompanyDto>>> GetAll(CancellationToken cancellationToken) {
+        var companies = await companyService.GetAllAsync(cancellationToken);
+        return Ok(companies);
+    }
+
+    [HttpPut("{id:long}")]
+    public async Task<IActionResult> Update(long id, [FromBody] UpdateCompanyCommand command, CancellationToken cancellationToken) {
+        // Assuming UpdateCompanyCommand contains the company Id or it can be set in the service
+        if (id != command.Id) {
+            return BadRequest("Company ID mismatch.");
+        }
+
+        await companyService.UpdateAsync(command, cancellationToken);
+        return NoContent(); // 204 - Successful update with no content
+    }
+
+    [HttpDelete("{id:long}")]
+    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+        await companyService.DeleteAsync(id, cancellationToken);
+        return NoContent(); // 204 - Successful deletion with no content
+    }
 }
