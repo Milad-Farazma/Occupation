@@ -1,3 +1,4 @@
+using Framework.Deletable;
 using LearningManagement.Occupation.Domain.Companies.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.SetSoftDeleteQueryFilter();
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }
