@@ -1,4 +1,4 @@
-namespace Framework;
+namespace Framework.Auditability;
 
 public class BaseAuditableEntity : BaseEntity, IAuditability {
     public long CreatorUserId { get; set; }

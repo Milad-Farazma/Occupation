@@ -1,4 +1,4 @@
-namespace Framework;
+namespace Framework.Auditability;
 
 public interface IAuditability {
     public long CreatorUserId { get; set; }

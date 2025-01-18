@@ -1,3 +1,4 @@
+using Framework.Auditability;
 using Framework.Deletable;
 using LearningManagement.Occupation.Infrastructure.Companies;
 using LearningManagement.Occupation.Application.Contracts;
@@ -12,7 +13,8 @@ public static class InfrastructureServiceRegistration {
     public static void AddServices(IServiceCollection service, string sqlServerConnectionString) {
         service.AddDbContext<AppDbContext>((serviceProvider, options) => {
             options.UseSqlServer(sqlServerConnectionString)
-                .AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>());
+                .AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>())
+                .AddInterceptors(serviceProvider.GetRequiredService<AuditabilityInterceptor>());
         });
 
         service.AddScoped<ICompanyRepository, CompanyRepository>();

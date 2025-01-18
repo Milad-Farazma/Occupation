@@ -1,3 +1,4 @@
+using Framework.Auditability;
 using Framework.Deletable;
 
 namespace Framework;

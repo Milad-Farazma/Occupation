@@ -8,14 +8,14 @@ namespace LearningManagement.Occupation.Application;
 public static class ApplicationServiceRegistration {
     public static void AddServices(IServiceCollection service) {
         service.AddScoped<ICompanyService, CompanyService>();
-        
+
         service.AddGrpc(options => {
             options.ResponseCompressionLevel = CompressionLevel.Optimal;
             options.ResponseCompressionAlgorithm = "gzip";
             options.MaxSendMessageSize = 1024 * 1024 * 1024; // 1 GB
             options.MaxReceiveMessageSize = 1024 * 1024 * 1024; // 1 GB
         });
-        
+
         //TODO: Get from appesettings
         service.AddSingleton<IGrpcClientService>(provider =>
             new GrpcClientService("https://localhost:5001"));
