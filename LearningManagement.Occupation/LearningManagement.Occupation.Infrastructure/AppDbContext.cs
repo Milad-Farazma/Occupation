@@ -2,7 +2,7 @@ using Framework.Deletable;
 using LearningManagement.Occupation.Domain.Companies.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningManagement.Aquamation.Infrastructure;
+namespace LearningManagement.Occupation.Infrastructure;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options) {
     public DbSet<Company> Companies { get; set; }

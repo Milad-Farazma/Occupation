@@ -2,7 +2,7 @@ using LearningManagement.Occupation.Application.Companies.Dto;
 using LearningManagement.Occupation.Domain.Companies.Models;
 using Mapster;
 
-namespace LearningManagement.Aquamation.Infrastructure.Companies;
+namespace LearningManagement.Occupation.Infrastructure.Companies;
 
 public class CompanyMappingConfig : IRegister {
     public void Register(TypeAdapterConfig config) {

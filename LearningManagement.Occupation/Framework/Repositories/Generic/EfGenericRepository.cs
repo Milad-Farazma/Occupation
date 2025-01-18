@@ -6,7 +6,7 @@ namespace Framework.Repositories.Generic;
 public class EfGenericRepository<TEntity, TId>(DbContext context)
     where TEntity : BaseEntity {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
-    
+
     private IQueryable<TEntity> GetAsNoTrackingDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsQueryable();
 
     public Task<List<TEntity>> GetAllAsync(bool asNoTracking = true, CancellationToken cancellationToken = default) {

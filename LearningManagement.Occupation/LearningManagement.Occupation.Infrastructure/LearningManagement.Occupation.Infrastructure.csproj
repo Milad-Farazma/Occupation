@@ -19,7 +19,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>LearningManagement.Aquamation.Infrastructure</RootNamespace>
+    <RootNamespace>LearningManagement.Occupation.Infrastructure</RootNamespace>
   </PropertyGroup>
 
 </Project>

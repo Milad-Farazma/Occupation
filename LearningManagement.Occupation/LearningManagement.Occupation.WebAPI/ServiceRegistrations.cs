@@ -1,6 +1,6 @@
 using System.IO.Compression;
 using LearningManagement.Occupation.Application;
-using LearningManagement.Aquamation.Infrastructure;
+using LearningManagement.Occupation.Infrastructure;
 using LearningManagement.Occupation.Domain;
 
 namespace LearningManagement.Occupation.WebAPI;

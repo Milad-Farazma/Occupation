@@ -1,6 +1,6 @@
 using LearningManagement.Occupation.Domain.Companies.Models;
 
-namespace LearningManagement.Aquamation.Infrastructure;
+namespace LearningManagement.Occupation.Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
