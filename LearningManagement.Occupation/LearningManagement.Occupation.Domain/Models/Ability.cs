@@ -2,4 +2,4 @@ using Framework;
 
 namespace LearningManagement.Occupation.Domain.Models;
 
-public class Ability : BaseAuditableAndSoftDeletableEntity;
+public class Ability : BaseAuditableAndSoftDeletableEntity<long>;

@@ -1,5 +1,5 @@
 namespace Framework;
 
-public class BaseEntity {
-    public long Id { get; set; }
+public class BaseEntity<TId> {
+    public TId Id { get; set; }
 }

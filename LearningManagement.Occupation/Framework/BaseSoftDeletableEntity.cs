@@ -2,7 +2,7 @@ using Framework.Deletable;
 
 namespace Framework;
 
-public class BaseSoftDeletableEntity : BaseEntity, ISoftDeletable {
+public class BaseSoftDeletableEntity<TId> : BaseEntity<TId>, ISoftDeletable {
     public bool IsDeleted { get; set; }
     public DateTime? DeletedAt { get; }
 

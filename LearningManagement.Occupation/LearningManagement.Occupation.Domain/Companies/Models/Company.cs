@@ -3,7 +3,7 @@ using LearningManagement.Occupation.Domain.Models;
 
 namespace LearningManagement.Occupation.Domain.Companies.Models;
 
-public class Company : BaseAuditableAndSoftDeletableEntity {
+public class Company : BaseAuditableAndSoftDeletableEntity<long> {
     public long? TypeId { get; set; }
     public string Title { get; set; }
 
