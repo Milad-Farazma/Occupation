@@ -3,3 +3,4 @@ obj
 .idea
 .vscode
 *.DotSettings.user
+log-*.txt
