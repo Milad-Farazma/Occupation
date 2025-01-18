@@ -2,7 +2,7 @@ using Framework.Deletable;
 
 namespace Framework;
 
-public class BaseAuditableAndSoftDeletableEntity : BaseEntity, IAuditablity, ISoftDeletable {
+public class BaseAuditableAndSoftDeletableEntity : BaseEntity, IAuditability, ISoftDeletable {
     public long CreatorUserId { get; set; }
     public DateTime CreatedAtUtcDateTime { get; set; }
     public long ModifierUserId { get; set; }

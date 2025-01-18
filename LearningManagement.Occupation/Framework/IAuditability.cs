@@ -1,6 +1,6 @@
 namespace Framework;
 
-public interface IAuditablity {
+public interface IAuditability {
     public long CreatorUserId { get; set; }
     public DateTime CreatedAtUtcDateTime { get; set; }
     public long ModifierUserId { get; set; }
