@@ -2,7 +2,7 @@ using Framework;
 
 namespace LearningManagement.Occupation.Domain.Models;
 
-public class ContactInfo : BaseEntity<long> {
+public class ContactInfo : BaseEntity {
     public int CityId { get; set; }
     public int ProvinceId { get; set; }
     public string EmailAddres { get; set; }
