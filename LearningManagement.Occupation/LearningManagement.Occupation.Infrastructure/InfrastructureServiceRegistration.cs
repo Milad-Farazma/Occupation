@@ -19,6 +19,7 @@ public static class InfrastructureServiceRegistration {
 
         service.AddScoped<ICompanyRepository, CompanyRepository>();
         service.AddScoped<SoftDeleteInterceptor>();
+        service.AddScoped<AuditabilityInterceptor>();
 
         service.AddSingleton<IMapper, Mapper.Mapper>();
         var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
