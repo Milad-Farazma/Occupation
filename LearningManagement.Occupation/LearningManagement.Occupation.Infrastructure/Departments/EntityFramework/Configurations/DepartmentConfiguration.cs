@@ -1,0 +1,30 @@
+using LearningManagement.Occupation.Domain.Departments.Models;
+using LearningManagement.Occupation.Domain.Shared;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace LearningManagement.Occupation.Infrastructure.Departments.EntityFramework.Configurations;
+
+public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
+    public void Configure(EntityTypeBuilder<Department> builder) {
+        builder.ToTable("Departments");
+        builder.HasKey(b => b.Id);
+        builder.HasQueryFilter(b => !b.SoftDeleteInfo.IsDeleted);
+        builder.OwnsOne(b => b.AuditInfo, nb => {
+            nb.Property(c => c.CreatedByUserId).HasColumnName(WellKnownNames.AuditInfo.CreatedByUserId);
+            nb.Property(c => c.ModifiedByUserId).HasColumnName(WellKnownNames.AuditInfo.ModifiedByUserId);
+            nb.Property(c => c.CreatedAtUtcDateTime).HasColumnName(WellKnownNames.AuditInfo.CreatedAtUtcDateTime);
+            nb.Property(c => c.ModifiedAtUtcDateTime).HasColumnName(WellKnownNames.AuditInfo.ModifiedAtUtcDateTime);
+        });
+        builder.OwnsOne(b => b.SoftDeleteInfo, nb => {
+            nb.Property(c => c.IsDeleted).HasColumnName(WellKnownNames.SoftDeleteInfo.IsDeleted);
+            nb.Property(c => c.DeletedAtUtcDateTime).HasColumnName(WellKnownNames.SoftDeleteInfo.DeletedAtUtcDateTime);
+            nb.Property(c => c.DeletedByUserId).HasColumnName(WellKnownNames.SoftDeleteInfo.DeletedByUserId);
+        });
+
+        builder.HasKey(c => c.Id);
+        builder.Property(c => c.Id)
+            .ValueGeneratedOnAdd(); // Configure auto-increment behavior
+
+        builder.Property(c => c.Title).IsRequired().HasMaxLength(200);
+    }
+}
