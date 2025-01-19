@@ -6,6 +6,7 @@ namespace LearningManagement.Occupation.Infrastructure.Companies.EntityFramework
 
 public class CompanyConfiguration : IEntityTypeConfiguration<Company> {
     public void Configure(EntityTypeBuilder<Company> builder) {
+        builder.ToTable("Companies");
         builder.HasKey(b => b.Id);
         builder.HasQueryFilter(b => !b.SoftDeleteInfo.IsDeleted);
         builder.OwnsOne(b => b.AuditInfo, nb => {
