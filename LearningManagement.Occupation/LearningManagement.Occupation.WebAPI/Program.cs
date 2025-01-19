@@ -1,6 +1,7 @@
 using LearningManagement.Occupation.Application.SampleGrpc;
 using LearningManagement.Occupation.WebAPI;
 using LearningManagement.Occupation.WebAPI.Middlewares;
+using LearningManagement.Occupation.WebAPI.Shared;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -4,9 +4,7 @@ using LearningManagement.Occupation.Application.Companies.Services;
 using LearningManagement.Occupation.Application.SampleGrpc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LearningManagement.Occupation.Application;
-
-//TODO: Move to shared and others
+namespace LearningManagement.Occupation.Application.Shared;
 
 public static class ApplicationServiceRegistration {
     public static void AddServices(IServiceCollection service) {

@@ -1,7 +1,7 @@
-using LearningManagement.Occupation.Application;
-using LearningManagement.Occupation.Infrastructure;
+using LearningManagement.Occupation.Application.Shared;
+using LearningManagement.Occupation.Infrastructure.Shared;
 
-namespace LearningManagement.Occupation.WebAPI;
+namespace LearningManagement.Occupation.WebAPI.Shared;
 
 public static class ServiceRegistrations {
     public static void AddServices(IServiceCollection service, string sqlConnectionString) {

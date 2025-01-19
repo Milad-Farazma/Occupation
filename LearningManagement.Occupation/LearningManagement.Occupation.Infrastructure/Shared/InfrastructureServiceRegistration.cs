@@ -3,12 +3,11 @@ using Framework.Deletable;
 using Framework.Mappers;
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Infrastructure.Companies.EntityFramework.Repositories;
-using LearningManagement.Occupation.Infrastructure.Shared;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LearningManagement.Occupation.Infrastructure;
+namespace LearningManagement.Occupation.Infrastructure.Shared;
 
 //TODO: Refactor
 public static class InfrastructureServiceRegistration {
