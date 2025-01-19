@@ -1,4 +1,3 @@
-using ErrorOr;
 using LearningManagement.Occupation.Application.Companies.Dto;
 
 namespace LearningManagement.Occupation.Application.Companies.Contracts;

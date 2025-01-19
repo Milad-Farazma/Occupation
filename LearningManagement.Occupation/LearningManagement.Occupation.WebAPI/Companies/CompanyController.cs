@@ -1,6 +1,5 @@
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Application.Companies.Dto;
-using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagement.Occupation.WebAPI.Companies;
 

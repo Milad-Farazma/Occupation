@@ -1,6 +1,5 @@
 using LearningManagement.Occupation.Application.Companies.Dto;
 using LearningManagement.Occupation.Domain.Companies.Models;
-using Mapster;
 
 namespace LearningManagement.Occupation.Infrastructure.Companies.Mappings;
 

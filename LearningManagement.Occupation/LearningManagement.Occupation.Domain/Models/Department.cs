@@ -1,4 +1,3 @@
-using Framework;
 using LearningManagement.Occupation.Domain.Companies.Models;
 
 namespace LearningManagement.Occupation.Domain.Models;

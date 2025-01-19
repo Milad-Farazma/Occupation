@@ -1,6 +1,3 @@
-using Grpc.Net.Client;
-using MyApp.Grpc;
-
 namespace LearningManagement.Occupation.Application.SampleGrpc;
 
 public class GrpcClientService : IGrpcClientService {

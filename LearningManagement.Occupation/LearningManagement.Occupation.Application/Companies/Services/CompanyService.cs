@@ -1,5 +1,3 @@
-using ErrorOr;
-using Framework.Mappers;
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Application.Companies.Dto;
 using LearningManagement.Occupation.Domain.Companies.Models;

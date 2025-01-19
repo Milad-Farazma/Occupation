@@ -1,5 +1,3 @@
-using MyApp.Grpc;
-
 namespace LearningManagement.Occupation.Application.SampleGrpc;
 
 public interface IGrpcClientService : IDisposable {
