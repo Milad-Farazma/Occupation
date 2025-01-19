@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using Framework.Services.User;
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Application.Companies.Services;
 using LearningManagement.Occupation.Application.SampleGrpc;
@@ -10,6 +11,10 @@ namespace LearningManagement.Occupation.Application.Shared;
 public static class ApplicationServiceRegistration {
     public static void AddServices(IServiceCollection service) {
         service.AddScoped<ICompanyService, CompanyService>();
+        service.AddScoped<IUserService, UserService>();
+
+        //TODO: Is it good idea?!
+        service.AddHttpContextAccessor();
 
         service.AddGrpc(options => {
             options.ResponseCompressionLevel = CompressionLevel.Optimal;

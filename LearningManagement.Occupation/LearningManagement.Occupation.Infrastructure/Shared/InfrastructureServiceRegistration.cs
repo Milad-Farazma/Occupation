@@ -1,10 +1,7 @@
-using Framework.Auditability;
-using Framework.Deletable;
+using Framework.Audit;
 using Framework.Mappers;
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Infrastructure.Companies.EntityFramework.Repositories;
-using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared;
@@ -17,18 +14,16 @@ public static class InfrastructureServiceRegistration {
         AddMapper(service);
     }
 
-    private static void AddDatabase(IServiceCollection service, string sqlServerConnectionString) => service.AddDbContext<AppDbContext>(
+    private static void AddDatabase(IServiceCollection service, string sqlServerConnectionString) => service.AddDbContext<ApplicationDbContext>(
         (serviceProvider, options) => {
             options.UseSqlServer(sqlServerConnectionString)
-                .AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>())
-                .AddInterceptors(serviceProvider.GetRequiredService<AuditabilityInterceptor>());
+                .AddInterceptors(serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>());
         });
 
     private static void AddRepositories(IServiceCollection service) => service.AddScoped<ICompanyRepository, EfCompanyRepository>();
 
     private static void AddInterceptors(IServiceCollection service) {
-        service.AddScoped<SoftDeleteInterceptor>();
-        service.AddScoped<AuditabilityInterceptor>();
+        service.AddScoped<AuditableEntitySaveChangesInterceptor>();
     }
 
     private static void AddMapper(IServiceCollection service) {

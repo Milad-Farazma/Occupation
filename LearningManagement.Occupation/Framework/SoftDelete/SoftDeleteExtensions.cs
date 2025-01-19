@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Framework.Deletable;
+namespace Framework.SoftDelete;
 
 public static class SoftDeleteExtensions {
     public static void SetSoftDeleteQueryFilter(this ModelBuilder modelBuilder) {
@@ -24,7 +24,7 @@ public static class SoftDeleteExtensions {
 
             // Now, apply the query filter
             var parameter = Expression.Parameter(entityType.ClrType, "e");
-            var isDeletedProperty = Expression.Property(parameter, nameof(ISoftDeletable.IsDeleted));
+            var isDeletedProperty = Expression.Property(parameter, nameof(ISoftDeletable.SoftDeleteInfo.IsDeleted));
             var notDeleted = Expression.Not(isDeletedProperty);
             var lambda = Expression.Lambda(notDeleted, parameter);
 

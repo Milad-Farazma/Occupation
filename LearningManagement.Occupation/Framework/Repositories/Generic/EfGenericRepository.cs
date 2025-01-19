@@ -1,4 +1,4 @@
-using Framework.Deletable;
+using Framework.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Framework.Repositories.Generic;
@@ -59,8 +59,6 @@ public class EfGenericRepository<TEntity>(DbContext context)
     }
 
     public void Remove(TEntity entity) {
-        if (entity is IDeletable deletableEntity)
-            deletableEntity.Delete();
         DbSet.Remove(entity);
     }
 
@@ -70,7 +68,7 @@ public class EfGenericRepository<TEntity>(DbContext context)
             cancellationToken.ThrowIfCancellationRequested();
 
             // Remove the entity
-            Remove(entity);
+            DbSet.Remove(entity);
         }
     }
 
