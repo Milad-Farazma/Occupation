@@ -1,5 +1,4 @@
-using LearningManagement.Occupation.Application.SampleGrpc;
-using LearningManagement.Occupation.WebAPI;
+using LearningManagement.Occupation.Application.Shared;
 using LearningManagement.Occupation.WebAPI.Middlewares;
 using LearningManagement.Occupation.WebAPI.Shared;
 using Serilog;
@@ -41,8 +40,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-//TODO: Move to infrastructure layer
-app.MapGrpcService<GrpcClientService>();
+ApplicationServiceRegistration.MapGrpcServices(app);
 
 app.MapControllers();
 
