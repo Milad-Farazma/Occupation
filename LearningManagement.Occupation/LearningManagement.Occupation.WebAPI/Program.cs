@@ -5,15 +5,16 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("Occupation")
+                       ?? throw new ArgumentException("Can not find database connection string.");
+var allowedCorsOrigins = builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>();
+ServiceRegistrations.AddAllServices(builder.Services, connectionString, allowedCorsOrigins ?? []);
+
 // Add services to the container.
 builder.Services.AddControllers();
 
-var connectionString = builder.Configuration.GetConnectionString("Occupation")
-                       ?? throw new ArgumentException("Can not find database connection string.");
-ServiceRegistrations.AddServices(builder.Services, connectionString);
-
 // Read configuration from appsettings.json
-builder.Host.UseSerilog((context, services, configuration) =>
+builder.Host.UseSerilog((context, configuration) =>
     configuration
         .ReadFrom.Configuration(context.Configuration)
         .Enrich.FromLogContext()
