@@ -4,7 +4,7 @@ using LearningManagement.Occupation.Application.Companies.Dto;
 namespace LearningManagement.Occupation.WebAPI.Companies;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/companies")]
 public class CompanyController(ICompanyService companyService) : ControllerBase {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCompanyRequest request, CancellationToken cancellationToken) {
@@ -26,13 +26,8 @@ public class CompanyController(ICompanyService companyService) : ControllerBase 
     }
 
     [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update(long id, [FromBody] UpdateCompanyRequest request, CancellationToken cancellationToken) {
-        // Assuming UpdateCompanyCommand contains the company Id or it can be set in the service
-        if (id != request.Id) {
-            return BadRequest("Company ID mismatch.");
-        }
-
-        await companyService.UpdateAsync(request, cancellationToken);
+    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateCompanyRequest request, CancellationToken cancellationToken) {
+        await companyService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 

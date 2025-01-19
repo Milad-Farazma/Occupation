@@ -1,8 +1,10 @@
 using Framework.Data;
+using Framework.SoftDelete;
 using Microsoft.EntityFrameworkCore;
 
 namespace Framework.Repositories.Generic;
 
+//TODO: Update asnotracking
 public class EfGenericRepository<TEntity>(DbContext context)
     where TEntity : BaseEntity {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
@@ -78,5 +80,11 @@ public class EfGenericRepository<TEntity>(DbContext context)
 
     public int SaveChanges() {
         return context.SaveChanges();
+    }
+    
+    public static void SetDeleteObject(SoftDeleteInfo deleteInfoObject, long? currentUserId, DateTime? deleteDate) {
+        deleteInfoObject.IsDeleted = true;
+        deleteInfoObject.DeletedByUserId = currentUserId;
+        deleteInfoObject.DeletedAtUtcDateTime = deleteDate;
     }
 }

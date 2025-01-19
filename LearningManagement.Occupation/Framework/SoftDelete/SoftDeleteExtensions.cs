@@ -37,4 +37,10 @@ public static class SoftDeleteExtensions {
                 hasQueryFilterMethod.Invoke(entityBuilder, [lambda]);
         }
     }
+
+    public static void SetDeleteObject(this SoftDeleteInfo deleteInfoObject, long? currentUserId) {
+        deleteInfoObject.IsDeleted = true;
+        deleteInfoObject.DeletedByUserId = currentUserId;
+        deleteInfoObject.DeletedAtUtcDateTime = DateTime.UtcNow;
+    }
 }
