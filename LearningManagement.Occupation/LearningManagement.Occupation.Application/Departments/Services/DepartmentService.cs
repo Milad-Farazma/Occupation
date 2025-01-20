@@ -28,7 +28,7 @@ public class DepartmentService(IGenericRepository<Department> repo, IUserService
         .Select(c => c.Adapt<DepartmentDto>());
 
     public async Task UpdateAsync(long id, UpdateDepartmentRequest request, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
+        var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: true);
         if (department is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Department)));
 
@@ -39,7 +39,7 @@ public class DepartmentService(IGenericRepository<Department> repo, IUserService
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
+        var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: true);
         if (department is null) return;
 
         department.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());
