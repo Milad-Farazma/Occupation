@@ -3,8 +3,8 @@ using LearningManagement.Occupation.Application.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared;
 
-public class EfGenericRepository<TEntity>(DbContext context)
-    where TEntity : BaseEntity, IGenericRepository<TEntity> {
+public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGenericRepository<TEntity>
+    where TEntity : BaseEntity {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
     private IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();
