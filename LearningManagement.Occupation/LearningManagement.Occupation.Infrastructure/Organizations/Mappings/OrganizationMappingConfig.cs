@@ -5,9 +5,6 @@ namespace LearningManagement.Occupation.Infrastructure.Organizations.Mappings;
 
 public class OrganizationMappingConfig : IRegister {
     public void Register(TypeAdapterConfig config) {
-        TypeAdapterConfig<UpdateOrganizationRequest, Organization>.NewConfig()
-            .Map(dest => dest.Title, src => src.NewTitle);
-
         config.NewConfig<Organization, OrganizationDto>()
             .Map(dest => dest.Departments,
                 src => src.Department);
