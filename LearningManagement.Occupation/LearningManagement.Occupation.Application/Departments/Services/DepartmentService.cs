@@ -40,7 +40,7 @@ public class DepartmentService(IGenericRepository<Department> repo, IUserService
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
         var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: true);
-        if (department is null) return;
+        if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(department)));
 
         department.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
