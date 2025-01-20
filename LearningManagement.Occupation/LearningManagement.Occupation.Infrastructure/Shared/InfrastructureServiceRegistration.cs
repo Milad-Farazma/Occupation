@@ -10,28 +10,16 @@ namespace LearningManagement.Occupation.Infrastructure.Shared;
 
 public static class InfrastructureServiceRegistration {
     public static void AddServices(IServiceCollection service, string sqlServerConnectionString) {
-        AddDatabase(service, sqlServerConnectionString);
         AddRepositories(service);
-        AddInterceptors(service);
-        AddMapper(service);
+        AddMappers(service);
     }
-
-    private static void AddDatabase(IServiceCollection service, string sqlServerConnectionString) => service.AddDbContext<ApplicationDbContext>(
-        (serviceProvider, options) => {
-            options.UseSqlServer(sqlServerConnectionString)
-                .AddInterceptors(serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>());
-        });
 
     private static void AddRepositories(IServiceCollection service) {
         service.AddScoped<ICompanyRepository, EfCompanyRepository>();
         service.AddScoped<IDepartmentRepository, EfDepartmentRepository>();
     }
 
-    private static void AddInterceptors(IServiceCollection service) {
-        service.AddScoped<AuditableEntitySaveChangesInterceptor>();
-    }
-
-    private static void AddMapper(IServiceCollection service) {
+    private static void AddMappers(IServiceCollection service) {
         service.AddSingleton<IMapper, Mapper>();
         var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
         typeAdapterConfig.Scan(typeof(InfrastructureServiceRegistration).Assembly);

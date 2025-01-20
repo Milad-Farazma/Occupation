@@ -1,4 +1,5 @@
 using LearningManagement.Occupation.Application.Shared;
+using LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 using LearningManagement.Occupation.WebAPI.Middlewares;
 using LearningManagement.Occupation.WebAPI.Shared;
 using Serilog;
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("Occupation")
                        ?? throw new ArgumentException("Can not find database connection string.");
+builder.Services.AddEfConfig(connectionString, true);
 var allowedCorsOrigins = builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>();
 ServiceRegistrations.AddAllServices(builder.Services, connectionString, allowedCorsOrigins ?? []);
 
@@ -22,7 +24,7 @@ builder.Host.UseSerilog((context, configuration) =>
         .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
 );
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
