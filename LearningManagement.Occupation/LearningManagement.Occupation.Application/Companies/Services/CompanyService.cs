@@ -28,7 +28,7 @@ public class CompanyService(IGenericRepository<Company> repo, IUserService userS
         .Select(c => c.Adapt<CompanyDto>());
 
     public async Task UpdateAsync(long id, UpdateCompanyRequest request, CancellationToken cancellationToken = default) {
-        var company = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
+        var company = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: true);
         if (company is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Company)));
 
@@ -39,7 +39,7 @@ public class CompanyService(IGenericRepository<Company> repo, IUserService userS
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
-        var company = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
+        var company = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: true);
         if (company is null) return;
 
         company.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());
