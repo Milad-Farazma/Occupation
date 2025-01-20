@@ -4,19 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Framework.Repositories.Generic;
 
-//TODO: Update asnotracking
 public class EfGenericRepository<TEntity>(DbContext context)
     where TEntity : BaseEntity {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
-    private IQueryable<TEntity> GetAsNoTrackingDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsQueryable();
+    private IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();
 
-    public Task<List<TEntity>> GetAllAsync(bool asNoTracking = true, CancellationToken cancellationToken = default) {
-        var query = GetAsNoTrackingDbSet(asNoTracking);
+    public Task<List<TEntity>> GetAllAsync(bool asNoTracking, CancellationToken cancellationToken = default) {
+        var query = GetDbSet(asNoTracking);
         return query.ToListAsync(cancellationToken);
     }
 
-    public async Task<TEntity?> FindByIdAsync(long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
+    public async Task<TEntity?> GetByIdAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default) {
         var entity = await DbSet.FindAsync([id], cancellationToken);
         if (entity == null || !asNoTracking) return entity;
 
@@ -24,7 +23,7 @@ public class EfGenericRepository<TEntity>(DbContext context)
         return entity;
     }
 
-    public TEntity? GetById(long id, bool asNoTracking = true) {
+    public TEntity? GetById(long id, bool asNoTracking) {
         var entity = DbSet.Find(id);
         if (entity == null || !asNoTracking) return entity;
 
@@ -81,7 +80,7 @@ public class EfGenericRepository<TEntity>(DbContext context)
     public int SaveChanges() {
         return context.SaveChanges();
     }
-    
+
     public static void SetDeleteObject(SoftDeleteInfo deleteInfoObject, long? currentUserId, DateTime? deleteDate) {
         deleteInfoObject.IsDeleted = true;
         deleteInfoObject.DeletedByUserId = currentUserId;

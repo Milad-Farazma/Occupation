@@ -4,7 +4,7 @@ using LearningManagement.Occupation.Application.Departments.Dto;
 namespace LearningManagement.Occupation.WebAPI.Departments;
 
 [ApiController]
-[Route("api/v1/companies/Departments")]
+[Route("api/v1/companies/departments")]
 public class DepartmentsController(IDepartmentService companyService) : ControllerBase {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateDepartmentRequest request, CancellationToken cancellationToken) {

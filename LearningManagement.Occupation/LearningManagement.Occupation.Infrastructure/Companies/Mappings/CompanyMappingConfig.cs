@@ -15,7 +15,6 @@ public class CompanyMappingConfig : IRegister {
             .Map(dest => dest.IsApproved, src => src.IsApproved);
 
         TypeAdapterConfig<UpdateCompanyRequest, Company>.NewConfig()
-            .Map(dest => dest.Title, src => src.NewTitle)
-            .Ignore(dest => dest.Id);
+            .Map(dest => dest.Title, src => src.NewTitle);
     }
 }
