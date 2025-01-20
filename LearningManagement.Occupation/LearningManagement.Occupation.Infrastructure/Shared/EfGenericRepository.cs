@@ -13,13 +13,12 @@ public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGener
         var query = GetDbSet(asNoTracking);
         return query.ToListAsync(cancellationToken);
     }
+    
+    public Task<TEntity?> GetByIdAsync
+        (long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
+        var query = asNoTracking ? context.Set<TEntity>() : context.Set<TEntity>().AsTracking();
 
-    public async Task<TEntity?> GetByIdAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default) {
-        var entity = await DbSet.FindAsync([id], cancellationToken);
-        if (entity == null || !asNoTracking) return entity;
-
-        context.Entry(entity).State = EntityState.Detached;
-        return entity;
+        return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
     }
 
     public TEntity? GetById(long id, bool asNoTracking) {

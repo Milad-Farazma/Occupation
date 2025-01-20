@@ -28,5 +28,10 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company> {
         builder.Property(c => c.Title).IsRequired().HasMaxLength(200);
         builder.Property(c => c.IsViewable);
         builder.Property(c => c.IsApproved);
+
+        builder.HasMany(e => e.Department)
+            .WithOne(p => p.Company)
+            .HasForeignKey(p => p.CompanyId)
+            .IsRequired();
     }
 }

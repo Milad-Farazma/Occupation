@@ -7,5 +7,10 @@ public class CompanyMappingConfig : IRegister {
     public void Register(TypeAdapterConfig config) {
         TypeAdapterConfig<UpdateCompanyRequest, Company>.NewConfig()
             .Map(dest => dest.Title, src => src.NewTitle);
+        
+        // Map Company to CompanyDto
+        config.NewConfig<Company, CompanyDto>()
+            .Map(dest => dest.Departments, 
+                src => src.Department);
     }
 }

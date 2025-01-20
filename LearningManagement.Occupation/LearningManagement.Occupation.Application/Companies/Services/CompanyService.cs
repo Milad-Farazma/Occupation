@@ -3,13 +3,12 @@ using Framework.Exceptions;
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Application.Companies.Dto;
-using LearningManagement.Occupation.Application.Shared;
 using LearningManagement.Occupation.Domain.Companies.Models;
 using Mapster;
 
 namespace LearningManagement.Occupation.Application.Companies.Services;
 
-public class CompanyService(IGenericRepository<Company> repo, IUserService userService) : ICompanyService {
+public class CompanyService(ICompanyRepository repo, IUserService userService) : ICompanyService {
     public async Task<CompanyDto> CreateAsync(CreateCompanyRequest request, CancellationToken cancellationToken = default) {
         var company = request.Adapt<Company>();
         repo.Add(company);
@@ -24,7 +23,7 @@ public class CompanyService(IGenericRepository<Company> repo, IUserService userS
     }
 
     public async Task<IEnumerable<CompanyDto>> GetAllAsync(CancellationToken cancellationToken = default) =>
-        (await repo.GetAllAsync(asNoTracking: true, cancellationToken: cancellationToken))
+        (await repo.GetAllWithRelationsAsync(true, cancellationToken: cancellationToken))
         .Select(c => c.Adapt<CompanyDto>());
 
     public async Task UpdateAsync(long id, UpdateCompanyRequest request, CancellationToken cancellationToken = default) {

@@ -74,6 +74,9 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -84,12 +87,14 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
                 {
-                    b.OwnsOne("Framework.Audit.AuditInfo", "AuditInfo", b1 =>
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
                             b1.Property<long>("CompanyId")
                                 .HasColumnType("bigint");
@@ -118,7 +123,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                                 .HasForeignKey("CompanyId");
                         });
 
-                    b.OwnsOne("Framework.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
                             b1.Property<long>("CompanyId")
                                 .HasColumnType("bigint");
@@ -152,7 +157,13 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Models.Department", b =>
                 {
-                    b.OwnsOne("Framework.Audit.AuditInfo", "AuditInfo", b1 =>
+                    b.HasOne("LearningManagement.Occupation.Domain.Companies.Models.Company", "Company")
+                        .WithMany("Department")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
                             b1.Property<long>("DepartmentId")
                                 .HasColumnType("bigint");
@@ -181,7 +192,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                                 .HasForeignKey("DepartmentId");
                         });
 
-                    b.OwnsOne("Framework.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
                             b1.Property<long>("DepartmentId")
                                 .HasColumnType("bigint");
@@ -209,8 +220,15 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.Navigation("AuditInfo")
                         .IsRequired();
 
+                    b.Navigation("Company");
+
                     b.Navigation("SoftDeleteInfo")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
+                {
+                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }

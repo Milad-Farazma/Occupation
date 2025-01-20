@@ -1,3 +1,5 @@
+using LearningManagement.Occupation.Domain.Departments.Models;
+
 namespace LearningManagement.Occupation.Domain.Companies.Models;
 
 public class Company : BaseAuditableAndSoftDeletableEntity {
@@ -17,5 +19,5 @@ public class Company : BaseAuditableAndSoftDeletableEntity {
     public string LogoUrl { get; set; }
 
     // public CompanyType Type { get; set; }
-    // public ICollection<Department> Department { get; set; }
+    public ICollection<Department> Department { get; set; } = default!;
 }
