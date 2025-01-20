@@ -8,9 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("Occupation")
                        ?? throw new ArgumentException("Can not find database connection string.");
-builder.Services.AddEfConfig(connectionString, true);
 var allowedCorsOrigins = builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>() ?? [];
-
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(connectionString);
@@ -27,7 +25,6 @@ builder.Host.UseSerilog((context, configuration) =>
         .WriteTo.Console()
         .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
 );
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

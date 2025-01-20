@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
 public static class InfrastructureServiceRegistration {
-    public static void AddInfrastructureServices(this IServiceCollection service, string sqlServerConnectionString) {
-        AddRepositories(service);
+    public static void AddInfrastructureServices(this IServiceCollection services, string sqlServerConnectionString) {
+        services.AddEfConfig(sqlServerConnectionString, true);
+        AddRepositories(services);
         AddMappers();
     }
 
