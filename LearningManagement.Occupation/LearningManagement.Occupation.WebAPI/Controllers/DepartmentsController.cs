@@ -1,7 +1,7 @@
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.Departments.Dto;
 
-namespace LearningManagement.Occupation.WebAPI.Departments;
+namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
 [Route("api/v1/companies/departments")]
