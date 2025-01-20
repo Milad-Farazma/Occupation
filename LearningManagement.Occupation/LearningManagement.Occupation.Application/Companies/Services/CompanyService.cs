@@ -1,4 +1,5 @@
 using Framework.Data.SoftDelete;
+using Framework.Exceptions;
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Companies.Contracts;
 using LearningManagement.Occupation.Application.Companies.Dto;
@@ -26,16 +27,15 @@ public class CompanyService(IGenericRepository<Company> repo, IUserService userS
         (await repo.GetAllAsync(asNoTracking: true, cancellationToken: cancellationToken))
         .Select(c => c.Adapt<CompanyDto>());
 
-    public async Task<ErrorOr<Success>> UpdateAsync(long id, UpdateCompanyRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(long id, UpdateCompanyRequest request, CancellationToken cancellationToken = default) {
         var company = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
         if (company is null)
-            return Error.NotFound("Company.NotFound", "The company with the specified ID was not found.");
+            throw new NotFoundException(new NotFoundError(id, nameof(Company)));
 
         request.Adapt(company);
         repo.Update(company);
 
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
-        return Result.Success;
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
