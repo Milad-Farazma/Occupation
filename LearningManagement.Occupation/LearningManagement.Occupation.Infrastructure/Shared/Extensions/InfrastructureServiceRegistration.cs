@@ -1,11 +1,15 @@
 using LearningManagement.Occupation.Application.Shared;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
 public static class InfrastructureServiceRegistration {
-    public static void AddInfrastructureServices(this IServiceCollection services, string sqlServerConnectionString) {
-        services.AddEfConfig(sqlServerConnectionString, true);
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
+        var connectionString = configuration.GetConnectionString("Occupation")
+                               ?? throw new ArgumentException("Can not find database connection string.");
+
+        services.AddEfConfig(connectionString, false);
         AddRepositories(services);
         AddMappers();
     }

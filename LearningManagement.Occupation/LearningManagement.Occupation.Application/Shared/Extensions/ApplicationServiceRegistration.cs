@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace LearningManagement.Occupation.Application.Shared.Extensions;
 
 public static class ApplicationServiceRegistration {
-    public static void AddApplicationServices(this IServiceCollection service) {
+    public static void AddApplication(this IServiceCollection service) {
         service.AddScoped<ICompanyService, CompanyService>();
         service.AddScoped<IDepartmentService, DepartmentService>();
         service.AddScoped<IUserService, UserService>();
