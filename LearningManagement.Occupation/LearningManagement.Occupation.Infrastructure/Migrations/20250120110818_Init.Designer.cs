@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250120101229_Init")]
+    [Migration("20250120110818_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,7 +25,33 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Models.Department", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("OrganizationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("TypeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("Departments", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,103 +92,14 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Organizations", (string)null);
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Models.Department", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<long>("TypeId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Departments", (string)null);
-                });
-
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
-                {
-                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
-                        {
-                            b1.Property<long>("CompanyId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<DateTime>("CreatedAtUtcDateTime")
-                                .HasColumnType("datetime2")
-                                .HasColumnName("CreatedAtUtcDateTime");
-
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
-                                .HasColumnName("CreatedByUserId");
-
-                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
-                                .HasColumnType("datetime2")
-                                .HasColumnName("ModifiedAtUtcDateTime");
-
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
-                                .HasColumnName("ModifiedByUserId");
-
-                            b1.HasKey("CompanyId");
-
-                            b1.ToTable("Companies");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CompanyId");
-                        });
-
-                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
-                        {
-                            b1.Property<long>("CompanyId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
-                                .HasColumnType("datetime2")
-                                .HasColumnName("DeletedAtUtcDateTime");
-
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
-                                .HasColumnName("DeletedByUserId");
-
-                            b1.Property<bool>("IsDeleted")
-                                .HasColumnType("bit")
-                                .HasColumnName("IsDeleted");
-
-                            b1.HasKey("CompanyId");
-
-                            b1.ToTable("Companies");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CompanyId");
-                        });
-
-                    b.Navigation("AuditInfo")
-                        .IsRequired();
-
-                    b.Navigation("SoftDeleteInfo")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Models.Department", b =>
-                {
-                    b.HasOne("LearningManagement.Occupation.Domain.Companies.Models.Company", "Company")
+                    b.HasOne("LearningManagement.Occupation.Domain.Organizations.Models.Organization", "Organization")
                         .WithMany("Department")
-                        .HasForeignKey("CompanyId")
+                        .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -223,13 +160,76 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.Navigation("AuditInfo")
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Organization");
 
                     b.Navigation("SoftDeleteInfo")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Companies.Models.Company", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<long>("OrganizationId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<long?>("CreatedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<long?>("ModifiedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("OrganizationId");
+
+                            b1.ToTable("Organizations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrganizationId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<long>("OrganizationId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<long?>("DeletedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("OrganizationId");
+
+                            b1.ToTable("Organizations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrganizationId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
                 {
                     b.Navigation("Department");
                 });

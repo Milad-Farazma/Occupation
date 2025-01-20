@@ -1,12 +1,12 @@
-using LearningManagement.Occupation.Domain.Companies.Models;
+using LearningManagement.Occupation.Domain.Organizations.Models;
 using LearningManagement.Occupation.Domain.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LearningManagement.Occupation.Infrastructure.Companies.EntityFramework.Configurations;
+namespace LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Configurations;
 
-public class CompanyConfiguration : IEntityTypeConfiguration<Company> {
-    public void Configure(EntityTypeBuilder<Company> builder) {
-        builder.ToTable("Companies");
+public class OrganizationConfiguration : IEntityTypeConfiguration<Organization> {
+    public void Configure(EntityTypeBuilder<Organization> builder) {
+        builder.ToTable("Organizations");
         builder.HasKey(b => b.Id);
         builder.HasQueryFilter(b => !b.SoftDeleteInfo.IsDeleted);
         builder.OwnsOne(b => b.AuditInfo, nb => {
@@ -30,8 +30,8 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company> {
         builder.Property(c => c.IsApproved);
 
         builder.HasMany(e => e.Department)
-            .WithOne(p => p.Company)
-            .HasForeignKey(p => p.CompanyId)
+            .WithOne(p => p.Organization)
+            .HasForeignKey(p => p.OrganizationId)
             .IsRequired();
     }
 }

@@ -13,7 +13,7 @@ public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGener
         var query = GetDbSet(asNoTracking);
         return query.ToListAsync(cancellationToken);
     }
-    
+
     public Task<TEntity?> GetByIdAsync
         (long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
         var query = asNoTracking ? context.Set<TEntity>() : context.Set<TEntity>().AsTracking();

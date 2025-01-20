@@ -1,8 +1,8 @@
 using LearningManagement.Occupation.Application.Departments.Dto;
 
-namespace LearningManagement.Occupation.Application.Companies.Dto;
+namespace LearningManagement.Occupation.Application.Organizations.Dto;
 
-public record CompanyDto(
+public record OrganizationDto(
     long Id,
     long? TypeId,
     string Title,
