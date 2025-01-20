@@ -1,7 +1,7 @@
-using LearningManagement.Occupation.Application.Shared;
+using LearningManagement.Occupation.Application.Shared.Extensions;
 using LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 using LearningManagement.Occupation.WebAPI.Middlewares;
-using LearningManagement.Occupation.WebAPI.Shared;
+using LearningManagement.Occupation.WebAPI.Shared.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Occupation")
                        ?? throw new ArgumentException("Can not find database connection string.");
 builder.Services.AddEfConfig(connectionString, true);
-var allowedCorsOrigins = builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>();
-ServiceRegistrations.AddAllServices(builder.Services, connectionString, allowedCorsOrigins ?? []);
+var allowedCorsOrigins = builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>() ?? [];
+
+
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(connectionString);
+builder.Services.AddPresentationServices(allowedCorsOrigins);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -42,8 +46,6 @@ if (app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-ApplicationServiceRegistration.MapGrpcServices(app);
 
 app.MapControllers();
 

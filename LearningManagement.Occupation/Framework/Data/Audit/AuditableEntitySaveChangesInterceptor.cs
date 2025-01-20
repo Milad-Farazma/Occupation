@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Framework.Audit;
+namespace Framework.Data.Audit;
 
 public sealed class AuditableEntitySaveChangesInterceptor(
     IUserService userService) : SaveChangesInterceptor {

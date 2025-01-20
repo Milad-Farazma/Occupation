@@ -1,11 +1,10 @@
-using Framework.Data;
-using Framework.SoftDelete;
-using Microsoft.EntityFrameworkCore;
+using Framework.Data.SoftDelete;
+using LearningManagement.Occupation.Application.Shared;
 
-namespace Framework.Repositories.Generic;
+namespace LearningManagement.Occupation.Infrastructure.Shared;
 
 public class EfGenericRepository<TEntity>(DbContext context)
-    where TEntity : BaseEntity {
+    where TEntity : BaseEntity, IGenericRepository<TEntity> {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
     private IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();

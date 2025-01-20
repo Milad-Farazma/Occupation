@@ -1,4 +1,4 @@
-namespace Framework.Audit;
+namespace Framework.Data.Audit;
 
 public sealed class AuditInfo {
     public DateTime CreatedAtUtcDateTime { get; set; }

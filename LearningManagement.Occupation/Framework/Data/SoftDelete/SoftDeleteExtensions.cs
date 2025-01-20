@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Framework.SoftDelete;
+namespace Framework.Data.SoftDelete;
 
 public static class SoftDeleteExtensions {
     public static void SetSoftDeleteQueryFilter(this ModelBuilder modelBuilder) {

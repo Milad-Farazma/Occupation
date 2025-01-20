@@ -1,4 +1,4 @@
-namespace Framework.SoftDelete;
+namespace Framework.Data.SoftDelete;
 
 public sealed class SoftDeleteInfo {
     public bool IsDeleted { get; set; } = false;

@@ -1,4 +1,4 @@
-using Framework.Audit;
+using Framework.Data.Audit;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
