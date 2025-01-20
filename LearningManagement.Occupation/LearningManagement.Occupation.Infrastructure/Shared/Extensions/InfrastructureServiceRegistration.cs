@@ -6,10 +6,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
 public static class InfrastructureServiceRegistration {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
-        var connectionString = configuration.GetConnectionString("Occupation")
-                               ?? throw new ArgumentException("Can not find database connection string.");
-
-        services.AddEfConfig(connectionString, false);
+        services.AddEfConfig(configuration, false);
         AddRepositories(services);
         AddMappers();
     }

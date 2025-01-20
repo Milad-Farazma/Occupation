@@ -25,7 +25,7 @@ var app = builder.Build();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.AllowSpecificOrigins();
+app.UsePresentation();
 
 app.MapControllers();
 

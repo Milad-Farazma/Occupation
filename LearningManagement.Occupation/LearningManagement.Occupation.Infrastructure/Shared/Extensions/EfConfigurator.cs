@@ -1,10 +1,13 @@
 using Framework.Data.Audit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
 public static class EfConfigurator {
-    public static IServiceCollection AddEfConfig(this IServiceCollection services, string connectionString, bool useInMemoryDb) {
+    public static IServiceCollection AddEfConfig(this IServiceCollection services, IConfiguration configuration, bool useInMemoryDb) {
+        var connectionString = configuration.GetConnectionString("Occupation")
+                               ?? throw new ArgumentException("Can not find database connection string.");
         if (useInMemoryDb) {
             ConfigureInMemoryDb<ApplicationDbContext>(services, connectionString);
         }
