@@ -35,7 +35,7 @@ public static class EfConfigurator {
                         errorNumbersToAdd: null);
                 }
             ).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            
+
             options.AddInterceptors(serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>());
         });
 }

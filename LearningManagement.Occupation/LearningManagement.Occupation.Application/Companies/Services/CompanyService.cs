@@ -41,7 +41,7 @@ public class CompanyService(IGenericRepository<Company> repo, IUserService userS
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
         var company = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
         if (company is null) return;
-        
+
         company.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }

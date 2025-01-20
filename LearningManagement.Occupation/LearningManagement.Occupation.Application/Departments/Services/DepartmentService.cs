@@ -30,7 +30,7 @@ public class DepartmentService(IGenericRepository<Department> repo, IUserService
         var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
         if (department is null)
             return Error.NotFound("Department.NotFound", "The Department with the specified ID was not found.");
-        
+
         request.Adapt(department);
         repo.Update(department);
 
