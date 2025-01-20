@@ -9,5 +9,4 @@ public interface ICompanyRepository {
     void Update(Company product);
     void Remove(Company product);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-    Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default);
 }
