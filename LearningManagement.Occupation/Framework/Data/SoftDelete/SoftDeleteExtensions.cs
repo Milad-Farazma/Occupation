@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Framework.Data.SoftDelete;
 
@@ -10,31 +9,20 @@ public static class SoftDeleteExtensions {
             // Check if the entity implements ISoftDeletable
             if (!typeof(ISoftDeletable).IsAssignableFrom(entityType.ClrType))
                 continue;
-
-            // Use reflection to get the generic method for Entity<T>
-            var method = typeof(ModelBuilder)
-                .GetMethod(nameof(ModelBuilder.Entity), [])
-                ?.MakeGenericMethod(entityType.ClrType);
-
-            if (method == null)
-                continue;
-
-            // Call the Entity<T> method and get the IEntityTypeBuilder
-            var entityBuilder = method.Invoke(modelBuilder, null);
-
-            // Now, apply the query filter
+            
+            // Build the lambda expression for the query filter: e => !e.SoftDeleteInfo.IsDeleted
             var parameter = Expression.Parameter(entityType.ClrType, "e");
-            var isDeletedProperty = Expression.Property(parameter, nameof(ISoftDeletable.SoftDeleteInfo.IsDeleted));
-            var notDeleted = Expression.Not(isDeletedProperty);
-            var lambda = Expression.Lambda(notDeleted, parameter);
+            var property = Expression.Property(
+                Expression.Property(parameter, nameof(ISoftDeletable.SoftDeleteInfo)),
+                nameof(SoftDeleteInfo.IsDeleted)
+            );
+            var filter = Expression.Lambda(
+                Expression.Equal(property, Expression.Constant(false)),
+                parameter
+            );
 
-            // Use reflection to call the correct HasQueryFilter method (with LambdaExpression parameter)
-            var hasQueryFilterMethod = typeof(EntityTypeBuilder<>)
-                .MakeGenericType(entityType.ClrType)
-                .GetMethod(nameof(EntityTypeBuilder<object>.HasQueryFilter), [typeof(LambdaExpression)]);
-
-            if (hasQueryFilterMethod != null)
-                hasQueryFilterMethod.Invoke(entityBuilder, [lambda]);
+            // Apply the query filter to the entity
+            modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
         }
     }
 

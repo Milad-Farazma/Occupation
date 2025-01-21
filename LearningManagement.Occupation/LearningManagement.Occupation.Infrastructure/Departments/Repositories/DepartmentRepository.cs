@@ -9,6 +9,7 @@ public class DepartmentRepository(ApplicationDbContext context) : EfGenericRepos
     public Task<PaginatedResult<Department>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request, CancellationToken cancellationToken = default) {
         return GetDbSet(asNoTracking)
             .Include(d => d.Organization)
+            .OrderBy(e=> e.Id)
             .ApplyPagination(request, cancellationToken);
     }
 }

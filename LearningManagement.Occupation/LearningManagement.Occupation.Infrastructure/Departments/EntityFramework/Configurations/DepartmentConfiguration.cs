@@ -8,7 +8,6 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
     public void Configure(EntityTypeBuilder<Department> builder) {
         builder.ToTable("Departments");
         builder.HasKey(b => b.Id);
-        builder.HasQueryFilter(b => !b.SoftDeleteInfo.IsDeleted);
         builder.OwnsOne(b => b.AuditInfo, nb => {
             nb.Property(c => c.CreatedByUserId).HasColumnName(WellKnownNames.AuditInfo.CreatedByUserId);
             nb.Property(c => c.ModifiedByUserId).HasColumnName(WellKnownNames.AuditInfo.ModifiedByUserId);
