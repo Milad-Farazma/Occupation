@@ -1,3 +1,4 @@
+using Framework.Services.User;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Application.Shared;
 using LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Repositories;
@@ -11,6 +12,9 @@ public static class InfrastructureServiceRegistration {
         services.AddEfConfig(configuration, false);
         AddRepositories(services);
         AddMappers();
+
+        services.AddScoped<IUserContextService, HttpContextUserContextService>();
+        services.AddHttpContextAccessor();
     }
 
     private static void AddRepositories(IServiceCollection services) {

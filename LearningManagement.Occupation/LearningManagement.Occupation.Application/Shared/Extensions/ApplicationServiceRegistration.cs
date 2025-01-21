@@ -12,8 +12,5 @@ public static class ApplicationServiceRegistration {
         service.AddScoped<IOrganizationService, OrganizationService>();
         service.AddScoped<IDepartmentService, DepartmentService>();
         service.AddScoped<IUserService, UserService>();
-
-        //TODO: Is it good idea?!
-        service.AddHttpContextAccessor();
     }
 }
