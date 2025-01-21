@@ -11,5 +11,5 @@ public record OrganizationDto(
     long CertificateCode,
     string Description,
     string LogoUrl,
-    List<DepartmentDto> Departments
+    IEnumerable<DepartmentDto> Departments
 );

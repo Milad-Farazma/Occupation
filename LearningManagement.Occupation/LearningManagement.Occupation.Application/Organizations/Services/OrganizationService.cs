@@ -23,9 +23,11 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         return organization?.Adapt<OrganizationDto>();
     }
 
-    public async Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) =>
-        (await repo.GetAllWithRelationsAsync(true, request, cancellationToken: cancellationToken))
-        .Adapt<PaginatedResult<OrganizationDto>>();
+    public async Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) {
+        var pagination = await repo.GetAllWithRelationsAsync(true, request, cancellationToken: cancellationToken);
+        var result = pagination.Adapt<PaginatedResult<OrganizationDto>>();
+        return result;
+    }
 
     public async Task UpdateAsync(long id, UpdateOrganizationRequest request, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, false, cancellationToken: cancellationToken);
