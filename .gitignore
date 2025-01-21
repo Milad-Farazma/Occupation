@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 .idea/
 /.nuget/nuget.config
+
+*.DotSettings
