@@ -9,7 +9,6 @@ public class Department : BaseAuditableAndSoftDeletableEntity {
     public long OrganizationId { get; set; }
 
     public Organization Organization { get; set; } = default!;
-    // public long? ContactId { get; set; }
     // public DepartmentType Type { get; set; }
     // public ContactInfo ContactInfo { get; set; }
 }

@@ -1,17 +1,18 @@
 using Framework.Data.SoftDelete;
+using Framework.Pagination;
 using LearningManagement.Occupation.Application.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared;
 
 public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGenericRepository<TEntity>
-    where TEntity : BaseEntity {
+    where TEntity : BaseEntity, new() {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
-    private IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();
+    public IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();
 
-    public Task<List<TEntity>> GetAllAsync(bool asNoTracking, CancellationToken cancellationToken = default) {
+    public Task<PaginatedResult<TEntity>> GetAllAsync(bool asNoTracking, PaginationRequest request ,CancellationToken cancellationToken = default) {
         var query = GetDbSet(asNoTracking);
-        return query.ToListAsync(cancellationToken);
+        return query.ApplyPagination(request, cancellationToken);
     }
 
     public Task<TEntity?> GetByIdAsync

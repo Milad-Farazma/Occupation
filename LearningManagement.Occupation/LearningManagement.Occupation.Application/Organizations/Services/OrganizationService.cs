@@ -1,5 +1,6 @@
 using Framework.Data.SoftDelete;
 using Framework.Exceptions;
+using Framework.Pagination;
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Dto;
@@ -22,9 +23,9 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         return organization?.Adapt<OrganizationDto>();
     }
 
-    public async Task<IEnumerable<OrganizationDto>> GetAllAsync(CancellationToken cancellationToken = default) =>
-        (await repo.GetAllWithRelationsAsync(true, cancellationToken: cancellationToken))
-        .Select(c => c.Adapt<OrganizationDto>());
+    public async Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) =>
+        (await repo.GetAllWithRelationsAsync(true, request, cancellationToken: cancellationToken))
+        .Adapt<PaginatedResult<OrganizationDto>>();
 
     public async Task UpdateAsync(long id, UpdateOrganizationRequest request, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, false, cancellationToken: cancellationToken);

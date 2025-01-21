@@ -1,3 +1,4 @@
+using Framework.Pagination;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Domain.Organizations.Models;
 using LearningManagement.Occupation.Infrastructure.Shared;
@@ -5,7 +6,9 @@ using LearningManagement.Occupation.Infrastructure.Shared;
 namespace LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Repositories;
 
 public class OrganizationRepository(ApplicationDbContext context) : EfGenericRepository<Organization>(context: context), IOrganizationRepository {
-    public Task<List<Organization>> GetAllWithRelationsAsync(bool asNoTracking, CancellationToken cancellationToken = default) {
-        return DbSet.Include(c => c.Department).ToListAsync(cancellationToken: cancellationToken);
+    public Task<PaginatedResult<Organization>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request, CancellationToken cancellationToken = default) {
+        return GetDbSet(asNoTracking)
+            .Include(c => c.Department)
+            .ApplyPagination(request, cancellationToken);
     }
 }

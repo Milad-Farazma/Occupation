@@ -1,5 +1,6 @@
 using Framework.Data.SoftDelete;
 using Framework.Exceptions;
+using Framework.Pagination;
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.Departments.Dto;
@@ -23,9 +24,9 @@ public class DepartmentService(IGenericRepository<Department> repo, IUserService
         return department?.Adapt<DepartmentDto>();
     }
 
-    public async Task<IEnumerable<DepartmentDto>> GetAllAsync(CancellationToken cancellationToken = default) =>
-        (await repo.GetAllAsync(asNoTracking: true, cancellationToken: cancellationToken))
-        .Select(c => c.Adapt<DepartmentDto>());
+    public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) =>
+        (await repo.GetAllAsync(true, request, cancellationToken: cancellationToken))
+            .Adapt<PaginatedResult<DepartmentDto>>();
 
     public async Task UpdateAsync(long id, UpdateDepartmentRequest request, CancellationToken cancellationToken = default) {
         var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);

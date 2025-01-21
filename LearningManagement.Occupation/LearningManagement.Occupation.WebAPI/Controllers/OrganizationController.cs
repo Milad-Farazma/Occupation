@@ -1,3 +1,4 @@
+using Framework.Pagination;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Dto;
 
@@ -20,8 +21,9 @@ public class OrganizationController(IOrganizationService organizationService) : 
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<OrganizationDto>>> GetAll(CancellationToken cancellationToken) {
-        var organizations = await organizationService.GetAllAsync(cancellationToken);
+    public async Task<ActionResult<PaginatedResult<OrganizationDto>>> GetAll([FromQuery] 
+        PaginationRequest request, CancellationToken cancellationToken) {
+        var organizations = await organizationService.GetAllAsync(request, cancellationToken);
         return Ok(organizations);
     }
 
