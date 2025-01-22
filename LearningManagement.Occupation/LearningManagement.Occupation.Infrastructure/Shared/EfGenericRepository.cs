@@ -10,9 +10,10 @@ public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGener
 
     public IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();
 
-    public Task<PaginatedResult<TEntity>> GetAllAsync(bool asNoTracking, PaginationRequest request ,CancellationToken cancellationToken = default) => GetDbSet(asNoTracking)
-        .OrderBy(e=> e.Id)
-        .ApplyPagination(request, cancellationToken);
+    public Task<PaginatedResult<TEntity>> GetAllAsync(bool asNoTracking, PaginationRequest request, CancellationToken cancellationToken = default) =>
+        GetDbSet(asNoTracking)
+            .OrderBy(e => e.Id)
+            .ApplyPagination(request, cancellationToken);
 
     public Task<TEntity?> GetByIdAsync
         (long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {

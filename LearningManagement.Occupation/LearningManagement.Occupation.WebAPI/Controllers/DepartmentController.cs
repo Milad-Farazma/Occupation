@@ -21,7 +21,8 @@ public class DepartmentController(IDepartmentService departmentService) : Contro
     }
 
     [HttpGet]
-    public async Task<ActionResult<PaginatedResult<DepartmentDto>>> GetAll([FromQuery] PaginationRequest request, CancellationToken cancellationToken) {
+    public async Task<ActionResult<PaginatedResult<DepartmentDto>>>
+        GetAll([FromQuery] PaginationRequest request, CancellationToken cancellationToken) {
         var organizations = await departmentService.GetAllAsync(request, cancellationToken);
         return Ok(organizations);
     }

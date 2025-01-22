@@ -5,5 +5,6 @@ using LearningManagement.Occupation.Domain.Departments.Models;
 namespace LearningManagement.Occupation.Application.Departments.Contracts;
 
 public interface IDepartmentRepository : IGenericRepository<Department> {
-    Task<PaginatedResult<Department>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request, CancellationToken cancellationToken = default);
+    Task<PaginatedResult<Department>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
+        CancellationToken cancellationToken = default);
 }

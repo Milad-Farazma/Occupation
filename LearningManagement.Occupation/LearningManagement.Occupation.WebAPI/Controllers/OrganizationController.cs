@@ -21,8 +21,8 @@ public class OrganizationController(IOrganizationService organizationService) : 
     }
 
     [HttpGet]
-    public async Task<ActionResult<PaginatedResult<OrganizationDto>>> GetAll([FromQuery] 
-        PaginationRequest request, CancellationToken cancellationToken) {
+    public async Task<ActionResult<PaginatedResult<OrganizationDto>>> GetAll([FromQuery] PaginationRequest request,
+        CancellationToken cancellationToken) {
         var organizations = await organizationService.GetAllAsync(request, cancellationToken);
         return Ok(organizations);
     }

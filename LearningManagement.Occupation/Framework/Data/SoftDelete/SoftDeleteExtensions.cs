@@ -9,7 +9,7 @@ public static class SoftDeleteExtensions {
             // Check if the entity implements ISoftDeletable
             if (!typeof(ISoftDeletable).IsAssignableFrom(entityType.ClrType))
                 continue;
-            
+
             // Build the lambda expression for the query filter: e => !e.SoftDeleteInfo.IsDeleted
             var parameter = Expression.Parameter(entityType.ClrType, "e");
             var property = Expression.Property(

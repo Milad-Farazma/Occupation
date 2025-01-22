@@ -44,7 +44,7 @@ public static class EfConfigurator {
             ).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             options.AddInterceptors(serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>());
-            
+
             AddSlowQueryInterceptor(serviceProvider, options, thresholdMilliseconds);
         });
 

@@ -26,7 +26,7 @@ public class DepartmentService(IGenericRepository<Department> repo, IUserService
 
     public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) =>
         (await repo.GetAllAsync(true, request, cancellationToken: cancellationToken))
-            .Adapt<PaginatedResult<DepartmentDto>>();
+        .Adapt<PaginatedResult<DepartmentDto>>();
 
     public async Task UpdateAsync(long id, UpdateDepartmentRequest request, CancellationToken cancellationToken = default) {
         var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
