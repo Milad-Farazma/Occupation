@@ -2,7 +2,7 @@ using LearningManagement.Occupation.Domain.Departments.Models;
 
 namespace LearningManagement.Occupation.Domain.Organizations.Models;
 
-public class Organization : BaseAuditableAndSoftDeletableEntity {
+public class Organization : ApprovableEntity {
     public long? TypeId { get; set; }
     public string Title { get; set; }
 

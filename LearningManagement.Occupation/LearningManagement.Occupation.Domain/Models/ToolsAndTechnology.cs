@@ -1,3 +1,3 @@
 namespace LearningManagement.Occupation.Domain.Models;
 
-public class ToolsAndTechnology : BaseAuditableAndSoftDeletableEntity;
+public class ToolsAndTechnology : ApprovableEntity;
