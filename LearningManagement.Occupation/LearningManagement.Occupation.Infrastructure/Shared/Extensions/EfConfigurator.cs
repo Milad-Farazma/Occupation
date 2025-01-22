@@ -1,6 +1,8 @@
 using Framework.Data.Audit;
+using Framework.Performance;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
@@ -12,7 +14,8 @@ public static class EfConfigurator {
             ConfigureInMemoryDb<ApplicationDbContext>(services, connectionString);
         }
         else {
-            ConfigurePhysicalDb<ApplicationDbContext>(services, connectionString);
+            var thresholdMilliseconds = configuration.GetSection("SlowQueryThresholdMilliseconds").Get<int?>() ?? 1000;
+            ConfigurePhysicalDb<ApplicationDbContext>(services, connectionString, thresholdMilliseconds);
         }
 
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
@@ -26,7 +29,8 @@ public static class EfConfigurator {
 
     private static void ConfigurePhysicalDb<TDbContext>(
         IServiceCollection services,
-        string connectionString)
+        string connectionString,
+        int thresholdMilliseconds)
         where TDbContext : DbContext
         => services.AddDbContext<TDbContext>((serviceProvider, options) => {
             options.UseSqlServer(
@@ -40,5 +44,13 @@ public static class EfConfigurator {
             ).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             options.AddInterceptors(serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>());
+            
+            AddSlowQueryInterceptor(serviceProvider, options, thresholdMilliseconds);
         });
+
+    private static void AddSlowQueryInterceptor(IServiceProvider serviceProvider, DbContextOptionsBuilder options, int thresholdMilliseconds) {
+        var logger = serviceProvider.GetRequiredService<ILogger<SlowQueryInterceptor>>();
+        var threshold = TimeSpan.FromMilliseconds(thresholdMilliseconds);
+        options.AddInterceptors(new SlowQueryInterceptor(logger, threshold));
+    }
 }
