@@ -366,3 +366,5 @@ FodyWeavers.xsd
 /.nuget/nuget.config
 
 *.DotSettings
+
+appsettings.local.json
