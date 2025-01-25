@@ -15,7 +15,7 @@ public class OrganizationController(IOrganizationService organizationService) : 
 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<OrganizationDto>> GetById(long id, CancellationToken cancellationToken) {
-        var organization = await organizationService.GetByIdAsync(id, cancellationToken);
+        var organization = await organizationService.GetByIdWithRelationsAsync(id, cancellationToken);
         return Ok(organization);
     }
 
