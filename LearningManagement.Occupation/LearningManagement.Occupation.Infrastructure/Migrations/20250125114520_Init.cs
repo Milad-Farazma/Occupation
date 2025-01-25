@@ -12,6 +12,29 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "EducationFields",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Code = table.Column<long>(type: "bigint", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EducationFields", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrganizationTypes",
                 columns: table => new
                 {
@@ -32,6 +55,35 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrganizationTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EducationFieldSpecializations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Code = table.Column<long>(type: "bigint", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    EducationFieldId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EducationFieldSpecializations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EducationFieldSpecializations_EducationFields_EducationFieldId",
+                        column: x => x.EducationFieldId,
+                        principalTable: "EducationFields",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -109,6 +161,11 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 column: "OrganizationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EducationFieldSpecializations_EducationFieldId",
+                table: "EducationFieldSpecializations",
+                column: "EducationFieldId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Organizations_OrganizationTypeId",
                 table: "Organizations",
                 column: "OrganizationTypeId");
@@ -121,7 +178,13 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 name: "Departments");
 
             migrationBuilder.DropTable(
+                name: "EducationFieldSpecializations");
+
+            migrationBuilder.DropTable(
                 name: "Organizations");
+
+            migrationBuilder.DropTable(
+                name: "EducationFields");
 
             migrationBuilder.DropTable(
                 name: "OrganizationTypes");

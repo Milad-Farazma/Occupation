@@ -10,7 +10,8 @@ using Mapster;
 namespace LearningManagement.Occupation.Application.OrganizationTypes.Services;
 
 public class OrganizationTypeService(IOrganizationTypeRepository repo, IUserService userService) : IOrganizationTypeService {
-    public async Task<CreateOrganizationTypeResponse> CreateAsync(CreateOrganizationTypeRequest request, CancellationToken cancellationToken = default) {
+    public async Task<CreateOrganizationTypeResponse> CreateAsync(CreateOrganizationTypeRequest request,
+        CancellationToken cancellationToken = default) {
         var organizationType = request.Adapt<OrganizationType>();
         repo.Add(organizationType);
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);

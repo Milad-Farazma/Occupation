@@ -8,7 +8,8 @@ namespace LearningManagement.Occupation.WebAPI.Controllers;
 [Route("api/v1/OrganizationTypes")]
 public class OrganizationTypeController(IOrganizationTypeService organizationTypeService) : ControllerBase {
     [HttpPost]
-    public async Task<ActionResult<CreateOrganizationTypeResponse>> Create([FromBody] CreateOrganizationTypeRequest request, CancellationToken cancellationToken) {
+    public async Task<ActionResult<CreateOrganizationTypeResponse>> Create([FromBody] CreateOrganizationTypeRequest request,
+        CancellationToken cancellationToken) {
         var organizationType = await organizationTypeService.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = organizationType.Id }, organizationType);
     }

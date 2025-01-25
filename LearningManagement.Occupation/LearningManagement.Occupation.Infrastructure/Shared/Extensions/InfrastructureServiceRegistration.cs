@@ -1,8 +1,12 @@
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Departments.Contracts;
+using LearningManagement.Occupation.Application.EducationFields.Contracts;
+using LearningManagement.Occupation.Application.EducationFieldSpecializations.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Application.OrganizationTypes.Contracts;
 using LearningManagement.Occupation.Infrastructure.Departments.Repositories;
+using LearningManagement.Occupation.Infrastructure.EducationFields.Repositories;
+using LearningManagement.Occupation.Infrastructure.EducationFieldSpecializations.Repositories;
 using LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Repositories;
 using LearningManagement.Occupation.Infrastructure.OrganizationTypes.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +28,8 @@ public static class InfrastructureServiceRegistration {
         services.AddScoped<IOrganizationRepository, OrganizationRepository>();
         services.AddScoped<IOrganizationTypeRepository, OrganizationTypeRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IEducationFieldRepository, EducationFieldRepository>();
+        services.AddScoped<IEducationFieldSpecializationRepository, EducationFieldSpecializationRepository>();
     }
 
     private static void AddMappers() {

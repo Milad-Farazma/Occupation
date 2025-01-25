@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250125081908_Init")]
+    [Migration("20250125114520_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -49,6 +49,65 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Departments", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFieldSpecializations.EducationFieldSpecialization", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<long>("EducationFieldId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EducationFieldId");
+
+                    b.ToTable("EducationFieldSpecializations", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFields.EducationField", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationFields", (string)null);
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
@@ -225,6 +284,139 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFieldSpecializations.EducationFieldSpecialization", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.EducationFields.EducationField", "EducationField")
+                        .WithMany("EducationFieldSpecializations")
+                        .HasForeignKey("EducationFieldId")
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<long>("EducationFieldSpecializationId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<long?>("CreatedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<long?>("ModifiedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("EducationFieldSpecializationId");
+
+                            b1.ToTable("EducationFieldSpecializations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationFieldSpecializationId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<long>("EducationFieldSpecializationId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<long?>("DeletedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("EducationFieldSpecializationId");
+
+                            b1.ToTable("EducationFieldSpecializations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationFieldSpecializationId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("EducationField");
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFields.EducationField", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<long>("EducationFieldId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<long?>("CreatedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<long?>("ModifiedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("EducationFieldId");
+
+                            b1.ToTable("EducationFields");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationFieldId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<long>("EducationFieldId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<long?>("DeletedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("EducationFieldId");
+
+                            b1.ToTable("EducationFields");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationFieldId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
@@ -356,6 +548,11 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
                     b.Navigation("SoftDeleteInfo")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFields.EducationField", b =>
+                {
+                    b.Navigation("EducationFieldSpecializations");
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
