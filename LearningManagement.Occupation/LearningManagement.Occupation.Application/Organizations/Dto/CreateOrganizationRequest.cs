@@ -13,5 +13,6 @@ public record CreateOrganizationRequest(
     string? Email,
     string? LogoImg,
     string? Description,
-    bool IsPublic
+    bool IsPublic,
+    long OrganizationTypeId
 );

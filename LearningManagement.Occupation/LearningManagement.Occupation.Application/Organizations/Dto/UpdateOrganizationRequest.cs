@@ -16,5 +16,6 @@ public record UpdateOrganizationRequest(
     bool Accepted,
     DateOnly? AcceptedDate,
     int? AcceptedUserId,
-    bool IsPublic
+    bool IsPublic,
+    long OrganizationTypeId
 );
