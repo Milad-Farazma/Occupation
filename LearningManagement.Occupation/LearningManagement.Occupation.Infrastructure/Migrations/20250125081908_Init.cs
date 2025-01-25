@@ -12,6 +12,29 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "OrganizationTypes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Code = table.Column<long>(type: "bigint", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Organizations",
                 columns: table => new
                 {
@@ -23,7 +46,6 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     ProvinceTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     CityTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    OrganizationTypeId = table.Column<int>(type: "int", nullable: false),
                     CertificateCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     WebsiteUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -33,6 +55,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     AcceptedDate = table.Column<DateOnly>(type: "date", nullable: true),
                     AcceptedUserId = table.Column<int>(type: "int", nullable: true),
                     IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationTypeId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -45,6 +68,11 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Organizations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Organizations_OrganizationTypes_OrganizationTypeId",
+                        column: x => x.OrganizationTypeId,
+                        principalTable: "OrganizationTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -79,6 +107,11 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 name: "IX_Departments_OrganizationId",
                 table: "Departments",
                 column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Organizations_OrganizationTypeId",
+                table: "Organizations",
+                column: "OrganizationTypeId");
         }
 
         /// <inheritdoc />
@@ -89,6 +122,9 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Organizations");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationTypes");
         }
     }
 }

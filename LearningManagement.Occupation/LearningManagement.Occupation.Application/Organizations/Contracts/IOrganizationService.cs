@@ -8,6 +8,8 @@ public interface IOrganizationService {
 
     Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest,
         CancellationToken cancellationToken = default);
+    Task<PaginatedResult<OrganizationDto>> GetAllWithRelationsAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest,
+        CancellationToken cancellationToken = default);
 
     Task<OrganizationDto> GetByIdAsync(long id, CancellationToken cancellationToken = default);
     Task<OrganizationDto> GetByIdWithRelationsAsync(long id, CancellationToken cancellationToken = default);

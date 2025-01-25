@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250125062302_Init")]
+    [Migration("20250125081908_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -49,6 +49,33 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Departments", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationTypes", (string)null);
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
@@ -101,8 +128,8 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("OrganizationTypeId")
-                        .HasColumnType("int");
+                    b.Property<long>("OrganizationTypeId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("ProvinceId")
                         .HasColumnType("int");
@@ -121,6 +148,8 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganizationTypeId");
 
                     b.ToTable("Organizations", (string)null);
                 });
@@ -196,8 +225,76 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<long>("OrganizationTypeId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<long?>("CreatedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<long?>("ModifiedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("OrganizationTypeId");
+
+                            b1.ToTable("OrganizationTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrganizationTypeId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<long>("OrganizationTypeId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<long?>("DeletedByUserId")
+                                .HasColumnType("bigint")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("OrganizationTypeId");
+
+                            b1.ToTable("OrganizationTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrganizationTypeId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
                 {
+                    b.HasOne("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", "OrganizationType")
+                        .WithMany("Organizations")
+                        .HasForeignKey("OrganizationTypeId")
+                        .IsRequired();
+
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
                             b1.Property<long>("OrganizationId")
@@ -255,8 +352,15 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     b.Navigation("AuditInfo")
                         .IsRequired();
 
+                    b.Navigation("OrganizationType");
+
                     b.Navigation("SoftDeleteInfo")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+                {
+                    b.Navigation("Organizations");
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>

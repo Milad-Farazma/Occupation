@@ -23,6 +23,9 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, cancellationToken))
         .Adapt<PaginatedResult<OrganizationDto>>();
 
+    public async Task<PaginatedResult<OrganizationDto>> GetAllWithRelationsAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest, CancellationToken cancellationToken = default) => (await repo.GetAllWithRelationsAsync(false, request, searchRequest, cancellationToken))
+        .Adapt<PaginatedResult<OrganizationDto>>();
+
     public async Task<OrganizationDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
         if (organization is null) throw new NotFoundException(new NotFoundError(id, nameof(Organization)));

@@ -1,8 +1,10 @@
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
+using LearningManagement.Occupation.Application.OrganizationTypes.Contracts;
 using LearningManagement.Occupation.Infrastructure.Departments.Repositories;
 using LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Repositories;
+using LearningManagement.Occupation.Infrastructure.OrganizationTypes.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,7 @@ public static class InfrastructureServiceRegistration {
 
     private static void AddRepositories(IServiceCollection services) {
         services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+        services.AddScoped<IOrganizationTypeRepository, OrganizationTypeRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
     }
 

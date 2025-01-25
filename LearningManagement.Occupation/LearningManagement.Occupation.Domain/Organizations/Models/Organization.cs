@@ -1,4 +1,5 @@
 using LearningManagement.Occupation.Domain.Departments.Models;
+using LearningManagement.Occupation.Domain.OrganizationTypes;
 
 namespace LearningManagement.Occupation.Domain.Organizations.Models;
 
@@ -15,8 +16,6 @@ public class Organization : ApprovableEntity {
 
     public string CityTitle { get; set; } = default!;
 
-    public int OrganizationTypeId { get; set; }
-
     public string? CertificateCode { get; set; }
 
     public string? WebsiteUrl { get; set; }
@@ -26,8 +25,7 @@ public class Organization : ApprovableEntity {
     public string? LogoImg { get; set; }
 
     public string? Description { get; set; }
-
-
+    
     public bool Accepted { get; set; } = true;
 
     public DateOnly? AcceptedDate { get; set; }
@@ -37,6 +35,6 @@ public class Organization : ApprovableEntity {
     public bool IsPublic { get; set; } = true;
 
     public ICollection<Department> Departments { get; set; } = default!;
-
-    // public OrganisationType OrganType { get; set; } = default!;
+    public long OrganizationTypeId { get; set; }
+    public OrganizationType OrganizationType { get; set; } = default!;
 }

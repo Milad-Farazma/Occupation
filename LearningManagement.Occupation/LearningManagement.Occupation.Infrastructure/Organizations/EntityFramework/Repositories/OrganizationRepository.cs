@@ -17,6 +17,19 @@ public class OrganizationRepository(ApplicationDbContext context) : EfGenericRep
         return query.ApplyPagination(request, cancellationToken: cancellationToken);
     }
 
+    public Task<PaginatedResult<Organization>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
+        OrganizationSearchRequest? searchRequest,
+        CancellationToken cancellationToken = default) {
+        var query = GetDbSet(asNoTracking);
+        if (searchRequest is not null) {
+            query = AddSearchQueries(searchRequest, query);
+        }
+
+        return query.Include(item => item.OrganizationType)
+            .Include(item => item.Departments)
+            .ApplyPagination(request, cancellationToken: cancellationToken);
+    }
+
     private static IQueryable<Organization> AddSearchQueries(OrganizationSearchRequest searchRequest, IQueryable<Organization> query) {
         if (!string.IsNullOrWhiteSpace(searchRequest.Title)) {
             query = query.Where(x => x.Title!.Contains(searchRequest.Title));

@@ -1,4 +1,5 @@
 using LearningManagement.Occupation.Application.Departments.Dto;
+using LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 
 namespace LearningManagement.Occupation.Application.Organizations.Dto;
 
@@ -20,5 +21,6 @@ public record OrganizationDto(
     DateOnly? AcceptedDate,
     int? AcceptedUserId,
     bool IsPublic,
-    ICollection<DepartmentDto> Departments
+    ICollection<DepartmentDto> Departments,
+    OrganizationTypeDto OrganizationType
 );
