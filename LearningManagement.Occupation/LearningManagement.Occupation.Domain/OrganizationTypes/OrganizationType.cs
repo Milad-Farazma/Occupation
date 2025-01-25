@@ -9,5 +9,5 @@ public class OrganizationType : ApprovableEntity {
 
     public string? Description { get; set; }
 
-    public ICollection<Organization> Organizations { get; set; } = default!;
+    public ICollection<Organization> Organizations { get; set; } = [];
 }

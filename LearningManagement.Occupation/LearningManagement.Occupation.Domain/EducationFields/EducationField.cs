@@ -9,5 +9,5 @@ public class EducationField : ApprovableEntity {
 
     public string? Description { get; set; }
     
-    public ICollection<EducationFieldSpecialization> EducationFieldSpecializations { get; set; } = default!;
+    public ICollection<EducationFieldSpecialization> EducationFieldSpecializations { get; set; } = [];
 }
