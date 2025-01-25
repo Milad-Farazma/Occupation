@@ -1,6 +1,7 @@
-namespace LearningManagement.Occupation.Application.Organizations.Dto;
+namespace LearningManagement.Occupation.Application.Organizations.Dto.Create;
 
-public record UpdateOrganizationRequest(
+public record CreateOrganizationResponse(
+    long Id,
     string? Title,
     long Code,
     int ProvinceId,
@@ -16,6 +17,4 @@ public record UpdateOrganizationRequest(
     bool Accepted,
     DateOnly? AcceptedDate,
     int? AcceptedUserId,
-    bool IsPublic,
-    long OrganizationTypeId
-);
+    bool IsPublic);

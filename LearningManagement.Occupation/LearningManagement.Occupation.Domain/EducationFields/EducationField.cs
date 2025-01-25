@@ -8,6 +8,6 @@ public class EducationField : ApprovableEntity {
     public long Code { get; set; }
 
     public string? Description { get; set; }
-    
+
     public ICollection<EducationFieldSpecialization> EducationFieldSpecializations { get; set; } = [];
 }

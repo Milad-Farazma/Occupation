@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application.Organizations.Dto;
+namespace LearningManagement.Occupation.Application.Organizations.Dto.Get;
 
 public sealed record OrganizationSearchRequest(
     string? Title = null,

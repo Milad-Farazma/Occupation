@@ -4,6 +4,9 @@ using Framework.Pagination;
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.EducationFieldSpecializations.Contracts;
 using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos;
+using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Create;
+using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Get;
+using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Update;
 using LearningManagement.Occupation.Domain.EducationFieldSpecializations;
 using Mapster;
 

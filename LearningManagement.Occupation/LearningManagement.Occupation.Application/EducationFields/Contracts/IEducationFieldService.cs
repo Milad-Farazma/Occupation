@@ -1,5 +1,8 @@
 using Framework.Pagination;
 using LearningManagement.Occupation.Application.EducationFields.Dtos;
+using LearningManagement.Occupation.Application.EducationFields.Dtos.Create;
+using LearningManagement.Occupation.Application.EducationFields.Dtos.Get;
+using LearningManagement.Occupation.Application.EducationFields.Dtos.Update;
 
 namespace LearningManagement.Occupation.Application.EducationFields.Contracts;
 

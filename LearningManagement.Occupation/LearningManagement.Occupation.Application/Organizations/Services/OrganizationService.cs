@@ -4,6 +4,9 @@ using Framework.Pagination;
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Dto;
+using LearningManagement.Occupation.Application.Organizations.Dto.Create;
+using LearningManagement.Occupation.Application.Organizations.Dto.Get;
+using LearningManagement.Occupation.Application.Organizations.Dto.Update;
 using LearningManagement.Occupation.Domain.Organizations.Models;
 using Mapster;
 

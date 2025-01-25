@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos;
+namespace LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Get;
 
 public sealed record EducationFieldSpecializationSearchRequest(
     string? Title,

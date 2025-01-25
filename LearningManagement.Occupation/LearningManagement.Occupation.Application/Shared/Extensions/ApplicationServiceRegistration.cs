@@ -19,7 +19,7 @@ public static class ApplicationServiceRegistration {
         service.AddScoped<IOrganizationService, OrganizationService>();
         service.AddScoped<IOrganizationTypeService, OrganizationTypeService>();
         service.AddScoped<IDepartmentService, DepartmentService>();
-        
+
         service.AddScoped<IEducationFieldService, EducationFieldService>();
         service.AddScoped<IEducationFieldSpecializationService, EducationFieldSpecializationService>();
     }

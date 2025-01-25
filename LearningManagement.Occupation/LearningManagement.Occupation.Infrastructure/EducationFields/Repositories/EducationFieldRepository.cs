@@ -1,6 +1,7 @@
 using Framework.Pagination;
 using LearningManagement.Occupation.Application.EducationFields.Contracts;
 using LearningManagement.Occupation.Application.EducationFields.Dtos;
+using LearningManagement.Occupation.Application.EducationFields.Dtos.Get;
 using LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 using LearningManagement.Occupation.Domain.EducationFields;
 using LearningManagement.Occupation.Infrastructure.Shared;

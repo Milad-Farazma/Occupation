@@ -1,6 +1,7 @@
 using Framework.Pagination;
 using LearningManagement.Occupation.Application.EducationFields.Dtos;
 using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos;
+using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Get;
 using LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 using LearningManagement.Occupation.Domain.EducationFieldSpecializations;
 

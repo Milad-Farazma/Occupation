@@ -1,7 +1,6 @@
-namespace LearningManagement.Occupation.Application.Organizations.Dto;
+namespace LearningManagement.Occupation.Application.Organizations.Dto.Create;
 
-public record CreateOrganizationResponse(
-    long Id,
+public record CreateOrganizationRequest(
     string? Title,
     long Code,
     int ProvinceId,
@@ -14,7 +13,6 @@ public record CreateOrganizationResponse(
     string? Email,
     string? LogoImg,
     string? Description,
-    bool Accepted,
-    DateOnly? AcceptedDate,
-    int? AcceptedUserId,
-    bool IsPublic);
+    bool IsPublic,
+    long OrganizationTypeId
+);

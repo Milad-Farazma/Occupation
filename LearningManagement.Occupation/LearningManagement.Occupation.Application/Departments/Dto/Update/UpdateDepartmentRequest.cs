@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application.Departments.Dto;
+namespace LearningManagement.Occupation.Application.Departments.Dto.Update;
 
 public record UpdateDepartmentRequest(
     long TypeId,

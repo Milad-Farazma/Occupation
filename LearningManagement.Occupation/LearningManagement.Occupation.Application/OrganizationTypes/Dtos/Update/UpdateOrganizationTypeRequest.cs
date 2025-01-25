@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
+namespace LearningManagement.Occupation.Application.OrganizationTypes.Dtos.Update;
 
 public record UpdateOrganizationTypeRequest(
     string Title,

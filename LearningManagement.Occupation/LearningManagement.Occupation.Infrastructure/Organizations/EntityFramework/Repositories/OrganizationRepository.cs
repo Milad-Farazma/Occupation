@@ -1,6 +1,7 @@
 using Framework.Pagination;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Dto;
+using LearningManagement.Occupation.Application.Organizations.Dto.Get;
 using LearningManagement.Occupation.Domain.Organizations.Models;
 using LearningManagement.Occupation.Infrastructure.Shared;
 
