@@ -5,7 +5,7 @@ using LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/OrganizationTypes")]
+[Route("api/v1/organization-types")]
 public class OrganizationTypeController(IOrganizationTypeService organizationTypeService) : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<CreateOrganizationTypeResponse>> Create([FromBody] CreateOrganizationTypeRequest request,

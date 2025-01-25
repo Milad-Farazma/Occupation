@@ -5,7 +5,7 @@ using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dt
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/EducationFieldSpecializations")]
+[Route("api/v1/education-field-specializations")]
 public class EducationFieldSpecializationController(IEducationFieldSpecializationService educationFieldSpecializationService) : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<CreateEducationFieldSpecializationResponse>> Create([FromBody] CreateEducationFieldSpecializationRequest request,
