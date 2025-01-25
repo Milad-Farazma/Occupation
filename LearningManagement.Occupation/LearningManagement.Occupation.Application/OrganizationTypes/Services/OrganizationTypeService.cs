@@ -10,12 +10,12 @@ using Mapster;
 namespace LearningManagement.Occupation.Application.OrganizationTypes.Services;
 
 public class OrganizationTypeService(IOrganizationTypeRepository repo, IUserService userService) : IOrganizationTypeService {
-    public async Task<OrganizationTypeDto> CreateAsync(CreateOrganizationTypeRequest request, CancellationToken cancellationToken = default) {
+    public async Task<CreateOrganizationTypeResponse> CreateAsync(CreateOrganizationTypeRequest request, CancellationToken cancellationToken = default) {
         var organizationType = request.Adapt<OrganizationType>();
         repo.Add(organizationType);
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
 
-        return organizationType.Adapt<OrganizationTypeDto>();
+        return organizationType.Adapt<CreateOrganizationTypeResponse>();
     }
 
     public async Task<PaginatedResult<OrganizationTypeDto>> GetAllAsync(PaginationRequest request,
@@ -24,7 +24,8 @@ public class OrganizationTypeService(IOrganizationTypeRepository repo, IUserServ
         .Adapt<PaginatedResult<OrganizationTypeDto>>();
 
     public async Task<PaginatedResult<OrganizationTypeDto>> GetAllWithRelationsAsync(PaginationRequest request,
-        OrganizationTypeSearchRequest? searchRequest, CancellationToken cancellationToken = default)  => (await repo.GetAllWithRelationsAsync(false, request, searchRequest, cancellationToken))
+        OrganizationTypeSearchRequest? searchRequest, CancellationToken cancellationToken = default) =>
+        (await repo.GetAllWithRelationsAsync(false, request, searchRequest, cancellationToken))
         .Adapt<PaginatedResult<OrganizationTypeDto>>();
 
     public async Task<OrganizationTypeDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
