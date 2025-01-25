@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250121071424_Init")]
+    [Migration("20250125062302_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,6 +33,9 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<long>("OrganizationId")
                         .HasColumnType("bigint");
 
@@ -40,9 +43,6 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<long>("TypeId")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -59,36 +59,66 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ApprovedAtUtcDateTime")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("Accepted")
+                        .HasColumnType("bit");
 
-                    b.Property<long>("ApprovedByUserId")
-                        .HasColumnType("bigint");
+                    b.Property<DateOnly?>("AcceptedDate")
+                        .HasColumnType("date");
 
-                    b.Property<long>("CertificateCode")
+                    b.Property<int?>("AcceptedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CertificateCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CityTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long>("Code")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsApproved")
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsViewable")
+                    b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LogoUrl")
+                    b.Property<string>("LogoImg")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("OrganizationTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProvinceTitle")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<long?>("TypeId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("WebsiteUrl")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -98,7 +128,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Models.Department", b =>
                 {
                     b.HasOne("LearningManagement.Occupation.Domain.Organizations.Models.Organization", "Organization")
-                        .WithMany("Department")
+                        .WithMany("Departments")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -231,7 +261,7 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
                 {
-                    b.Navigation("Department");
+                    b.Navigation("Departments");
                 });
 #pragma warning restore 612, 618
         }

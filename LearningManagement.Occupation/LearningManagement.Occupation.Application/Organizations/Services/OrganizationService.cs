@@ -18,15 +18,21 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         return organization.Adapt<OrganizationDto>();
     }
 
-    public async Task<OrganizationDto?> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request,
+        OrganizationSearchRequest? searchRequest,
+        CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, cancellationToken))
+        .Adapt<PaginatedResult<OrganizationDto>>();
+
+    public async Task<OrganizationDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
-        return organization?.Adapt<OrganizationDto>();
+        if (organization is null) throw new NotFoundException(new NotFoundError(id, nameof(Organization)));
+        return organization.Adapt<OrganizationDto>();
     }
 
-    public async Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) {
-        var pagination = await repo.GetAllWithRelationsAsync(true, request, cancellationToken: cancellationToken);
-        var result = pagination.Adapt<PaginatedResult<OrganizationDto>>();
-        return result;
+    public async Task<OrganizationDto> GetByIdWithRelationsAsync(long id, CancellationToken cancellationToken = default) {
+        var organization = await repo.GetByIdWithRelationsAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
+        if (organization is null) throw new NotFoundException(new NotFoundError(id, nameof(Organization)));
+        return organization.Adapt<OrganizationDto>();
     }
 
     public async Task UpdateAsync(long id, UpdateOrganizationRequest request, CancellationToken cancellationToken = default) {

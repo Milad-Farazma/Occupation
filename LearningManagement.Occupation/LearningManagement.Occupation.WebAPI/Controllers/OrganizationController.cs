@@ -16,14 +16,13 @@ public class OrganizationController(IOrganizationService organizationService) : 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<OrganizationDto>> GetById(long id, CancellationToken cancellationToken) {
         var organization = await organizationService.GetByIdAsync(id, cancellationToken);
-        if (organization == null) return NotFound();
         return Ok(organization);
     }
 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<OrganizationDto>>> GetAll([FromQuery] PaginationRequest request,
-        CancellationToken cancellationToken) {
-        var organizations = await organizationService.GetAllAsync(request, cancellationToken);
+        [FromQuery] OrganizationSearchRequest? searchRequest, CancellationToken cancellationToken) {
+        var organizations = await organizationService.GetAllAsync(request, searchRequest, cancellationToken);
         return Ok(organizations);
     }
 

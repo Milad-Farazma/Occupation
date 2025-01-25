@@ -17,22 +17,30 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeId = table.Column<long>(type: "bigint", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    IsViewable = table.Column<bool>(type: "bit", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    ApprovedByUserId = table.Column<long>(type: "bigint", nullable: false),
-                    ApprovedAtUtcDateTime = table.Column<long>(type: "bigint", nullable: false),
-                    CertificateCode = table.Column<long>(type: "bigint", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Code = table.Column<long>(type: "bigint", nullable: false),
+                    ProvinceId = table.Column<int>(type: "int", nullable: false),
+                    ProvinceTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    CityTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    OrganizationTypeId = table.Column<int>(type: "int", nullable: false),
+                    CertificateCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    WebsiteUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LogoImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Accepted = table.Column<bool>(type: "bit", nullable: false),
+                    AcceptedDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    AcceptedUserId = table.Column<int>(type: "int", nullable: true),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
                     ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true)
+                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,7 +53,6 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeId = table.Column<long>(type: "bigint", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     OrganizationId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -54,7 +61,8 @@ namespace LearningManagement.Occupation.Infrastructure.Migrations
                     ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true)
+                    DeletedByUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

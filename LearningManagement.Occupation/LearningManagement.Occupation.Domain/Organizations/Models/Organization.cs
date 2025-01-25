@@ -3,21 +3,40 @@ using LearningManagement.Occupation.Domain.Departments.Models;
 namespace LearningManagement.Occupation.Domain.Organizations.Models;
 
 public class Organization : ApprovableEntity {
-    public long? TypeId { get; set; }
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
-    // If true the entity is searchable and viewable in the system
-    public bool IsViewable { get; set; }
+    public long Code { get; set; }
 
-    // If true the organization registration is validated
-    public bool IsApproved { get; set; }
-    public long ApprovedByUserId { get; set; }
-    public long ApprovedAtUtcDateTime { get; set; }
-    public long CertificateCode { get; set; }
-    public string Description { get; set; }
+    public int ProvinceId { get; set; }
 
-    public string LogoUrl { get; set; }
+    public string ProvinceTitle { get; set; } = default!;
 
-    // public OrganizationType Type { get; set; }
-    public ICollection<Department> Department { get; set; } = default!;
+    public int CityId { get; set; }
+
+    public string CityTitle { get; set; } = default!;
+
+    public int OrganizationTypeId { get; set; }
+
+    public string? CertificateCode { get; set; }
+
+    public string? WebsiteUrl { get; set; }
+
+    public string? Email { get; set; }
+
+    public string? LogoImg { get; set; }
+
+    public string? Description { get; set; }
+
+
+    public bool Accepted { get; set; } = true;
+
+    public DateOnly? AcceptedDate { get; set; }
+
+    public int? AcceptedUserId { get; set; }
+
+    public bool IsPublic { get; set; } = true;
+
+    public ICollection<Department> Departments { get; set; } = default!;
+
+    // public OrganisationType OrganType { get; set; } = default!;
 }

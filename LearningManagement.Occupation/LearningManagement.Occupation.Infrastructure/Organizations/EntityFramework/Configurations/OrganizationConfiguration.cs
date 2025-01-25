@@ -11,6 +11,31 @@ public class OrganizationConfiguration : IEntityTypeConfiguration<Organization> 
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
+        builder.Property(e => e.CertificateCode).HasMaxLength(50);
+        builder.Property(e => e.CityTitle).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(250);
+        builder.Property(e => e.Email).HasMaxLength(50);
+        builder.Property(e => e.LogoImg).HasMaxLength(100);
+        builder.Property(e => e.ProvinceTitle).HasMaxLength(50);
+        builder.Property(e => e.Title).HasMaxLength(50);
+        builder.Property(e => e.WebsiteUrl).HasMaxLength(50);
+
+        #region Relations
+
+        builder.HasMany(entity => entity.Departments)
+            .WithOne(entity => entity.Organization)
+            .HasForeignKey(entity => entity.OrganizationId)
+            .IsRequired();
+
+        // builder.HasOne(d => d.OrganType).WithMany(p => p.Organisations)
+        //     .HasForeignKey(d => d.OrganTypeId)
+        //     .OnDelete(DeleteBehavior.ClientSetNull)
+        //     .HasConstraintName();
+
+        #endregion
+
+        #region Audit and SoftDelete
+
         builder.OwnsOne(entity => entity.AuditInfo, nb => {
             nb.Property(auditInfo => auditInfo.CreatedByUserId).HasColumnName(WellKnownNames.AuditInfo.CreatedByUserId);
             nb.Property(auditInfo => auditInfo.ModifiedByUserId).HasColumnName(WellKnownNames.AuditInfo.ModifiedByUserId);
@@ -23,17 +48,6 @@ public class OrganizationConfiguration : IEntityTypeConfiguration<Organization> 
             nb.Property(softDeleteInfo => softDeleteInfo.DeletedByUserId).HasColumnName(WellKnownNames.SoftDeleteInfo.DeletedByUserId);
         });
 
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id)
-            .ValueGeneratedOnAdd(); // Configure auto-increment behavior
-
-        builder.Property(entity => entity.Title).IsRequired().HasMaxLength(200);
-        builder.Property(entity => entity.IsViewable);
-        builder.Property(entity => entity.IsApproved);
-
-        builder.HasMany(entity => entity.Department)
-            .WithOne(entity => entity.Organization)
-            .HasForeignKey(entity => entity.OrganizationId)
-            .IsRequired();
+        #endregion
     }
 }

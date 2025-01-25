@@ -4,7 +4,7 @@ using LearningManagement.Occupation.Application.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared;
 
-public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGenericRepository<TEntity>
+public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGenericRepository<TEntity>
     where TEntity : BaseEntity, new() {
     protected readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
@@ -15,12 +15,18 @@ public class EfGenericRepository<TEntity>(ApplicationDbContext context) : IGener
             .OrderBy(e => e.Id)
             .ApplyPagination(request, cancellationToken);
 
+    public Task<PaginatedResult<TEntity>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
+        CancellationToken cancellationToken = default) => throw new NotImplementedException();
+
     public Task<TEntity?> GetByIdAsync
         (long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
         var query = asNoTracking ? context.Set<TEntity>() : context.Set<TEntity>().AsTracking();
 
         return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
     }
+
+    public Task<TEntity?> GetByIdWithRelationsAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default) =>
+        throw new NotImplementedException();
 
     public TEntity? GetById(long id, bool asNoTracking) {
         var entity = DbSet.Find(id);
