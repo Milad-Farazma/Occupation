@@ -16,7 +16,18 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
             .ApplyPagination(request, cancellationToken);
 
     public Task<PaginatedResult<TEntity>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
-        CancellationToken cancellationToken = default) => throw new NotImplementedException();
+        CancellationToken cancellationToken = default) {
+        var query = GetDbSet(asNoTracking);
+
+        // Include all navigation properties dynamically
+        foreach (var navigationProperty in context.Model.FindEntityType(typeof(TEntity))?.GetNavigations() ?? []) {
+            query = query.Include(navigationProperty.Name);
+        }
+
+        return query
+            .OrderBy(e => e.Id)
+            .ApplyPagination(request, cancellationToken);
+    }
 
     public Task<TEntity?> GetByIdAsync
         (long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
@@ -25,8 +36,16 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
         return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
     }
 
-    public Task<TEntity?> GetByIdWithRelationsAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public Task<TEntity?> GetByIdWithRelationsAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default) {
+        var query = GetDbSet(asNoTracking);
+
+        // Include all navigation properties dynamically
+        foreach (var navigationProperty in context.Model.FindEntityType(typeof(TEntity))?.GetNavigations() ?? []) {
+            query = query.Include(navigationProperty.Name);
+        }
+
+        return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
+    }
 
     public TEntity? GetById(long id, bool asNoTracking) {
         var entity = DbSet.Find(id);
