@@ -8,7 +8,7 @@ namespace LearningManagement.Occupation.WebAPI.Controllers;
 [Route("api/v1/organizations/departments")]
 public class DepartmentController(IDepartmentService departmentService) : ControllerBase {
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateDepartmentRequest request, CancellationToken cancellationToken) {
+    public async Task<ActionResult<CreateDepartmentResponse>> Create([FromBody] CreateDepartmentRequest request, CancellationToken cancellationToken) {
         var organization = await departmentService.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = organization.Id }, organization);
     }
