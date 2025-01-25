@@ -22,7 +22,7 @@ public class OrganizationController(IOrganizationService organizationService) : 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<OrganizationDto>>> GetAll([FromQuery] PaginationRequest request,
         [FromQuery] OrganizationSearchRequest? searchRequest, CancellationToken cancellationToken) {
-        var organizations = await organizationService.GetAllAsync(request, searchRequest, cancellationToken);
+        var organizations = await organizationService.GetAllWithRelationsAsync(request, searchRequest, cancellationToken);
         return Ok(organizations);
     }
 

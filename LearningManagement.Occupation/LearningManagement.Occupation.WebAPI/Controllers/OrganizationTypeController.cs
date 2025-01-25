@@ -1,4 +1,5 @@
 using Framework.Pagination;
+using LearningManagement.Occupation.Application.Organizations.Dto;
 using LearningManagement.Occupation.Application.OrganizationTypes.Contracts;
 using LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 
@@ -9,7 +10,7 @@ namespace LearningManagement.Occupation.WebAPI.Controllers;
 public class OrganizationTypeController(IOrganizationTypeService organizationTypeService) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateOrganizationTypeRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<OrganizationDto>> Create([FromBody] CreateOrganizationTypeRequest request, CancellationToken cancellationToken)
     {
         var organizationType = await organizationTypeService.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = organizationType.Id }, organizationType);
@@ -18,14 +19,14 @@ public class OrganizationTypeController(IOrganizationTypeService organizationTyp
     [HttpGet("{id:long}")]
     public async Task<ActionResult<OrganizationTypeDto>> GetById(long id, CancellationToken cancellationToken)
     {
-        var organizationType = await organizationTypeService.GetByIdAsync(id, cancellationToken);
+        var organizationType = await organizationTypeService.GetByIdWithRelationsAsync(id, cancellationToken);
         return Ok(organizationType);
     }
 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<OrganizationTypeDto>>> GetAll([FromQuery] PaginationRequest request,
         [FromQuery] OrganizationTypeSearchRequest? searchRequest, CancellationToken cancellationToken) {
-        var organizationTypes = await organizationTypeService.GetAllAsync(request, searchRequest, cancellationToken);
+        var organizationTypes = await organizationTypeService.GetAllWithRelationsAsync(request, searchRequest, cancellationToken);
         return Ok(organizationTypes);
     }
 
