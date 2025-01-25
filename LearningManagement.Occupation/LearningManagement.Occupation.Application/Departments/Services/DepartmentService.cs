@@ -10,7 +10,7 @@ using Mapster;
 
 namespace LearningManagement.Occupation.Application.Departments.Services;
 
-public class DepartmentService(IGenericRepository<Department> repo, IUserService userService) : IDepartmentService {
+public class DepartmentService(IDepartmentRepository repo, IUserService userService) : IDepartmentService {
     public async Task<DepartmentDto> CreateAsync(CreateDepartmentRequest request, CancellationToken cancellationToken = default) {
         var department = request.Adapt<Department>();
         repo.Add(department);
