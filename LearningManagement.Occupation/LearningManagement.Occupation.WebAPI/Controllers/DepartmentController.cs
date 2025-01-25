@@ -17,7 +17,6 @@ public class DepartmentController(IDepartmentService departmentService) : Contro
     [HttpGet("{id:long}")]
     public async Task<ActionResult<DepartmentDto>> GetById(long id, CancellationToken cancellationToken) {
         var organization = await departmentService.GetByIdAsync(id, cancellationToken);
-        if (organization == null) return NotFound();
         return Ok(organization);
     }
 
