@@ -1,6 +1,6 @@
 namespace LearningManagement.Occupation.Application.Organizations.Dto;
 
-public record OrganizationDto(
+public record CreateOrganizationResponse(
     long Id,
     string? Title,
     long Code,
@@ -17,14 +17,4 @@ public record OrganizationDto(
     bool Accepted,
     DateOnly? AcceptedDate,
     int? AcceptedUserId,
-    bool IsPublic,
-    ICollection<OrganizationDto.DepartmentResponse> Departments,
-    OrganizationDto.OrganizationTypeResponse OrganizationType) {
-    public record DepartmentResponse(long Id, string TypeId, string Title);
-
-    public record OrganizationTypeResponse(
-        long Id,
-        string Title,
-        long Code,
-        string Description);
-}
+    bool IsPublic);

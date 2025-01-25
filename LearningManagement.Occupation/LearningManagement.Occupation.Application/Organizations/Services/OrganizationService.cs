@@ -10,12 +10,12 @@ using Mapster;
 namespace LearningManagement.Occupation.Application.Organizations.Services;
 
 public class OrganizationService(IOrganizationRepository repo, IUserService userService) : IOrganizationService {
-    public async Task<OrganizationDto> CreateAsync(CreateOrganizationRequest request, CancellationToken cancellationToken = default) {
+    public async Task<CreateOrganizationResponse> CreateAsync(CreateOrganizationRequest request, CancellationToken cancellationToken = default) {
         var organization = request.Adapt<Organization>();
         repo.Add(organization);
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
 
-        return organization.Adapt<OrganizationDto>();
+        return organization.Adapt<CreateOrganizationResponse>();
     }
 
     public async Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request,
@@ -23,7 +23,8 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, cancellationToken))
         .Adapt<PaginatedResult<OrganizationDto>>();
 
-    public async Task<PaginatedResult<OrganizationDto>> GetAllWithRelationsAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest, CancellationToken cancellationToken = default) => (await repo.GetAllWithRelationsAsync(false, request, searchRequest, cancellationToken))
+    public async Task<PaginatedResult<OrganizationDto>> GetAllWithRelationsAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest,
+        CancellationToken cancellationToken = default) => (await repo.GetAllWithRelationsAsync(false, request, searchRequest, cancellationToken))
         .Adapt<PaginatedResult<OrganizationDto>>();
 
     public async Task<OrganizationDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {

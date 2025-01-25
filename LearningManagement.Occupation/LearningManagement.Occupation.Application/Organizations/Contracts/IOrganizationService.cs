@@ -4,10 +4,11 @@ using LearningManagement.Occupation.Application.Organizations.Dto;
 namespace LearningManagement.Occupation.Application.Organizations.Contracts;
 
 public interface IOrganizationService {
-    Task<OrganizationDto> CreateAsync(CreateOrganizationRequest request, CancellationToken cancellationToken = default);
+    Task<CreateOrganizationResponse> CreateAsync(CreateOrganizationRequest request, CancellationToken cancellationToken = default);
 
     Task<PaginatedResult<OrganizationDto>> GetAllAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest,
         CancellationToken cancellationToken = default);
+
     Task<PaginatedResult<OrganizationDto>> GetAllWithRelationsAsync(PaginationRequest request, OrganizationSearchRequest? searchRequest,
         CancellationToken cancellationToken = default);
 
