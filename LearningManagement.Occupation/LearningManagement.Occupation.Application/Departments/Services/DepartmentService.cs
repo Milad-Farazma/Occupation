@@ -18,9 +18,10 @@ public class DepartmentService(IDepartmentRepository repo, IUserService userServ
         return department.Adapt<CreateDepartmentResponse>();
     }
 
-    public async Task<DepartmentDto?> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task<DepartmentDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
         var department = await repo.GetByIdAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
-        return department?.Adapt<DepartmentDto>();
+        if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(Department)));
+        return department.Adapt<DepartmentDto>();
     }
 
     public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) =>
