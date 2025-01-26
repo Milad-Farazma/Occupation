@@ -1,4 +1,3 @@
-using Framework.Data.SoftDelete;
 using Framework.Pagination;
 using LearningManagement.Occupation.Application.Shared;
 
