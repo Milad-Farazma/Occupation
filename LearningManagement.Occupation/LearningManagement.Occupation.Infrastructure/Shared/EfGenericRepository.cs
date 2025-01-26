@@ -1,4 +1,3 @@
-using Framework.Pagination;
 using LearningManagement.Occupation.Application.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.Shared;

@@ -1,7 +1,5 @@
-using Framework.Pagination;
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Domain.Departments.Models;
-using LearningManagement.Occupation.Infrastructure.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.Departments.Repositories;
 

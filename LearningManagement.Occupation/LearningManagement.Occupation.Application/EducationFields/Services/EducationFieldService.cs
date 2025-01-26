@@ -1,14 +1,9 @@
-using Framework.Data.SoftDelete;
-using Framework.Exceptions;
-using Framework.Pagination;
-using Framework.Services.User;
 using LearningManagement.Occupation.Application.EducationFields.Contracts;
 using LearningManagement.Occupation.Application.EducationFields.Dtos;
 using LearningManagement.Occupation.Application.EducationFields.Dtos.Create;
 using LearningManagement.Occupation.Application.EducationFields.Dtos.Get;
 using LearningManagement.Occupation.Application.EducationFields.Dtos.Update;
 using LearningManagement.Occupation.Domain.EducationFields;
-using Mapster;
 
 namespace LearningManagement.Occupation.Application.EducationFields.Services;
 

@@ -1,4 +1,3 @@
-using Framework.Services.User;
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.Departments.Services;
 using LearningManagement.Occupation.Application.EducationFields.Contracts;

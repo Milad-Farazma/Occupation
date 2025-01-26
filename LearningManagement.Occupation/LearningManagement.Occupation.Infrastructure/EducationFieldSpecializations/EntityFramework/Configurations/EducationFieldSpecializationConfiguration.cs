@@ -1,6 +1,5 @@
 using LearningManagement.Occupation.Domain.EducationFieldSpecializations;
 using LearningManagement.Occupation.Domain.Shared;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LearningManagement.Occupation.Infrastructure.EducationFieldSpecializations.EntityFramework.Configurations;
 

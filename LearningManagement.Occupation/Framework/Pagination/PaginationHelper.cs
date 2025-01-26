@@ -1,6 +1,3 @@
-using Mapster;
-using Microsoft.EntityFrameworkCore;
-
 namespace Framework.Pagination;
 
 public static class PaginationHelper {

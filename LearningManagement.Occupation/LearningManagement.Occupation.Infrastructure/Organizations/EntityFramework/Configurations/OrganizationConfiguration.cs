@@ -1,6 +1,5 @@
 using LearningManagement.Occupation.Domain.Organizations.Models;
 using LearningManagement.Occupation.Domain.Shared;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Configurations;
 

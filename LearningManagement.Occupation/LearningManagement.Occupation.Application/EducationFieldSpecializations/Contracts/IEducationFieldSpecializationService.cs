@@ -1,4 +1,3 @@
-using Framework.Pagination;
 using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos;
 using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Create;
 using LearningManagement.Occupation.Application.EducationFieldSpecializations.Dtos.Get;

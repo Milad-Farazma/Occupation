@@ -1,4 +1,3 @@
-using Framework.Pagination;
 using LearningManagement.Occupation.Application.Departments.Dto;
 using LearningManagement.Occupation.Application.Departments.Dto.Create;
 using LearningManagement.Occupation.Application.Departments.Dto.Update;

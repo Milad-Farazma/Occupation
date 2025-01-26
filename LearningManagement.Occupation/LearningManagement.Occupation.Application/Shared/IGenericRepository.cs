@@ -1,5 +1,4 @@
 using Framework.Data;
-using Framework.Pagination;
 
 namespace LearningManagement.Occupation.Application.Shared;
 

@@ -1,8 +1,3 @@
-using Framework.Services.User;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-
 namespace Framework.Data.Audit;
 
 public sealed class AuditableEntitySaveChangesInterceptor(

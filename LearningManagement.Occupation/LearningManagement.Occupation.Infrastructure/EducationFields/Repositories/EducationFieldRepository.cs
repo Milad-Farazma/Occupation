@@ -1,8 +1,6 @@
-using Framework.Pagination;
 using LearningManagement.Occupation.Application.EducationFields.Contracts;
 using LearningManagement.Occupation.Application.EducationFields.Dtos.Get;
 using LearningManagement.Occupation.Domain.EducationFields;
-using LearningManagement.Occupation.Infrastructure.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.EducationFields.Repositories;
 
