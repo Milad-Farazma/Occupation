@@ -49,7 +49,7 @@ fi
 
 # Add migration
 echo "Adding migration '$name'..."
-dotnet ef migrations add "$name" --project "$project" --startup-project "$startup_project"
+dotnet ef migrations add "$name" --project "$project" --startup-project "$startup_project" --output-dir Shared/Data/Migrations
 
 # Check for success
 if [ $? -eq 0 ]; then

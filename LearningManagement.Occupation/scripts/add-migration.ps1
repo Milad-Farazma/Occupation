@@ -47,7 +47,7 @@ if (-not (Test-Path $startup_project)) {
 
 # Add migration
 Write-Host "Adding migration '$name'..."
-dotnet ef migrations add $name --project $project --startup-project $startup_project
+dotnet ef migrations add $name --project $project --startup-project $startup_project --output-dir Shared/Data/Migrations
 
 # Check for success
 if ($LASTEXITCODE -eq 0) {
