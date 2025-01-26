@@ -1,7 +1,5 @@
 using LearningManagement.Occupation.Application.Departments.Contracts;
-using LearningManagement.Occupation.Application.Departments.Dto;
-using LearningManagement.Occupation.Application.Departments.Dto.Create;
-using LearningManagement.Occupation.Application.Departments.Dto.Update;
+using LearningManagement.Occupation.Application.Departments.Dtos;
 
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
@@ -11,21 +9,21 @@ public class DepartmentController(IDepartmentService departmentService) : Contro
     [HttpPost]
     public async Task<ActionResult<CreateDepartmentResponse>>
         Create([FromBody] CreateDepartmentRequest request, CancellationToken cancellationToken) {
-        var organization = await departmentService.CreateAsync(request, cancellationToken);
-        return CreatedAtAction(nameof(GetById), new { id = organization.Id }, organization);
+        var department = await departmentService.CreateAsync(request, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = department.Id }, department);
     }
 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<DepartmentDto>> GetById(long id, CancellationToken cancellationToken) {
-        var organization = await departmentService.GetByIdAsync(id, true, cancellationToken);
-        return Ok(organization);
+        var department = await departmentService.GetByIdAsync(id, true, cancellationToken);
+        return Ok(department);
     }
 
     [HttpGet]
-    public async Task<ActionResult<PaginatedResult<DepartmentDto>>>
-        GetAll([FromQuery] PaginationRequest request, CancellationToken cancellationToken) {
-        var organizations = await departmentService.GetAllAsync(request, true, cancellationToken);
-        return Ok(organizations);
+    public async Task<ActionResult<PaginatedResult<DepartmentDto>>> GetAll([FromQuery] PaginationRequest request,
+        [FromQuery] DepartmentSearchRequest? searchRequest, CancellationToken cancellationToken) {
+        var departments = await departmentService.GetAllAsync(request, searchRequest, true, cancellationToken);
+        return Ok(departments);
     }
 
     [HttpPut("{id:long}")]

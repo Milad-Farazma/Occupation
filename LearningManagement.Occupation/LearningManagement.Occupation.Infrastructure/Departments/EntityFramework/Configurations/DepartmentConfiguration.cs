@@ -1,4 +1,4 @@
-using LearningManagement.Occupation.Domain.Departments.Models;
+using LearningManagement.Occupation.Domain.Departments;
 using LearningManagement.Occupation.Domain.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.Departments.EntityFramework.Configurations;
@@ -9,6 +9,15 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
 
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+        
+        builder.Property(entity => entity.Title).IsRequired().HasMaxLength(200);
+
+        #region Relations
+        
+
+        #endregion
+
+        #region Audit and SoftDelete
 
         builder.OwnsOne(entity => entity.AuditInfo, nb => {
             nb.Property(auditInfo => auditInfo.CreatedByUserId).HasColumnName(WellKnownNames.AuditInfo.CreatedByUserId);
@@ -22,10 +31,6 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
             nb.Property(softDeleteInfo => softDeleteInfo.DeletedByUserId).HasColumnName(WellKnownNames.SoftDeleteInfo.DeletedByUserId);
         });
 
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id)
-            .ValueGeneratedOnAdd(); // Configure auto-increment behavior
-
-        builder.Property(entity => entity.Title).IsRequired().HasMaxLength(200);
+        #endregion
     }
 }

@@ -1,11 +1,10 @@
-namespace LearningManagement.Occupation.Application.Departments.Dto;
+namespace LearningManagement.Occupation.Application.Departments.Dtos;
 
 public record DepartmentDto(
     long Id,
     string Title,
-    DepartmentDto.OrganizationDto Organization
-) {
-    public record OrganizationDto(
+    DepartmentDto.OrganizationResponse Organization) {
+    public record OrganizationResponse(
         long Id,
         string? Title,
         long Code,
@@ -22,6 +21,5 @@ public record DepartmentDto(
         bool Accepted,
         DateOnly? AcceptedDate,
         int? AcceptedUserId,
-        bool IsPublic
-    );
+        bool IsPublic);
 }

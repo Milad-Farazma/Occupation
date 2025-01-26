@@ -1,4 +1,4 @@
-using LearningManagement.Occupation.Domain.Departments.Models;
+using LearningManagement.Occupation.Domain.Departments;
 using LearningManagement.Occupation.Domain.OrganizationTypes;
 
 namespace LearningManagement.Occupation.Domain.Organizations.Models;

@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application.Departments.Dto.Create;
+namespace LearningManagement.Occupation.Application.Departments.Dtos;
 
 public record CreateDepartmentRequest(
     string Title,

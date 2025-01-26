@@ -1,6 +1,6 @@
 using LearningManagement.Occupation.Domain.Organizations.Models;
 
-namespace LearningManagement.Occupation.Domain.Departments.Models;
+namespace LearningManagement.Occupation.Domain.Departments;
 
 public class Department : ApprovableEntity {
     public string Title { get; set; }
