@@ -47,20 +47,8 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
         return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
     }
 
-    public TEntity? GetById(long id, bool asNoTracking) {
-        var entity = DbSet.Find(id);
-        if (entity == null || !asNoTracking) return entity;
-
-        context.Entry(entity).State = EntityState.Detached;
-        return entity;
-    }
-
     public async Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default) {
         return await DbSet.FindAsync([id], cancellationToken) != null;
-    }
-
-    public bool Exists(long id) {
-        return DbSet.Find(id) != null;
     }
 
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default) {
@@ -99,15 +87,5 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
         return context.SaveChangesAsync(cancellationToken: cancellationToken);
-    }
-
-    public int SaveChanges() {
-        return context.SaveChanges();
-    }
-
-    public static void SetDeleteObject(SoftDeleteInfo deleteInfoObject, long? currentUserId, DateTime? deleteDate) {
-        deleteInfoObject.IsDeleted = true;
-        deleteInfoObject.DeletedByUserId = currentUserId;
-        deleteInfoObject.DeletedAtUtcDateTime = deleteDate;
     }
 }
