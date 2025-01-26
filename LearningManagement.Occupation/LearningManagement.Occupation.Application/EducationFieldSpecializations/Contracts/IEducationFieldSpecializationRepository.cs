@@ -5,15 +5,10 @@ namespace LearningManagement.Occupation.Application.EducationFieldSpecialization
 
 public interface IEducationFieldSpecializationRepository {
     Task<PaginatedResult<EducationFieldSpecialization>> GetAllAsync(bool asNoTracking, PaginationRequest request,
-        EducationFieldSpecializationSearchRequest? searchRequest,
+        EducationFieldSpecializationSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<PaginatedResult<EducationFieldSpecialization>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
-        EducationFieldSpecializationSearchRequest? searchRequest,
-        CancellationToken cancellationToken = default);
-
-    Task<EducationFieldSpecialization?> GetByIdAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default);
-    Task<EducationFieldSpecialization?> GetByIdWithRelationsAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default);
+    Task<EducationFieldSpecialization?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(EducationFieldSpecialization entity);
     void Update(EducationFieldSpecialization entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

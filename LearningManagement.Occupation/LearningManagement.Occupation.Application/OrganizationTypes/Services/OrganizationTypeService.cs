@@ -18,29 +18,18 @@ public class OrganizationTypeService(IOrganizationTypeRepository repo, IUserServ
     }
 
     public async Task<PaginatedResult<OrganizationTypeDto>> GetAllAsync(PaginationRequest request,
-        OrganizationTypeSearchRequest? searchRequest,
-        CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, cancellationToken))
+        OrganizationTypeSearchRequest? searchRequest, bool loadRelations,
+        CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<OrganizationTypeDto>>();
 
-    public async Task<PaginatedResult<OrganizationTypeDto>> GetAllWithRelationsAsync(PaginationRequest request,
-        OrganizationTypeSearchRequest? searchRequest, CancellationToken cancellationToken = default) =>
-        (await repo.GetAllWithRelationsAsync(false, request, searchRequest, cancellationToken))
-        .Adapt<PaginatedResult<OrganizationTypeDto>>();
-
-    public async Task<OrganizationTypeDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
-        var organizationType = await repo.GetByIdAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
-        if (organizationType is null) throw new NotFoundException(new NotFoundError(id, nameof(OrganizationType)));
-        return organizationType.Adapt<OrganizationTypeDto>();
-    }
-
-    public async Task<OrganizationTypeDto> GetByIdWithRelationsAsync(long id, CancellationToken cancellationToken = default) {
-        var organizationType = await repo.GetByIdWithRelationsAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
+    public async Task<OrganizationTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+        var organizationType = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken: cancellationToken);
         if (organizationType is null) throw new NotFoundException(new NotFoundError(id, nameof(OrganizationType)));
         return organizationType.Adapt<OrganizationTypeDto>();
     }
 
     public async Task UpdateAsync(long id, UpdateOrganizationTypeRequest request, CancellationToken cancellationToken = default) {
-        var organizationType = await repo.GetByIdAsync(id, false, cancellationToken: cancellationToken);
+        var organizationType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (organizationType is null)
             throw new NotFoundException(new NotFoundError(id, nameof(OrganizationType)));
 
@@ -51,7 +40,7 @@ public class OrganizationTypeService(IOrganizationTypeRepository repo, IUserServ
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
-        var organizationType = await repo.GetByIdAsync(id, false, cancellationToken: cancellationToken);
+        var organizationType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (organizationType is null) throw new NotFoundException(new NotFoundError(id, nameof(OrganizationType)));
 
         organizationType.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());

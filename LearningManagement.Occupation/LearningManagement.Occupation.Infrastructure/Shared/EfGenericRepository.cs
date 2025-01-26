@@ -8,18 +8,15 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
 
     public IQueryable<TEntity> GetDbSet(bool asNoTracking) => asNoTracking ? DbSet.AsNoTracking() : DbSet.AsTracking();
 
-    public Task<PaginatedResult<TEntity>> GetAllAsync(bool asNoTracking, PaginationRequest request, CancellationToken cancellationToken = default) =>
-        GetDbSet(asNoTracking)
-            .OrderBy(e => e.Id)
-            .ApplyPagination(request, cancellationToken);
-
-    public Task<PaginatedResult<TEntity>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
+    public Task<PaginatedResult<TEntity>> GetAllAsync(bool asNoTracking, PaginationRequest request, bool loadRelations,
         CancellationToken cancellationToken = default) {
         var query = GetDbSet(asNoTracking);
 
-        // Include all navigation properties dynamically
-        foreach (var navigationProperty in context.Model.FindEntityType(typeof(TEntity))?.GetNavigations() ?? []) {
-            query = query.Include(navigationProperty.Name);
+        if (loadRelations) {
+            // Include all navigation properties dynamically
+            foreach (var navigationProperty in context.Model.FindEntityType(typeof(TEntity))?.GetNavigations() ?? []) {
+                query = query.Include(navigationProperty.Name);
+            }
         }
 
         return query
@@ -28,18 +25,14 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
     }
 
     public Task<TEntity?> GetByIdAsync
-        (long id, bool asNoTracking = true, CancellationToken cancellationToken = default) {
-        var query = asNoTracking ? context.Set<TEntity>() : context.Set<TEntity>().AsTracking();
-
-        return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
-    }
-
-    public Task<TEntity?> GetByIdWithRelationsAsync(long id, bool asNoTracking, CancellationToken cancellationToken = default) {
+        (long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default) {
         var query = GetDbSet(asNoTracking);
 
-        // Include all navigation properties dynamically
-        foreach (var navigationProperty in context.Model.FindEntityType(typeof(TEntity))?.GetNavigations() ?? []) {
-            query = query.Include(navigationProperty.Name);
+        if (loadRelations) {
+            // Include all navigation properties dynamically
+            foreach (var navigationProperty in context.Model.FindEntityType(typeof(TEntity))?.GetNavigations() ?? []) {
+                query = query.Include(navigationProperty.Name);
+            }
         }
 
         return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);

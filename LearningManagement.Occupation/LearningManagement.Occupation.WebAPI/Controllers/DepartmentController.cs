@@ -17,14 +17,14 @@ public class DepartmentController(IDepartmentService departmentService) : Contro
 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<DepartmentDto>> GetById(long id, CancellationToken cancellationToken) {
-        var organization = await departmentService.GetByIdAsync(id, cancellationToken);
+        var organization = await departmentService.GetByIdAsync(id, true, cancellationToken);
         return Ok(organization);
     }
 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<DepartmentDto>>>
         GetAll([FromQuery] PaginationRequest request, CancellationToken cancellationToken) {
-        var organizations = await departmentService.GetAllAsync(request, cancellationToken);
+        var organizations = await departmentService.GetAllAsync(request, true, cancellationToken);
         return Ok(organizations);
     }
 

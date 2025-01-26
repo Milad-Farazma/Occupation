@@ -18,14 +18,14 @@ public class OrganizationTypeController(IOrganizationTypeService organizationTyp
 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<OrganizationTypeDto>> GetById(long id, CancellationToken cancellationToken) {
-        var organizationType = await organizationTypeService.GetByIdWithRelationsAsync(id, cancellationToken);
+        var organizationType = await organizationTypeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(organizationType);
     }
 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<OrganizationTypeDto>>> GetAll([FromQuery] PaginationRequest request,
         [FromQuery] OrganizationTypeSearchRequest? searchRequest, CancellationToken cancellationToken) {
-        var organizationTypes = await organizationTypeService.GetAllWithRelationsAsync(request, searchRequest, cancellationToken);
+        var organizationTypes = await organizationTypeService.GetAllAsync(request, searchRequest, true, cancellationToken);
         return Ok(organizationTypes);
     }
 

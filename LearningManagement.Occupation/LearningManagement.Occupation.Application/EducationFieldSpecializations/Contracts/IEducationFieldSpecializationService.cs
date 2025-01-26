@@ -10,15 +10,10 @@ public interface IEducationFieldSpecializationService {
         CancellationToken cancellationToken = default);
 
     Task<PaginatedResult<EducationFieldSpecializationDto>> GetAllAsync(PaginationRequest request,
-        EducationFieldSpecializationSearchRequest? searchRequest,
+        EducationFieldSpecializationSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<PaginatedResult<EducationFieldSpecializationDto>> GetAllWithRelationsAsync(PaginationRequest request,
-        EducationFieldSpecializationSearchRequest? searchRequest,
-        CancellationToken cancellationToken = default);
-
-    Task<EducationFieldSpecializationDto> GetByIdAsync(long id, CancellationToken cancellationToken = default);
-    Task<EducationFieldSpecializationDto> GetByIdWithRelationsAsync(long id, CancellationToken cancellationToken = default);
+    Task<EducationFieldSpecializationDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default);
     Task UpdateAsync(long id, UpdateEducationFieldSpecializationRequest request, CancellationToken cancellationToken = default);
     Task DeleteAsync(long id, CancellationToken cancellationToken = default);
 }

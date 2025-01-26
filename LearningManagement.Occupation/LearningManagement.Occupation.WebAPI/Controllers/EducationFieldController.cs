@@ -18,14 +18,14 @@ public class EducationFieldController(IEducationFieldService educationFieldServi
 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<EducationFieldDto>> GetById(long id, CancellationToken cancellationToken) {
-        var educationField = await educationFieldService.GetByIdWithRelationsAsync(id, cancellationToken);
+        var educationField = await educationFieldService.GetByIdAsync(id, true, cancellationToken);
         return Ok(educationField);
     }
 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<EducationFieldDto>>> GetAll([FromQuery] PaginationRequest request,
         [FromQuery] EducationFieldSearchRequest? searchRequest, CancellationToken cancellationToken) {
-        var educationFields = await educationFieldService.GetAllWithRelationsAsync(request, searchRequest, cancellationToken);
+        var educationFields = await educationFieldService.GetAllAsync(request, searchRequest, true, cancellationToken);
         return Ok(educationFields);
     }
 

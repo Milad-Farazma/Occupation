@@ -15,18 +15,19 @@ public class DepartmentService(IDepartmentRepository repo, IUserService userServ
         return department.Adapt<CreateDepartmentResponse>();
     }
 
-    public async Task<DepartmentDto> GetByIdAsync(long id, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, asNoTracking: true, cancellationToken: cancellationToken);
+    public async Task<DepartmentDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+        var department = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken: cancellationToken);
         if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(Department)));
         return department.Adapt<DepartmentDto>();
     }
 
-    public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request, CancellationToken cancellationToken = default) =>
-        (await repo.GetAllAsync(true, request, cancellationToken: cancellationToken))
+    public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request, bool loadRelations,
+        CancellationToken cancellationToken = default) =>
+        (await repo.GetAllAsync(true, request, loadRelations, cancellationToken: cancellationToken))
         .Adapt<PaginatedResult<DepartmentDto>>();
 
     public async Task UpdateAsync(long id, UpdateDepartmentRequest request, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
+        var department = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (department is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Department)));
 
@@ -37,7 +38,7 @@ public class DepartmentService(IDepartmentRepository repo, IUserService userServ
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, cancellationToken: cancellationToken, asNoTracking: false);
+        var department = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(department)));
 
         department.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());

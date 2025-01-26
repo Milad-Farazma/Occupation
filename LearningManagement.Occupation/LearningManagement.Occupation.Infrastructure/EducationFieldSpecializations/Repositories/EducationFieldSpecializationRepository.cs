@@ -7,26 +7,18 @@ namespace LearningManagement.Occupation.Infrastructure.EducationFieldSpecializat
 public class EducationFieldSpecializationRepository(ApplicationDbContext context)
     : EfGenericRepository<EducationFieldSpecialization>(context: context), IEducationFieldSpecializationRepository {
     public Task<PaginatedResult<EducationFieldSpecialization>> GetAllAsync(bool asNoTracking, PaginationRequest request,
-        EducationFieldSpecializationSearchRequest? searchRequest,
+        EducationFieldSpecializationSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default) {
         var query = GetDbSet(asNoTracking);
         if (searchRequest is not null) {
             query = AddSearchQueries(searchRequest, query);
+        }
+
+        if (loadRelations) {
+            query = query.Include(item => item.EducationField);
         }
 
         return query.ApplyPagination(request, cancellationToken: cancellationToken);
-    }
-
-    public Task<PaginatedResult<EducationFieldSpecialization>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
-        EducationFieldSpecializationSearchRequest? searchRequest,
-        CancellationToken cancellationToken = default) {
-        var query = GetDbSet(asNoTracking);
-        if (searchRequest is not null) {
-            query = AddSearchQueries(searchRequest, query);
-        }
-
-        return query.Include(item => item.EducationField)
-            .ApplyPagination(request, cancellationToken: cancellationToken);
     }
 
     private static IQueryable<EducationFieldSpecialization> AddSearchQueries(EducationFieldSpecializationSearchRequest searchRequest,

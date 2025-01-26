@@ -7,25 +7,17 @@ namespace LearningManagement.Occupation.Infrastructure.OrganizationTypes.Reposit
 public class OrganizationTypeRepository(ApplicationDbContext context)
     : EfGenericRepository<OrganizationType>(context: context), IOrganizationTypeRepository {
     public Task<PaginatedResult<OrganizationType>> GetAllAsync(bool asNoTracking, PaginationRequest request,
-        OrganizationTypeSearchRequest? searchRequest,
+        OrganizationTypeSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default) {
         var query = GetDbSet(asNoTracking);
         if (searchRequest is not null) {
             query = AddSearchQueries(searchRequest, query);
         }
 
-        return query.ApplyPagination(request, cancellationToken: cancellationToken);
-    }
-
-    public Task<PaginatedResult<OrganizationType>> GetAllWithRelationsAsync(bool asNoTracking, PaginationRequest request,
-        OrganizationTypeSearchRequest? searchRequest,
-        CancellationToken cancellationToken = default) {
-        var query = GetDbSet(asNoTracking);
-        if (searchRequest is not null) {
-            query = AddSearchQueries(searchRequest, query);
+        if (loadRelations) {
+            query = query.Include(item => item.Organizations);
         }
 
-        query = query.Include(item => item.Organizations);
         return query.ApplyPagination(request, cancellationToken: cancellationToken);
     }
 

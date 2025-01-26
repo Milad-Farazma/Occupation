@@ -18,7 +18,7 @@ public class EducationFieldSpecializationController(IEducationFieldSpecializatio
 
     [HttpGet("{id:long}")]
     public async Task<ActionResult<EducationFieldSpecializationDto>> GetById(long id, CancellationToken cancellationToken) {
-        var educationFieldSpecialization = await educationFieldSpecializationService.GetByIdWithRelationsAsync(id, cancellationToken);
+        var educationFieldSpecialization = await educationFieldSpecializationService.GetByIdAsync(id, true, cancellationToken);
         return Ok(educationFieldSpecialization);
     }
 
@@ -26,7 +26,7 @@ public class EducationFieldSpecializationController(IEducationFieldSpecializatio
     public async Task<ActionResult<PaginatedResult<EducationFieldSpecializationDto>>> GetAll([FromQuery] PaginationRequest request,
         [FromQuery] EducationFieldSpecializationSearchRequest? searchRequest, CancellationToken cancellationToken) {
         var educationFieldSpecializations =
-            await educationFieldSpecializationService.GetAllWithRelationsAsync(request, searchRequest, cancellationToken);
+            await educationFieldSpecializationService.GetAllAsync(request, searchRequest, true, cancellationToken);
         return Ok(educationFieldSpecializations);
     }
 
