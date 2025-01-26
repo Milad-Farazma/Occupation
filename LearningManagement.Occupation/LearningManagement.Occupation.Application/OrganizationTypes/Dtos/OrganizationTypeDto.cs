@@ -2,9 +2,9 @@ namespace LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 
 public record OrganizationTypeDto(
     long Id,
-    string Title,
+    string? Title,
     long Code,
-    string Description,
+    string? Description,
     IEnumerable<OrganizationTypeDto.OrgDto> Organizations) {
     public record OrgDto(
         long Id,

@@ -2,9 +2,9 @@ namespace LearningManagement.Occupation.Application.EducationFields.Dtos;
 
 public record EducationFieldDto(
     long Id,
-    string Title,
+    string? Title,
     long Code,
-    string Description,
+    string? Description,
     IEnumerable<EducationFieldDto.EducationFieldSpecializationsResponse> EducationFieldSpecializations) {
-    public record EducationFieldSpecializationsResponse(string Title, long Code, string Description);
+    public record EducationFieldSpecializationsResponse(string? Title, long Code, string? Description);
 }

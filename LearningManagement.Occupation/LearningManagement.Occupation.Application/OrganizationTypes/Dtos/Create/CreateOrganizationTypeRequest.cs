@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.OrganizationTypes.Dtos.Create;
 
 public record CreateOrganizationTypeRequest(
-    string Title,
+    string? Title,
     long Code,
-    string Description
+    string? Description
 );

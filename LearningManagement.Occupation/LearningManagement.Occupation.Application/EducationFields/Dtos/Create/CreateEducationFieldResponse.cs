@@ -2,7 +2,7 @@ namespace LearningManagement.Occupation.Application.EducationFields.Dtos.Create;
 
 public record CreateEducationFieldResponse(
     long Id,
-    string Title,
+    string? Title,
     long Code,
-    string Description
+    string? Description
 );

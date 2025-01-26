@@ -20,11 +20,11 @@ public record OrganizationDto(
     bool IsPublic,
     ICollection<OrganizationDto.DepartmentResponse> Departments,
     OrganizationDto.OrganizationTypeResponse OrganizationType) {
-    public record DepartmentResponse(long Id, string TypeId, string Title);
+    public record DepartmentResponse(long Id, string Title);
 
     public record OrganizationTypeResponse(
         long Id,
-        string Title,
+        string? Title,
         long Code,
-        string Description);
+        string? Description);
 }
