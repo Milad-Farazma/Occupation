@@ -1,8 +1,6 @@
 using LearningManagement.Occupation.Application.Departments.Contracts;
-using LearningManagement.Occupation.Application.Departments.Dto;
-using LearningManagement.Occupation.Application.Departments.Dto.Create;
-using LearningManagement.Occupation.Application.Departments.Dto.Update;
-using LearningManagement.Occupation.Domain.Departments.Models;
+using LearningManagement.Occupation.Application.Departments.Dtos;
+using LearningManagement.Occupation.Domain.Departments;
 
 namespace LearningManagement.Occupation.Application.Departments.Services;
 
@@ -15,16 +13,16 @@ public class DepartmentService(IDepartmentRepository repo, IUserService userServ
         return department.Adapt<CreateDepartmentResponse>();
     }
 
+    public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request,
+        DepartmentSearchRequest? searchRequest, bool loadRelations,
+        CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
+        .Adapt<PaginatedResult<DepartmentDto>>();
+
     public async Task<DepartmentDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken: cancellationToken);
+        var department = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(Department)));
         return department.Adapt<DepartmentDto>();
     }
-
-    public async Task<PaginatedResult<DepartmentDto>> GetAllAsync(PaginationRequest request, bool loadRelations,
-        CancellationToken cancellationToken = default) =>
-        (await repo.GetAllAsync(true, request, loadRelations, cancellationToken: cancellationToken))
-        .Adapt<PaginatedResult<DepartmentDto>>();
 
     public async Task UpdateAsync(long id, UpdateDepartmentRequest request, CancellationToken cancellationToken = default) {
         var department = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
@@ -39,7 +37,7 @@ public class DepartmentService(IDepartmentRepository repo, IUserService userServ
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
         var department = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
-        if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(department)));
+        if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(Department)));
 
         department.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
