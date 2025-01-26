@@ -18,7 +18,8 @@ public class EducationFieldSpecializationRepository(ApplicationDbContext context
             query = query.Include(item => item.EducationField);
         }
 
-        return query.ApplyPagination(request, cancellationToken: cancellationToken);
+        return query.OrderBy(item => item.Id)
+            .ApplyPagination(request, cancellationToken: cancellationToken);
     }
 
     private static IQueryable<EducationFieldSpecialization> AddSearchQueries(EducationFieldSpecializationSearchRequest searchRequest,

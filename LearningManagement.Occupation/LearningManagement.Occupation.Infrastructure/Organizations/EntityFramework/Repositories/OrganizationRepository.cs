@@ -18,7 +18,8 @@ public class OrganizationRepository(ApplicationDbContext context) : EfGenericRep
                 .Include(item => item.Departments);
         }
 
-        return query.ApplyPagination(request, cancellationToken: cancellationToken);
+        return query.OrderBy(item => item.Id)
+            .ApplyPagination(request, cancellationToken: cancellationToken);
     }
 
     private static IQueryable<Organization> AddSearchQueries(OrganizationSearchRequest searchRequest, IQueryable<Organization> query) {

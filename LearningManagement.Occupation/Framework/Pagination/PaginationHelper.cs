@@ -2,16 +2,16 @@ namespace Framework.Pagination;
 
 public static class PaginationHelper {
     public static async Task<PaginatedResult<TEntity>> ApplyPagination<TEntity>(
-        this IQueryable<TEntity?> entitiesQueryable,
+        this IOrderedQueryable<TEntity?> entitiesQueryable,
         PaginationRequest request,
         CancellationToken cancellationToken = default)
         where TEntity : class, new() {
         var totalItems = await entitiesQueryable.LongCountAsync(cancellationToken);
 
-        entitiesQueryable = entitiesQueryable
+        var query = entitiesQueryable
             .Skip(request.PageSize * request.PageIndex)
             .Take(request.PageSize);
-        var entities = await entitiesQueryable.ToListAsync(cancellationToken);
+        var entities = await query.ToListAsync(cancellationToken);
 
         var totalPagesCount = (ushort)Math.Ceiling((double)totalItems / request.PageSize);
 
@@ -23,7 +23,7 @@ public static class PaginationHelper {
     }
 
     public static async Task<PaginatedResult<TResponseDto>> ApplyPagination<TEntity, TResponseDto>(
-        this IQueryable<TEntity?> entitiesQueryable,
+        this IOrderedQueryable<TEntity?> entitiesQueryable,
         PaginationRequest request,
         CancellationToken cancellationToken = default)
         where TEntity : class, new() {

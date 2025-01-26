@@ -18,7 +18,8 @@ public class OrganizationTypeRepository(ApplicationDbContext context)
             query = query.Include(item => item.Organizations);
         }
 
-        return query.ApplyPagination(request, cancellationToken: cancellationToken);
+        return query.OrderBy(item => item.Id)
+            .ApplyPagination(request, cancellationToken: cancellationToken);
     }
 
     private static IQueryable<OrganizationType> AddSearchQueries(OrganizationTypeSearchRequest searchRequest, IQueryable<OrganizationType> query) {
