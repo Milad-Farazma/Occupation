@@ -4,7 +4,7 @@ using LearningManagement.Occupation.Domain.Departments;
 
 namespace LearningManagement.Occupation.Application.Departments.Services;
 
-public class DepartmentService(IDepartmentRepository repo, IUserService userService) : IDepartmentService {
+public class DepartmentService(IDepartmentRepository repo) : IDepartmentService {
     public async Task<CreateDepartmentResponse> CreateAsync(CreateDepartmentRequest request, CancellationToken cancellationToken = default) {
         var department = request.Adapt<Department>();
         repo.Add(department);
@@ -36,10 +36,10 @@ public class DepartmentService(IDepartmentRepository repo, IUserService userServ
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
-        var department = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
+        var department = await repo.GetByIdAsync(id, false, true, cancellationToken: cancellationToken);
         if (department is null) throw new NotFoundException(new NotFoundError(id, nameof(Department)));
-
-        department.SoftDeleteInfo.SetDeleteObject(userService.GetCurrentUserId());
+        
+        repo.Remove(department);
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 }

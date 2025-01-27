@@ -17,7 +17,7 @@ public sealed class AuditableEntitySaveChangesInterceptor(
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public void SetAuditableProperties(DbContext? context) {
+    private void SetAuditableProperties(DbContext? context) {
         if (context == null) return;
 
         foreach (var entry in context.ChangeTracker.Entries<IAuditability>()) {

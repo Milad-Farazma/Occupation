@@ -9,11 +9,10 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
 
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
-        
+
         builder.Property(entity => entity.Title).IsRequired().HasMaxLength(200);
 
         #region Relations
-        
 
         #endregion
 

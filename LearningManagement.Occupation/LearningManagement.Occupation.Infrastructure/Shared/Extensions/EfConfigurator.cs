@@ -1,4 +1,5 @@
 using Framework.Data.Audit;
+using Framework.Data.SoftDelete;
 using Framework.Performance;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ public static class EfConfigurator {
         }
 
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+        services.AddScoped<SoftDeleteInterceptor>();
 
         return services;
     }
@@ -44,6 +46,7 @@ public static class EfConfigurator {
             ).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             options.AddInterceptors(serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>());
+            options.AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>());
 
             AddSlowQueryInterceptor(serviceProvider, options, thresholdMilliseconds);
         });

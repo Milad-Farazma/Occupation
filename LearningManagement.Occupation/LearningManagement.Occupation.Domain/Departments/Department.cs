@@ -8,6 +8,7 @@ public class Department : ApprovableEntity {
     public long OrganizationId { get; set; }
 
     public Organization Organization { get; set; } = default!;
+
     // public long TypeId { get; set; }
     // public DepartmentType Type { get; set; }
     // public ContactInfo ContactInfo { get; set; }
