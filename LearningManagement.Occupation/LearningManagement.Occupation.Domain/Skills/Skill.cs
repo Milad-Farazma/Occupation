@@ -10,7 +10,7 @@ public class Skill : ApprovableEntity {
 
     public string? Description { get; set; }
 
-    public int SkillTypeId { get; set; }
+    public long SkillTypeId { get; set; }
 
     public SkillType SkillType { get; set; } = default!;
 }
