@@ -4,5 +4,6 @@ public record CreateInterestResponse(
     long Id,
     string? Title,
     long Code,
-    string Description
+    string Description,
+    long InterestedTypeId
 );

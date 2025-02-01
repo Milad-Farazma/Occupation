@@ -4,5 +4,6 @@ public record CreateAbilityResponse(
     long Id,
     string? Title,
     long Code,
-    string? Description
+    string? Description,
+    long AbilityTypeId
 );
