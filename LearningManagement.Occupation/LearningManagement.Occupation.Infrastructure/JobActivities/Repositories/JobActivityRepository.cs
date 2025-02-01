@@ -1,6 +1,6 @@
 using LearningManagement.Occupation.Application.JobActivities.Contracts;
 using LearningManagement.Occupation.Application.JobActivities.Dtos;
-using LearningManagement.Occupation.Domain.JobActivitys;
+using LearningManagement.Occupation.Domain.JobActivities;
 
 namespace LearningManagement.Occupation.Infrastructure.JobActivities.Repositories;
 

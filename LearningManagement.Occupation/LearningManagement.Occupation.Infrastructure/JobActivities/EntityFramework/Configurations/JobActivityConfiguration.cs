@@ -1,4 +1,4 @@
-using LearningManagement.Occupation.Domain.JobActivitys;
+using LearningManagement.Occupation.Domain.JobActivities;
 using LearningManagement.Occupation.Domain.Shared;
 
 namespace LearningManagement.Occupation.Infrastructure.JobActivities.EntityFramework.Configurations;

@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Domain.JobActivitys;
+namespace LearningManagement.Occupation.Domain.JobActivities;
 
 public class JobActivity : ApprovableEntity {
     public string? Title { get; set; }
