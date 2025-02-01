@@ -10,12 +10,15 @@ public class SkillConfiguration : IEntityTypeConfiguration<Skill> {
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
+        builder.Property(e => e.Description).HasMaxLength(250);
+        builder.Property(e => e.Title).HasMaxLength(50);
+
         #region Relations
 
         builder.HasOne(entity => entity.SkillType)
             .WithMany(entity => entity.Skills)
             .HasForeignKey(entity => entity.SkillTypeId)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         #endregion
 
