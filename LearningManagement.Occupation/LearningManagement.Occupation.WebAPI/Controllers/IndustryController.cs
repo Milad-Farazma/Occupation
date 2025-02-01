@@ -4,7 +4,7 @@ using LearningManagement.Occupation.Application.Industries.Dtos;
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/Industries")]
+[Route("api/v1/industry")]
 public class IndustryController(IIndustryService industryService) : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<CreateIndustryResponse>> Create([FromBody] CreateIndustryRequest request, CancellationToken cancellationToken) {
