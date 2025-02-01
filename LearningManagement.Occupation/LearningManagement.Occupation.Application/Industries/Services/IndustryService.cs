@@ -4,7 +4,7 @@ using LearningManagement.Occupation.Domain.Industries;
 
 namespace LearningManagement.Occupation.Application.Industries.Services;
 
-public class IndustriesService(IIndustryRepository repo, IUserService userService) : IIndustryService {
+public class IndustryService(IIndustryRepository repo, IUserService userService) : IIndustryService {
     public async Task<CreateIndustryResponse> CreateAsync(CreateIndustryRequest request, CancellationToken cancellationToken = default) {
         var industry = request.Adapt<Industry>();
         repo.Add(industry);
