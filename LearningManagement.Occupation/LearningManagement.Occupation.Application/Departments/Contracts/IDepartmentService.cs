@@ -1,4 +1,6 @@
 using LearningManagement.Occupation.Application.Departments.Dtos;
+using LearningManagement.Occupation.Application.Departments.Dtos.Create;
+using LearningManagement.Occupation.Application.Departments.Dtos.Get;
 
 namespace LearningManagement.Occupation.Application.Departments.Contracts;
 

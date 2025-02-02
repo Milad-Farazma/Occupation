@@ -1,14 +1,27 @@
+using LearningManagement.Occupation.Domain.DepartmentTypes;
 using LearningManagement.Occupation.Domain.Organizations.Models;
 
 namespace LearningManagement.Occupation.Domain.Departments;
 
 public class Department : ApprovableEntity {
-    public string Title { get; set; }
+    public string? Title { get; set; }
+    public long Code { get; set; }
+    public string? Description { get; set; }
 
-    public long OrganizationId { get; set; }
+    public string? Address { get; set; }
 
-    public Organization Organization { get; set; } = default!;
-    // public long TypeId { get; set; }
-    // public DepartmentType Type { get; set; }
-    // public ContactInfo ContactInfo { get; set; }
+    public string? Phone { get; set; }
+
+    public string? Fax { get; set; }
+
+    public string? WebSiteUrl { get; set; }
+
+    public string? Email { get; set; }
+
+    public int? EducationCenterId { get; set; }
+    public int DepartmentTypeId { get; set; }
+    public DepartmentType DepartmentType { get; set; } = default!;
+
+    public Organization Organization { get; set; }
+    public int OrganizationId { get; set; }
 }

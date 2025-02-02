@@ -1,11 +1,23 @@
-namespace LearningManagement.Occupation.Application.Departments.Dtos;
+namespace LearningManagement.Occupation.Application.Departments.Dtos.Get;
 
 public record DepartmentDto(
     long Id,
-    string Title,
+    string? Title,
+    long Code,
+    string? Description,
+    string? Address,
+    string? Phone,
+    string? Fax,
+    string? WebSiteUrl,
+    string? Email,
+    int OrganizationId,
+    int DepartmentTypeId,
+    int? EducationCenterId,
+    DepartmentDto.DepartmentTypeResponse DepartmentType,
     DepartmentDto.OrganizationResponse Organization) {
+    public record DepartmentTypeResponse(string? Title, long Code, string? Description);
+
     public record OrganizationResponse(
-        long Id,
         string? Title,
         long Code,
         int ProvinceId,

@@ -1,10 +1,12 @@
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.Departments.Dtos;
+using LearningManagement.Occupation.Application.Departments.Dtos.Create;
+using LearningManagement.Occupation.Application.Departments.Dtos.Get;
 
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/organizations/departments")]
+[Route("api/v1/departments")]
 public class DepartmentController(IDepartmentService departmentService) : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<CreateDepartmentResponse>>

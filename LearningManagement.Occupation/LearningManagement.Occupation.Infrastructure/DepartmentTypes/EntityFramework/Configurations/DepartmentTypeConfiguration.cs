@@ -1,33 +1,24 @@
-using LearningManagement.Occupation.Domain.Departments;
+using LearningManagement.Occupation.Domain.DepartmentTypes;
 using LearningManagement.Occupation.Domain.Shared;
 
-namespace LearningManagement.Occupation.Infrastructure.Departments.EntityFramework.Configurations;
+namespace LearningManagement.Occupation.Infrastructure.DepartmentTypes.EntityFramework.Configurations;
 
-public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
-    public void Configure(EntityTypeBuilder<Department> builder) {
-        builder.ToTable("Departments");
+public class DepartmentTypeConfiguration : IEntityTypeConfiguration<DepartmentType> {
+    public void Configure(EntityTypeBuilder<DepartmentType> builder) {
+        builder.ToTable("DepartmentTypes");
 
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
-        builder.Property(e => e.Address).HasMaxLength(250);
         builder.Property(e => e.Description).HasMaxLength(250);
-        builder.Property(e => e.Email).HasMaxLength(50);
-        builder.Property(e => e.Fax).HasMaxLength(50);
-
-        builder.Property(e => e.Phone).HasMaxLength(50);
         builder.Property(e => e.Title).HasMaxLength(50);
-        builder.Property(e => e.WebSiteUrl).HasMaxLength(100);
 
         #region Relations
 
-        builder.HasOne(d => d.DepartmentType).WithMany(p => p.Departments)
-            .HasForeignKey(d => d.DepartmentTypeId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
-
-        builder.HasOne(d => d.Organization).WithMany(p => p.Departments)
-            .HasForeignKey(d => d.OrganizationId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+        builder.HasMany(entity => entity.Departments)
+            .WithOne(entity => entity.DepartmentType)
+            .HasForeignKey(entity => entity.DepartmentTypeId)
+            .IsRequired();
 
         #endregion
 

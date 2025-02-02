@@ -4,6 +4,8 @@ using LearningManagement.Occupation.Application.AbilityTypes.Contracts;
 using LearningManagement.Occupation.Application.AbilityTypes.Services;
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.Departments.Services;
+using LearningManagement.Occupation.Application.DepartmentTypes.Contracts;
+using LearningManagement.Occupation.Application.DepartmentTypes.Services;
 using LearningManagement.Occupation.Application.EducationDegrees.Contracts;
 using LearningManagement.Occupation.Application.EducationDegrees.Services;
 using LearningManagement.Occupation.Application.EducationFields.Contracts;
@@ -43,6 +45,7 @@ public static class ApplicationServiceRegistration {
         service.AddScoped<IAbilityService, AbilityService>();
         service.AddScoped<IAbilityTypeService, AbilityTypeService>();
         service.AddScoped<IDepartmentService, DepartmentService>();
+        service.AddScoped<IDepartmentTypeService, DepartmentTypeService>();
         service.AddScoped<IEducationDegreeService, EducationDegreeService>();
         service.AddScoped<IEducationFieldSpecializationService, EducationFieldSpecializationService>();
         service.AddScoped<IIndustryService, IndustryService>();
