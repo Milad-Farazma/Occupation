@@ -9,13 +9,16 @@ public class InterestConfiguration : IEntityTypeConfiguration<Interest> {
 
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+        
+        builder.Property(e => e.Description).HasMaxLength(250);
+        builder.Property(e => e.Title).HasMaxLength(50);
 
         #region Relations
 
         builder.HasOne(entity => entity.InterestType)
             .WithMany(entity => entity.Interests)
             .HasForeignKey(entity => entity.InterestTypeId)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         #endregion
 
