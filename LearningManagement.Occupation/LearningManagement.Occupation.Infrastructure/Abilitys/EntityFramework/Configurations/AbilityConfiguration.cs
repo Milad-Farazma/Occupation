@@ -10,12 +10,15 @@ public class AbilityConfiguration : IEntityTypeConfiguration<Ability> {
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
+        builder.Property(e => e.Description).HasMaxLength(250);
+        builder.Property(e => e.Title).HasMaxLength(50);
+
         #region Relations
 
         builder.HasOne(entity => entity.AbilityType)
             .WithMany(entity => entity.Abilities)
             .HasForeignKey(entity => entity.AbilityTypeId)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         #endregion
 
