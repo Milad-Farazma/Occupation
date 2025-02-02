@@ -1,11 +1,11 @@
-using LearningManagement.Occupation.Domain.Interests;
+using LearningManagement.Occupation.Domain.Knowledges;
 using LearningManagement.Occupation.Domain.Shared;
 
-namespace LearningManagement.Occupation.Infrastructure.Interests.EntityFramework.Configurations;
+namespace LearningManagement.Occupation.Infrastructure.Knowledges.EntityFramework.Configurations;
 
-public class InterestConfiguration : IEntityTypeConfiguration<Interest> {
-    public void Configure(EntityTypeBuilder<Interest> builder) {
-        builder.ToTable("Interests");
+public class KnowledgeConfiguration : IEntityTypeConfiguration<Knowledge> {
+    public void Configure(EntityTypeBuilder<Knowledge> builder) {
+        builder.ToTable("Knowledges");
 
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
@@ -15,9 +15,9 @@ public class InterestConfiguration : IEntityTypeConfiguration<Interest> {
 
         #region Relations
 
-        builder.HasOne(entity => entity.InterestType)
-            .WithMany(entity => entity.Interests)
-            .HasForeignKey(entity => entity.InterestTypeId)
+        builder.HasOne(entity => entity.KnowledgeType)
+            .WithMany(entity => entity.Knowledges)
+            .HasForeignKey(entity => entity.KnowledgeTypeId)
             .OnDelete(DeleteBehavior.ClientSetNull);
 
         #endregion
