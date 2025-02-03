@@ -24,26 +24,26 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Abilities.Ability", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AbilityTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("AbilityTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -54,49 +54,106 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.AbilityTypes.AbilityType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("AbilityTypes", (string)null);
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Department", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.DepartmentTypes.DepartmentType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("OrganizationId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.ToTable("DepartmentTypes", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("DepartmentTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("EducationCenterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Fax")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("WebSiteUrl")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentTypeId");
 
                     b.HasIndex("OrganizationId");
 
@@ -105,11 +162,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationDegrees.EducationDegree", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -132,11 +187,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFieldSpecializations.EducationFieldSpecialization", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -145,8 +198,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<long>("EducationFieldId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("EducationFieldId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -164,11 +217,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFields.EducationField", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -191,11 +242,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Industries.Industry", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -218,21 +267,21 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.InterestTypes.InterestType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -241,26 +290,26 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Interests.Interest", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
-                    b.Property<long>("InterestTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("InterestTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -271,11 +320,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.JobActivities.JobActivity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -296,13 +343,265 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.ToTable("JobActivities", (string)null);
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobClassifications.JobClassification", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobClassifications", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobOutLooks.JobOutLook", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Icon")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("IconTitle")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobOutLooks", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobZones.JobZone", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobZones", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.KnowledgeTypes.KnowledgeType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KnowledgeTypes", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Knowledges.Knowledge", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("KnowledgeTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KnowledgeTypeId");
+
+                    b.ToTable("Knowledges", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OccupationJobZones.OccupationJobZone", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("JobZoneId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OccupationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobZoneId");
+
+                    b.HasIndex("OccupationId");
+
+                    b.ToTable("OccupationJobZones", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OccupationSimilaritys.OccupationSimilarity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OccupationId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OccupationId2")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OccupationId1");
+
+                    b.HasIndex("OccupationId2");
+
+                    b.ToTable("OccupationSimilarities", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Occupations.Occupation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BannerImage")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("BriefActivities")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("BriefPersonality")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("JobClassificationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("JobOutlookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal?>("MaximumSalary")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal?>("MinimumSalary")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal?>("ModeSalary")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("VideoDescription")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobClassificationId");
+
+                    b.HasIndex("JobOutlookId");
+
+                    b.ToTable("Occupations", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -325,11 +624,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Accepted")
                         .HasColumnType("bit");
@@ -373,8 +670,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<long>("OrganizationTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("OrganizationTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ProvinceId")
                         .HasColumnType("int");
@@ -401,11 +698,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Personalities.Personality", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
@@ -428,23 +723,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.SkillTypes.SkillType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -453,26 +748,26 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Skills.Skill", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("Code")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long>("SkillTypeId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("SkillTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -481,33 +776,87 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.ToTable("Skills", (string)null);
                 });
 
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.TechnologyTypes.TechnologyType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TechnologyTypes", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Technologys.Technology", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("TechnologyTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnologyTypeId");
+
+                    b.ToTable("Technologies", (string)null);
+                });
+
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Abilities.Ability", b =>
                 {
                     b.HasOne("LearningManagement.Occupation.Domain.AbilityTypes.AbilityType", "AbilityType")
                         .WithMany("Abilities")
                         .HasForeignKey("AbilityTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("AbilityId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("AbilityId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("AbilityId");
@@ -520,15 +869,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("AbilityId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("AbilityId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -556,23 +905,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("AbilityTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("AbilityTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("AbilityTypeId");
@@ -585,15 +934,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("AbilityTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("AbilityTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -606,6 +955,69 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("AbilityTypeId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.DepartmentTypes.DepartmentType", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("DepartmentTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("DepartmentTypeId");
+
+                            b1.ToTable("DepartmentTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DepartmentTypeId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("DepartmentTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("DepartmentTypeId");
+
+                            b1.ToTable("DepartmentTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DepartmentTypeId");
                         });
 
                     b.Navigation("AuditInfo")
@@ -617,31 +1029,35 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Departments.Department", b =>
                 {
+                    b.HasOne("LearningManagement.Occupation.Domain.DepartmentTypes.DepartmentType", "DepartmentType")
+                        .WithMany("Departments")
+                        .HasForeignKey("DepartmentTypeId")
+                        .IsRequired();
+
                     b.HasOne("LearningManagement.Occupation.Domain.Organizations.Models.Organization", "Organization")
                         .WithMany("Departments")
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("DepartmentId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("DepartmentId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("DepartmentId");
@@ -654,15 +1070,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("DepartmentId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("DepartmentId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -680,6 +1096,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.Navigation("AuditInfo")
                         .IsRequired();
 
+                    b.Navigation("DepartmentType");
+
                     b.Navigation("Organization");
 
                     b.Navigation("SoftDeleteInfo")
@@ -690,23 +1108,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("EducationDegreeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("EducationDegreeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("EducationDegreeId");
@@ -719,15 +1137,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("EducationDegreeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("EducationDegreeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -758,23 +1176,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("EducationFieldSpecializationId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("EducationFieldSpecializationId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("EducationFieldSpecializationId");
@@ -787,15 +1205,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("EducationFieldSpecializationId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("EducationFieldSpecializationId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -823,23 +1241,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("EducationFieldId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("EducationFieldId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("EducationFieldId");
@@ -852,15 +1270,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("EducationFieldId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("EducationFieldId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -886,23 +1304,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("IndustryId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("IndustryId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("IndustryId");
@@ -915,15 +1333,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("IndustryId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("IndustryId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -949,23 +1367,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("InterestTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("InterestTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("InterestTypeId");
@@ -978,15 +1396,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("InterestTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("InterestTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1013,28 +1431,27 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.HasOne("LearningManagement.Occupation.Domain.InterestTypes.InterestType", "InterestType")
                         .WithMany("Interests")
                         .HasForeignKey("InterestTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("InterestId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("InterestId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("InterestId");
@@ -1047,15 +1464,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("InterestId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("InterestId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1083,23 +1500,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("JobActivityId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("JobActivityId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("JobActivityId");
@@ -1112,15 +1529,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("JobActivityId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("JobActivityId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1142,27 +1559,582 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobClassifications.JobClassification", b =>
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("OrganizationTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("JobClassificationId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("JobClassificationId");
+
+                            b1.ToTable("JobClassifications");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobClassificationId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobClassificationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("JobClassificationId");
+
+                            b1.ToTable("JobClassifications");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobClassificationId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobOutLooks.JobOutLook", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobOutLookId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("JobOutLookId");
+
+                            b1.ToTable("JobOutLooks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobOutLookId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobOutLookId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("JobOutLookId");
+
+                            b1.ToTable("JobOutLooks");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobOutLookId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobZones.JobZone", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobZoneId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("JobZoneId");
+
+                            b1.ToTable("JobZones");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobZoneId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobZoneId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("JobZoneId");
+
+                            b1.ToTable("JobZones");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobZoneId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.KnowledgeTypes.KnowledgeType", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("KnowledgeTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("KnowledgeTypeId");
+
+                            b1.ToTable("KnowledgeTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("KnowledgeTypeId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("KnowledgeTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("KnowledgeTypeId");
+
+                            b1.ToTable("KnowledgeTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("KnowledgeTypeId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Knowledges.Knowledge", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.KnowledgeTypes.KnowledgeType", "KnowledgeType")
+                        .WithMany("Knowledges")
+                        .HasForeignKey("KnowledgeTypeId")
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("KnowledgeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("KnowledgeId");
+
+                            b1.ToTable("Knowledges");
+
+                            b1.WithOwner()
+                                .HasForeignKey("KnowledgeId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("KnowledgeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("KnowledgeId");
+
+                            b1.ToTable("Knowledges");
+
+                            b1.WithOwner()
+                                .HasForeignKey("KnowledgeId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("KnowledgeType");
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OccupationJobZones.OccupationJobZone", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.JobZones.JobZone", "JobZone")
+                        .WithMany("OccupationJobZons")
+                        .HasForeignKey("JobZoneId")
+                        .IsRequired();
+
+                    b.HasOne("LearningManagement.Occupation.Domain.Occupations.Occupation", "Occupation")
+                        .WithMany("OccupationJobZons")
+                        .HasForeignKey("OccupationId")
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OccupationJobZoneId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("OccupationJobZoneId");
+
+                            b1.ToTable("OccupationJobZones");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OccupationJobZoneId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OccupationJobZoneId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("OccupationJobZoneId");
+
+                            b1.ToTable("OccupationJobZones");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OccupationJobZoneId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("JobZone");
+
+                    b.Navigation("Occupation");
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OccupationSimilaritys.OccupationSimilarity", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.Occupations.Occupation", "OccupationId1Navigation")
+                        .WithMany("OccupationSimilarityOccupationId1Navigations")
+                        .HasForeignKey("OccupationId1")
+                        .IsRequired();
+
+                    b.HasOne("LearningManagement.Occupation.Domain.Occupations.Occupation", "OccupationId2Navigation")
+                        .WithMany("OccupationSimilarityOccupationId2Navigations")
+                        .HasForeignKey("OccupationId2")
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OccupationSimilarityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("OccupationSimilarityId");
+
+                            b1.ToTable("OccupationSimilarities");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OccupationSimilarityId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OccupationSimilarityId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("OccupationSimilarityId");
+
+                            b1.ToTable("OccupationSimilarities");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OccupationSimilarityId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("OccupationId1Navigation");
+
+                    b.Navigation("OccupationId2Navigation");
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Occupations.Occupation", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.JobClassifications.JobClassification", "JobClassification")
+                        .WithMany("Occupations")
+                        .HasForeignKey("JobClassificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearningManagement.Occupation.Domain.JobOutLooks.JobOutLook", "JobOutlook")
+                        .WithMany("Occupations")
+                        .HasForeignKey("JobOutlookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OccupationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("OccupationId");
+
+                            b1.ToTable("Occupations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OccupationId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OccupationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("OccupationId");
+
+                            b1.ToTable("Occupations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OccupationId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("JobClassification");
+
+                    b.Navigation("JobOutlook");
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("OrganizationTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("OrganizationTypeId");
@@ -1175,15 +2147,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("OrganizationTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("OrganizationTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1214,23 +2186,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("OrganizationId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("OrganizationId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("OrganizationId");
@@ -1243,15 +2215,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("OrganizationId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("OrganizationId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1279,23 +2251,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("PersonalityId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("PersonalityId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("PersonalityId");
@@ -1308,15 +2280,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("PersonalityId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("PersonalityId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1342,23 +2314,23 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("SkillTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("SkillTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("SkillTypeId");
@@ -1371,15 +2343,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("SkillTypeId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("SkillTypeId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1406,28 +2378,27 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.HasOne("LearningManagement.Occupation.Domain.SkillTypes.SkillType", "SkillType")
                         .WithMany("Skills")
                         .HasForeignKey("SkillTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
                         {
-                            b1.Property<long>("SkillId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("SkillId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("CreatedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("CreatedAtUtcDateTime");
 
-                            b1.Property<long?>("CreatedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("CreatedByUserId");
 
                             b1.Property<DateTime?>("ModifiedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("ModifiedAtUtcDateTime");
 
-                            b1.Property<long?>("ModifiedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("ModifiedByUserId");
 
                             b1.HasKey("SkillId");
@@ -1440,15 +2411,15 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
                         {
-                            b1.Property<long>("SkillId")
-                                .HasColumnType("bigint");
+                            b1.Property<Guid>("SkillId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DeletedAtUtcDateTime")
                                 .HasColumnType("datetime2")
                                 .HasColumnName("DeletedAtUtcDateTime");
 
-                            b1.Property<long?>("DeletedByUserId")
-                                .HasColumnType("bigint")
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
                                 .HasColumnName("DeletedByUserId");
 
                             b1.Property<bool>("IsDeleted")
@@ -1472,9 +2443,147 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.TechnologyTypes.TechnologyType", b =>
+                {
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("TechnologyTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("TechnologyTypeId");
+
+                            b1.ToTable("TechnologyTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TechnologyTypeId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("TechnologyTypeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("TechnologyTypeId");
+
+                            b1.ToTable("TechnologyTypes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TechnologyTypeId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Technologys.Technology", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.TechnologyTypes.TechnologyType", "TechnologyType")
+                        .WithMany("Technologies")
+                        .HasForeignKey("TechnologyTypeId")
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("TechnologyId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("TechnologyId");
+
+                            b1.ToTable("Technologies");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TechnologyId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("TechnologyId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("TechnologyId");
+
+                            b1.ToTable("Technologies");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TechnologyId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+
+                    b.Navigation("TechnologyType");
+                });
+
             modelBuilder.Entity("LearningManagement.Occupation.Domain.AbilityTypes.AbilityType", b =>
                 {
                     b.Navigation("Abilities");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.DepartmentTypes.DepartmentType", b =>
+                {
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.EducationFields.EducationField", b =>
@@ -1485,6 +2594,35 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
             modelBuilder.Entity("LearningManagement.Occupation.Domain.InterestTypes.InterestType", b =>
                 {
                     b.Navigation("Interests");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobClassifications.JobClassification", b =>
+                {
+                    b.Navigation("Occupations");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobOutLooks.JobOutLook", b =>
+                {
+                    b.Navigation("Occupations");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobZones.JobZone", b =>
+                {
+                    b.Navigation("OccupationJobZons");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.KnowledgeTypes.KnowledgeType", b =>
+                {
+                    b.Navigation("Knowledges");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Occupations.Occupation", b =>
+                {
+                    b.Navigation("OccupationJobZons");
+
+                    b.Navigation("OccupationSimilarityOccupationId1Navigations");
+
+                    b.Navigation("OccupationSimilarityOccupationId2Navigations");
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", b =>
@@ -1500,6 +2638,11 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
             modelBuilder.Entity("LearningManagement.Occupation.Domain.SkillTypes.SkillType", b =>
                 {
                     b.Navigation("Skills");
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.TechnologyTypes.TechnologyType", b =>
+                {
+                    b.Navigation("Technologies");
                 });
 #pragma warning restore 612, 618
         }

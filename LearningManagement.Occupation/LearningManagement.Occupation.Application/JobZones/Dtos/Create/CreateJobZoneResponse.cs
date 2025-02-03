@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.JobZones.Dtos.Create;
 
 public record CreateJobZoneResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description

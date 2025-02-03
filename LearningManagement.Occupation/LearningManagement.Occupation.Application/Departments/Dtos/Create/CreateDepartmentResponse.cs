@@ -2,7 +2,7 @@ namespace LearningManagement.Occupation.Application.Departments.Dtos.Create;
 
 public record
     CreateDepartmentResponse(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         string? Description,
@@ -11,7 +11,7 @@ public record
         string? Fax,
         string? WebSiteUrl,
         string? Email,
-        int OrganizationId,
-        int DepartmentTypeId,
-        int? EducationCenterId
+        Guid OrganizationId,
+        Guid DepartmentTypeId,
+        Guid? EducationCenterId
     );

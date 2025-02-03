@@ -18,13 +18,13 @@ public class PersonalityService(IPersonalityRepository repo, IUserService userSe
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<PersonalityDto>>();
 
-    public async Task<PersonalityDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<PersonalityDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var personality = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (personality is null) throw new NotFoundException(new NotFoundError(id, nameof(Personality)));
         return personality.Adapt<PersonalityDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdatePersonalityRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdatePersonalityRequest request, CancellationToken cancellationToken = default) {
         var personality = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (personality is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Personality)));
@@ -35,7 +35,7 @@ public class PersonalityService(IPersonalityRepository repo, IUserService userSe
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var personality = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (personality is null) throw new NotFoundException(new NotFoundError(id, nameof(Personality)));
 

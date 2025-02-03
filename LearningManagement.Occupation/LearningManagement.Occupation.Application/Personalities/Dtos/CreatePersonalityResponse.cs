@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Personalities.Dtos;
 
 public record CreatePersonalityResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description

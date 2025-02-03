@@ -9,7 +9,7 @@ public record CreateDepartmentRequest(
     string? Fax,
     string? WebSiteUrl,
     string? Email,
-    int OrganizationId,
-    int DepartmentTypeId,
-    int? EducationCenterId
+    Guid OrganizationId,
+    Guid DepartmentTypeId,
+    Guid? EducationCenterId
 );

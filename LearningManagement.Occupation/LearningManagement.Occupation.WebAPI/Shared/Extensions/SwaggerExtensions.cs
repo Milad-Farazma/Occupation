@@ -5,6 +5,11 @@ public static class SwaggerExtensions {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.AddSwaggerGen(c => {
+            c.CustomSchemaIds(type => type.FullName); // Use full namespace to avoid conflicts
+        });
+
+
         return services;
     }
 

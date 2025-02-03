@@ -13,8 +13,8 @@ public class EducationDegreeController(IEducationDegreeService educationDegreeSe
         return CreatedAtAction(nameof(GetById), new { id = educationDegree.Id }, educationDegree);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<EducationDegreeDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<EducationDegreeDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var educationDegree = await educationDegreeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(educationDegree);
     }
@@ -26,15 +26,15 @@ public class EducationDegreeController(IEducationDegreeService educationDegreeSe
         return Ok(educationDegrees);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateEducationDegreeRequest request,
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateEducationDegreeRequest request,
         CancellationToken cancellationToken) {
         await educationDegreeService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await educationDegreeService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

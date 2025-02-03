@@ -7,11 +7,11 @@ public record CreateOrganizationRequest(
     string ProvinceTitle,
     int CityId,
     string CityTitle,
-    int OrganTypeId,
+    Guid OrganTypeId,
     string? CertificateCode,
     string? WebsiteUrl,
     string? Email,
     string? LogoImg,
     string? Description,
     bool IsPublic,
-    long OrganizationTypeId);
+    Guid OrganizationTypeId);

@@ -10,7 +10,7 @@ public interface IInterestTypeService {
     Task<PaginatedResult<InterestTypeDto>> GetAllAsync(PaginationRequest request, InterestTypeSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<InterestTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default);
-    Task UpdateAsync(long id, UpdateInterestTypeRequest request, CancellationToken cancellationToken = default);
-    Task DeleteAsync(long id, CancellationToken cancellationToken = default);
+    Task<InterestTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Guid id, UpdateInterestTypeRequest request, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

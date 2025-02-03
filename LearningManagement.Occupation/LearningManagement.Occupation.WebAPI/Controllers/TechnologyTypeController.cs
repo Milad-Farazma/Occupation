@@ -15,8 +15,8 @@ public class TechnologyTypeController(ITechnologyTypeService technologyTypeServi
         return CreatedAtAction(nameof(GetById), new { id = technologyType.Id }, technologyType);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<TechnologyTypeDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<TechnologyTypeDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var technologyType = await technologyTypeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(technologyType);
     }
@@ -28,15 +28,15 @@ public class TechnologyTypeController(ITechnologyTypeService technologyTypeServi
         return Ok(technologyTypes);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateTechnologyTypeRequest request,
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTechnologyTypeRequest request,
         CancellationToken cancellationToken) {
         await technologyTypeService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await technologyTypeService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

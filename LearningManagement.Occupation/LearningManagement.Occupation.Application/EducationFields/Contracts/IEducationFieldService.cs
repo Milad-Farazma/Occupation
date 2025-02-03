@@ -11,7 +11,7 @@ public interface IEducationFieldService {
     Task<PaginatedResult<EducationFieldDto>> GetAllAsync(PaginationRequest request, EducationFieldSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<EducationFieldDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default);
-    Task UpdateAsync(long id, UpdateEducationFieldRequest request, CancellationToken cancellationToken = default);
-    Task DeleteAsync(long id, CancellationToken cancellationToken = default);
+    Task<EducationFieldDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Guid id, UpdateEducationFieldRequest request, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

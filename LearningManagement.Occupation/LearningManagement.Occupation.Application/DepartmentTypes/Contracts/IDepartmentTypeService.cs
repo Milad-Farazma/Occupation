@@ -10,7 +10,7 @@ public interface IDepartmentTypeService {
     Task<PaginatedResult<DepartmentTypeDto>> GetAllAsync(PaginationRequest request, DepartmentTypeSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<DepartmentTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default);
-    Task UpdateAsync(long id, UpdateDepartmentTypeRequest request, CancellationToken cancellationToken = default);
-    Task DeleteAsync(long id, CancellationToken cancellationToken = default);
+    Task<DepartmentTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Guid id, UpdateDepartmentTypeRequest request, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

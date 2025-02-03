@@ -25,7 +25,7 @@ public static class SoftDeleteExtensions {
         }
     }
 
-    public static void SetDeleteObject(this SoftDeleteInfo deleteInfoObject, long? currentUserId) {
+    public static void SetDeleteObject(this SoftDeleteInfo deleteInfoObject, Guid? currentUserId) {
         deleteInfoObject.IsDeleted = true;
         deleteInfoObject.DeletedByUserId = currentUserId;
         deleteInfoObject.DeletedAtUtcDateTime = DateTime.UtcNow;

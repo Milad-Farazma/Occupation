@@ -15,8 +15,8 @@ public class KnowledgeTypeController(IKnowledgeTypeService knowledgeTypeService)
         return CreatedAtAction(nameof(GetById), new { id = knowledgeType.Id }, knowledgeType);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<KnowledgeTypeDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<KnowledgeTypeDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var knowledgeType = await knowledgeTypeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(knowledgeType);
     }
@@ -28,14 +28,14 @@ public class KnowledgeTypeController(IKnowledgeTypeService knowledgeTypeService)
         return Ok(knowledgeTypes);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateKnowledgeTypeRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateKnowledgeTypeRequest request, CancellationToken cancellationToken) {
         await knowledgeTypeService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await knowledgeTypeService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

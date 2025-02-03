@@ -13,8 +13,8 @@ public class PersonalityController(IPersonalityService personalitiesService) : C
         return CreatedAtAction(nameof(GetById), new { id = personalities.Id }, personalities);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<PersonalityDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<PersonalityDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var personalities = await personalitiesService.GetByIdAsync(id, true, cancellationToken);
         return Ok(personalities);
     }
@@ -26,14 +26,14 @@ public class PersonalityController(IPersonalityService personalitiesService) : C
         return Ok(personalitiess);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdatePersonalityRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdatePersonalityRequest request, CancellationToken cancellationToken) {
         await personalitiesService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await personalitiesService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

@@ -20,13 +20,13 @@ public class JobOutLookService(IJobOutLookRepository repo, IUserService userServ
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<JobOutLookDto>>();
 
-    public async Task<JobOutLookDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<JobOutLookDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var jobOutLook = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (jobOutLook is null) throw new NotFoundException(new NotFoundError(id, nameof(JobOutLook)));
         return jobOutLook.Adapt<JobOutLookDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateJobOutLookRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateJobOutLookRequest request, CancellationToken cancellationToken = default) {
         var jobOutLook = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (jobOutLook is null)
             throw new NotFoundException(new NotFoundError(id, nameof(JobOutLook)));
@@ -37,7 +37,7 @@ public class JobOutLookService(IJobOutLookRepository repo, IUserService userServ
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var jobOutLook = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (jobOutLook is null) throw new NotFoundException(new NotFoundError(id, nameof(JobOutLook)));
 

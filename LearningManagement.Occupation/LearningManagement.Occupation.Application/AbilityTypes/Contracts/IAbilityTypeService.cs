@@ -10,7 +10,7 @@ public interface IAbilityTypeService {
     Task<PaginatedResult<AbilityTypeDto>> GetAllAsync(PaginationRequest request, AbilityTypeSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<AbilityTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default);
-    Task UpdateAsync(long id, UpdateAbilityTypeRequest request, CancellationToken cancellationToken = default);
-    Task DeleteAsync(long id, CancellationToken cancellationToken = default);
+    Task<AbilityTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Guid id, UpdateAbilityTypeRequest request, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

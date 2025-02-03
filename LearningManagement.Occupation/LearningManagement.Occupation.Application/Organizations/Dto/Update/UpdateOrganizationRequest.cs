@@ -7,7 +7,7 @@ public record UpdateOrganizationRequest(
     string ProvinceTitle,
     int CityId,
     string CityTitle,
-    int OrganTypeId,
+    Guid OrganTypeId,
     string? CertificateCode,
     string? WebsiteUrl,
     string? Email,
@@ -17,5 +17,5 @@ public record UpdateOrganizationRequest(
     DateOnly? AcceptedDate,
     int? AcceptedUserId,
     bool IsPublic,
-    long OrganizationTypeId
+    Guid OrganizationTypeId
 );

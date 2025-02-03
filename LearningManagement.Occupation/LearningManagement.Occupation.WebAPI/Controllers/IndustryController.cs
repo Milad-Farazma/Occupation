@@ -12,8 +12,8 @@ public class IndustryController(IIndustryService industryService) : ControllerBa
         return CreatedAtAction(nameof(GetById), new { id = industry.Id }, industry);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<IndustryDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<IndustryDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var industry = await industryService.GetByIdAsync(id, true, cancellationToken);
         return Ok(industry);
     }
@@ -25,14 +25,14 @@ public class IndustryController(IIndustryService industryService) : ControllerBa
         return Ok(industrys);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateIndustryRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateIndustryRequest request, CancellationToken cancellationToken) {
         await industryService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await industryService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

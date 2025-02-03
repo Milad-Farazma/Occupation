@@ -20,13 +20,13 @@ public class KnowledgeService(IKnowledgeRepository repo, IUserService userServic
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<KnowledgeDto>>();
 
-    public async Task<KnowledgeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<KnowledgeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var knowledge = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (knowledge is null) throw new NotFoundException(new NotFoundError(id, nameof(Knowledge)));
         return knowledge.Adapt<KnowledgeDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateKnowledgeRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateKnowledgeRequest request, CancellationToken cancellationToken = default) {
         var knowledge = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (knowledge is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Knowledge)));
@@ -37,7 +37,7 @@ public class KnowledgeService(IKnowledgeRepository repo, IUserService userServic
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var knowledge = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (knowledge is null) throw new NotFoundException(new NotFoundError(id, nameof(Knowledge)));
 

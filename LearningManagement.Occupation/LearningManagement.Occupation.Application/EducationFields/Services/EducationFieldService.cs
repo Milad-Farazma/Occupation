@@ -22,13 +22,13 @@ public class EducationFieldService(IEducationFieldRepository repo, IUserService 
         (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<EducationFieldDto>>();
 
-    public async Task<EducationFieldDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<EducationFieldDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var educationField = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken: cancellationToken);
         if (educationField is null) throw new NotFoundException(new NotFoundError(id, nameof(EducationField)));
         return educationField.Adapt<EducationFieldDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateEducationFieldRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateEducationFieldRequest request, CancellationToken cancellationToken = default) {
         var educationField = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (educationField is null)
             throw new NotFoundException(new NotFoundError(id, nameof(EducationField)));
@@ -39,7 +39,7 @@ public class EducationFieldService(IEducationFieldRepository repo, IUserService 
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var educationField = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (educationField is null) throw new NotFoundException(new NotFoundError(id, nameof(EducationField)));
 

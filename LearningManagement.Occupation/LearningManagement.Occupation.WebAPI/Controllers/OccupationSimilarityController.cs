@@ -1,7 +1,7 @@
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Contracts;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos.Create;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos.Get;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Contracts;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Create;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Get;
 
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
@@ -15,8 +15,8 @@ public class OccupationSimilarityController(IOccupationSimilarityService occupat
         return CreatedAtAction(nameof(GetById), new { id = occupationSimilarity.Id }, occupationSimilarity);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<OccupationSimilarityDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<OccupationSimilarityDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var occupationSimilarity = await occupationSimilarityService.GetByIdAsync(id, true, cancellationToken);
         return Ok(occupationSimilarity);
     }
@@ -28,15 +28,15 @@ public class OccupationSimilarityController(IOccupationSimilarityService occupat
         return Ok(occupationSimilaritys);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateOccupationSimilarityRequest request,
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateOccupationSimilarityRequest request,
         CancellationToken cancellationToken) {
         await occupationSimilarityService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await occupationSimilarityService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

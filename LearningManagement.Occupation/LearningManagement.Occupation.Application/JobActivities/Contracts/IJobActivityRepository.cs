@@ -7,7 +7,7 @@ public interface IJobActivityRepository {
     Task<PaginatedResult<JobActivity>> GetAllAsync(bool asNoTracking, PaginationRequest request, JobActivitySearchRequest? searchRequest,
         bool loadRelations, CancellationToken cancellationToken = default);
 
-    Task<JobActivity?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<JobActivity?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(JobActivity entity);
     void Update(JobActivity entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

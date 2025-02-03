@@ -27,10 +27,10 @@ public class Occupation : ApprovableEntity {
     public decimal? ModeSalary { get; set; }
 
 
-    public int JobClassificationId { get; set; }
+    public Guid JobClassificationId { get; set; }
     public JobClassification JobClassification { get; set; } = default!;
 
-    public int JobOutlookId { get; set; }
+    public Guid JobOutlookId { get; set; }
     public JobOutLook JobOutlook { get; set; } = default!;
 
     public ICollection<OccupationJobZone> OccupationJobZons { get; set; } = default!;

@@ -7,7 +7,7 @@ public interface ITechnologyRepository {
     Task<PaginatedResult<Technology>> GetAllAsync(bool asNoTracking, PaginationRequest request, TechnologySearchRequest? searchRequest,
         bool loadRelations, CancellationToken cancellationToken = default);
 
-    Task<Technology?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<Technology?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(Technology entity);
     void Update(Technology entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

@@ -15,8 +15,8 @@ public class TechnologyController(ITechnologyService technologyService) : Contro
         return CreatedAtAction(nameof(GetById), new { id = technology.Id }, technology);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<TechnologyDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<TechnologyDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var technology = await technologyService.GetByIdAsync(id, true, cancellationToken);
         return Ok(technology);
     }
@@ -28,14 +28,14 @@ public class TechnologyController(ITechnologyService technologyService) : Contro
         return Ok(technologys);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateTechnologyRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTechnologyRequest request, CancellationToken cancellationToken) {
         await technologyService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await technologyService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

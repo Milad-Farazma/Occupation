@@ -10,6 +10,6 @@ public class Interest : ApprovableEntity {
     public string? Description { get; set; }
 
 
-    public long InterestTypeId { get; set; }
+    public Guid InterestTypeId { get; set; }
     public InterestType InterestType { get; set; } = default!;
 }

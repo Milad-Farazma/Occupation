@@ -4,5 +4,5 @@ public record CreateAbilityRequest(
     string? Title,
     long Code,
     string? Description,
-    long AbilityTypeId
+    Guid AbilityTypeId
 );

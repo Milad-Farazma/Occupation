@@ -16,6 +16,15 @@ public class OccupationConfiguration : IEntityTypeConfiguration<Domain.Occupatio
         builder.Property(e => e.VideoDescription).HasMaxLength(250);
         builder.Property(e => e.Title).HasMaxLength(50);
 
+        builder.Property(o => o.ModeSalary)
+            .HasColumnType("decimal(18,4)");
+
+        builder.Property(o => o.MaximumSalary)
+            .HasColumnType("decimal(18,4)");
+
+        builder.Property(o => o.MinimumSalary)
+            .HasColumnType("decimal(18,4)");
+
         #region Relations
 
         builder.HasOne(entity => entity.JobClassification)

@@ -1,13 +1,13 @@
 namespace LearningManagement.Occupation.Application.JobClassifications.Dtos.Get;
 
 public record JobClassificationDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
     IEnumerable<JobClassificationDto.OccupationResponse> Occupations) {
     public record OccupationResponse(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         string? Description,
@@ -18,6 +18,6 @@ public record JobClassificationDto(
         decimal? MinimumSalary,
         decimal? MaximumSalary,
         decimal? ModeSalary,
-        int JobOutlookId,
-        int JobClassificationId);
+        Guid JobOutlookId,
+        Guid JobClassificationId);
 }

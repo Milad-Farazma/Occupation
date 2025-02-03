@@ -9,7 +9,7 @@ public class EducationFieldSpecialization : ApprovableEntity {
 
     public string? Description { get; set; }
 
-    public long EducationFieldId { get; set; }
+    public Guid EducationFieldId { get; set; }
 
     public EducationField EducationField { get; set; } = default!;
 }

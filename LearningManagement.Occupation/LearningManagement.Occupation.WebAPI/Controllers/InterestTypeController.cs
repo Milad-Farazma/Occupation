@@ -15,8 +15,8 @@ public class InterestTypeController(IInterestTypeService interestTypeService) : 
         return CreatedAtAction(nameof(GetById), new { id = interestType.Id }, interestType);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<InterestTypeDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<InterestTypeDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var interestType = await interestTypeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(interestType);
     }
@@ -28,14 +28,14 @@ public class InterestTypeController(IInterestTypeService interestTypeService) : 
         return Ok(interestTypes);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateInterestTypeRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateInterestTypeRequest request, CancellationToken cancellationToken) {
         await interestTypeService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await interestTypeService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.EducationFields.Dtos;
 
 public record EducationFieldDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

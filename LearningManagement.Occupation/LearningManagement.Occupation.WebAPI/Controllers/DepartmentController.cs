@@ -15,8 +15,8 @@ public class DepartmentController(IDepartmentService departmentService) : Contro
         return CreatedAtAction(nameof(GetById), new { id = department.Id }, department);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<DepartmentDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<DepartmentDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var department = await departmentService.GetByIdAsync(id, true, cancellationToken);
         return Ok(department);
     }
@@ -28,14 +28,14 @@ public class DepartmentController(IDepartmentService departmentService) : Contro
         return Ok(departments);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateDepartmentRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateDepartmentRequest request, CancellationToken cancellationToken) {
         await departmentService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await departmentService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

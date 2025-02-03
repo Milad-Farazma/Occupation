@@ -10,7 +10,7 @@ public interface ITechnologyTypeService {
     Task<PaginatedResult<TechnologyTypeDto>> GetAllAsync(PaginationRequest request, TechnologyTypeSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<TechnologyTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default);
-    Task UpdateAsync(long id, UpdateTechnologyTypeRequest request, CancellationToken cancellationToken = default);
-    Task DeleteAsync(long id, CancellationToken cancellationToken = default);
+    Task<TechnologyTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default);
+    Task UpdateAsync(Guid id, UpdateTechnologyTypeRequest request, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

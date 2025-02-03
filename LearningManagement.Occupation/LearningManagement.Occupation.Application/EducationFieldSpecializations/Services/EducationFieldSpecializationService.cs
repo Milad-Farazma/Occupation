@@ -23,13 +23,13 @@ public class EducationFieldSpecializationService(IEducationFieldSpecializationRe
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<EducationFieldSpecializationDto>>();
 
-    public async Task<EducationFieldSpecializationDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<EducationFieldSpecializationDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var educationFieldSpecialization = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken: cancellationToken);
         if (educationFieldSpecialization is null) throw new NotFoundException(new NotFoundError(id, nameof(EducationFieldSpecialization)));
         return educationFieldSpecialization.Adapt<EducationFieldSpecializationDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateEducationFieldSpecializationRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateEducationFieldSpecializationRequest request, CancellationToken cancellationToken = default) {
         var educationFieldSpecialization = await repo.GetByIdAsync(id, false, false, cancellationToken);
         if (educationFieldSpecialization is null)
             throw new NotFoundException(new NotFoundError(id, nameof(EducationFieldSpecialization)));
@@ -40,7 +40,7 @@ public class EducationFieldSpecializationService(IEducationFieldSpecializationRe
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var educationFieldSpecialization = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (educationFieldSpecialization is null) throw new NotFoundException(new NotFoundError(id, nameof(EducationFieldSpecialization)));
 

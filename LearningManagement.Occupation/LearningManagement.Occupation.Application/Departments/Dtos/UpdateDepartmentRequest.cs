@@ -10,6 +10,6 @@ public record UpdateDepartmentRequest(
     string? WebSiteUrl = null,
     string? Email = null,
     int? OrganizationId = null,
-    int? DepartmentTypeId = null,
+    Guid? DepartmentTypeId = null,
     int? EducationCenterId = null
 );

@@ -1,9 +1,9 @@
 namespace LearningManagement.Occupation.Application.Skills.Dtos;
 
 public record CreateSkillResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
-    long SkillTypeId
+    Guid SkillTypeId
 );

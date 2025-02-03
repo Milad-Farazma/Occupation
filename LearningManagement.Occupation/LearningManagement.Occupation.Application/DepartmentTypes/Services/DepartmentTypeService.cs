@@ -20,13 +20,13 @@ public class DepartmentTypeService(IDepartmentTypeRepository repo, IUserService 
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<DepartmentTypeDto>>();
 
-    public async Task<DepartmentTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<DepartmentTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var departmentType = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (departmentType is null) throw new NotFoundException(new NotFoundError(id, nameof(DepartmentType)));
         return departmentType.Adapt<DepartmentTypeDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateDepartmentTypeRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateDepartmentTypeRequest request, CancellationToken cancellationToken = default) {
         var departmentType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (departmentType is null)
             throw new NotFoundException(new NotFoundError(id, nameof(DepartmentType)));
@@ -37,7 +37,7 @@ public class DepartmentTypeService(IDepartmentTypeRepository repo, IUserService 
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var departmentType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (departmentType is null) throw new NotFoundException(new NotFoundError(id, nameof(DepartmentType)));
 

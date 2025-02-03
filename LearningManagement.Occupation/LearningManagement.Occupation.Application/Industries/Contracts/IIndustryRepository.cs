@@ -7,7 +7,7 @@ public interface IIndustryRepository {
     Task<PaginatedResult<Industry>> GetAllAsync(bool asNoTracking, PaginationRequest request, IndustrySearchRequest? searchRequest,
         bool loadRelations, CancellationToken cancellationToken = default);
 
-    Task<Industry?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<Industry?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(Industry entity);
     void Update(Industry entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

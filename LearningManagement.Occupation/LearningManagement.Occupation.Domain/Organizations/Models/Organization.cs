@@ -35,6 +35,6 @@ public class Organization : ApprovableEntity {
     public bool IsPublic { get; set; } = true;
 
     public ICollection<Department> Departments { get; set; } = [];
-    public long OrganizationTypeId { get; set; }
+    public Guid OrganizationTypeId { get; set; }
     public OrganizationType OrganizationType { get; set; } = default!;
 }

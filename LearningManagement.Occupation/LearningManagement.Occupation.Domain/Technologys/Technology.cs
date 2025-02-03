@@ -5,7 +5,7 @@ namespace LearningManagement.Occupation.Domain.Technologys;
 public class Technology : ApprovableEntity {
     public string? Title { get; set; }
 
-    public int TechnologyTypeId { get; set; }
+    public Guid TechnologyTypeId { get; set; }
 
     public long Code { get; set; }
 

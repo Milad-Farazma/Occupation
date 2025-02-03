@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.InterestTypes.Dtos.Get;
 
 public record InterestTypeDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

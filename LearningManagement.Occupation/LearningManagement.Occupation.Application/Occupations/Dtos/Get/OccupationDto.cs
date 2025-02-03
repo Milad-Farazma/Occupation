@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Occupations.Dtos.Get;
 
 public record OccupationDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
@@ -12,5 +12,5 @@ public record OccupationDto(
     decimal? MinimumSalary,
     decimal? MaximumSalary,
     decimal? ModeSalary,
-    int JobOutlookId,
-    int JobClassificationId);
+    Guid JobOutlookId,
+    Guid JobClassificationId);

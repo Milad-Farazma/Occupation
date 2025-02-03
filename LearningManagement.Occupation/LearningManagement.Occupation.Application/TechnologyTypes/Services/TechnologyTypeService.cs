@@ -20,13 +20,13 @@ public class TechnologyTypeService(ITechnologyTypeRepository repo, IUserService 
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<TechnologyTypeDto>>();
 
-    public async Task<TechnologyTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<TechnologyTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var technologyType = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (technologyType is null) throw new NotFoundException(new NotFoundError(id, nameof(TechnologyType)));
         return technologyType.Adapt<TechnologyTypeDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateTechnologyTypeRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateTechnologyTypeRequest request, CancellationToken cancellationToken = default) {
         var technologyType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (technologyType is null)
             throw new NotFoundException(new NotFoundError(id, nameof(TechnologyType)));
@@ -37,7 +37,7 @@ public class TechnologyTypeService(ITechnologyTypeRepository repo, IUserService 
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var technologyType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (technologyType is null) throw new NotFoundException(new NotFoundError(id, nameof(TechnologyType)));
 

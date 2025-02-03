@@ -5,9 +5,9 @@ namespace Framework.Services.User;
 public sealed class UserService(
     IUserContextService userContextService,
     ILogger<UserService> logger) : IUserService {
-    public long GetCurrentUserId() {
+    public Guid GetCurrentUserId() {
         var userId = userContextService.GetCurrentUserId();
-        if (userId == 0) {
+        if (userId == Guid.Empty) {
             logger.LogWarning("Trying to get current userId for an unauthenticated user or user without userId claim.");
         }
 

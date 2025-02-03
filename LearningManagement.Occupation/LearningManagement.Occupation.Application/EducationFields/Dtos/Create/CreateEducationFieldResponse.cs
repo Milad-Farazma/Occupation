@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.EducationFields.Dtos.Create;
 
 public record CreateEducationFieldResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description

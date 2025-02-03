@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.JobOutLooks.Dtos.Create;
 
 public record CreateJobOutLookResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

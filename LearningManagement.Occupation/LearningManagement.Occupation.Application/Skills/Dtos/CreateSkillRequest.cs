@@ -4,5 +4,5 @@ public record CreateSkillRequest(
     string? Title,
     long Code,
     string? Description,
-    long SkillTypeId
+    Guid SkillTypeId
 );

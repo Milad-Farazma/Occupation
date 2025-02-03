@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Departments.Dtos.Get;
 
 public record DepartmentDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
@@ -10,9 +10,9 @@ public record DepartmentDto(
     string? Fax,
     string? WebSiteUrl,
     string? Email,
-    int OrganizationId,
-    int DepartmentTypeId,
-    int? EducationCenterId,
+    Guid OrganizationId,
+    Guid DepartmentTypeId,
+    Guid? EducationCenterId,
     DepartmentDto.DepartmentTypeResponse DepartmentType,
     DepartmentDto.OrganizationResponse Organization) {
     public record DepartmentTypeResponse(string? Title, long Code, string? Description);
@@ -24,7 +24,7 @@ public record DepartmentDto(
         string ProvinceTitle,
         int CityId,
         string CityTitle,
-        int OrganTypeId,
+        Guid OrganTypeId,
         string? CertificateCode,
         string? WebsiteUrl,
         string? Email,

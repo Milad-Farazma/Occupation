@@ -12,8 +12,8 @@ public class SkillController(ISkillService skillService) : ControllerBase {
         return CreatedAtAction(nameof(GetById), new { id = skill.Id }, skill);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<SkillDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<SkillDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var skill = await skillService.GetByIdAsync(id, true, cancellationToken);
         return Ok(skill);
     }
@@ -25,14 +25,14 @@ public class SkillController(ISkillService skillService) : ControllerBase {
         return Ok(skills);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateSkillRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateSkillRequest request, CancellationToken cancellationToken) {
         await skillService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await skillService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

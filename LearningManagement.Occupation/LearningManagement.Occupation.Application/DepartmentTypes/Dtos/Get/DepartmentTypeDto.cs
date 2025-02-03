@@ -1,13 +1,13 @@
 namespace LearningManagement.Occupation.Application.DepartmentTypes.Dtos.Get;
 
 public record DepartmentTypeDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
     IEnumerable<DepartmentTypeDto.DepartmentResponse> Departments) {
     public record DepartmentResponse(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         string? Description,

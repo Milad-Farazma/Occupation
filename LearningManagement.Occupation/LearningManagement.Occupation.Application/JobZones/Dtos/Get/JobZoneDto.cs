@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.JobZones.Dtos.Get;
 
 public record JobZoneDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

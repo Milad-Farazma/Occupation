@@ -15,8 +15,8 @@ public class AbilityTypeController(IAbilityTypeService abilityTypeService) : Con
         return CreatedAtAction(nameof(GetById), new { id = abilityType.Id }, abilityType);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<AbilityTypeDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<AbilityTypeDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var abilityType = await abilityTypeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(abilityType);
     }
@@ -28,14 +28,14 @@ public class AbilityTypeController(IAbilityTypeService abilityTypeService) : Con
         return Ok(abilityTypes);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateAbilityTypeRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAbilityTypeRequest request, CancellationToken cancellationToken) {
         await abilityTypeService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await abilityTypeService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

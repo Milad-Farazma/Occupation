@@ -7,7 +7,7 @@ public interface IAbilityTypeRepository {
     Task<PaginatedResult<AbilityType>> GetAllAsync(bool asNoTracking, PaginationRequest request, AbilityTypeSearchRequest? searchRequest,
         bool loadRelations, CancellationToken cancellationToken = default);
 
-    Task<AbilityType?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<AbilityType?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(AbilityType entity);
     void Update(AbilityType entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

@@ -15,8 +15,8 @@ public class OccupationController(IOccupationService occupationService) : Contro
         return CreatedAtAction(nameof(GetById), new { id = occupation.Id }, occupation);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<OccupationDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<OccupationDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var occupation = await occupationService.GetByIdAsync(id, true, cancellationToken);
         return Ok(occupation);
     }
@@ -28,14 +28,14 @@ public class OccupationController(IOccupationService occupationService) : Contro
         return Ok(occupations);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateOccupationRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateOccupationRequest request, CancellationToken cancellationToken) {
         await occupationService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await occupationService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

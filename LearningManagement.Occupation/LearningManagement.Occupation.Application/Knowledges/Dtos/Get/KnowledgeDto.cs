@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Knowledges.Dtos.Get;
 
 public record KnowledgeDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

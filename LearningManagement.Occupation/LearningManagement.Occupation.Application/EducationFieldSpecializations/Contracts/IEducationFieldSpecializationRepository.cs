@@ -8,7 +8,7 @@ public interface IEducationFieldSpecializationRepository {
         EducationFieldSpecializationSearchRequest? searchRequest, bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<EducationFieldSpecialization?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<EducationFieldSpecialization?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(EducationFieldSpecialization entity);
     void Update(EducationFieldSpecialization entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

@@ -14,8 +14,8 @@ public class InterestController(IInterestService interestService) : ControllerBa
         return CreatedAtAction(nameof(GetById), new { id = interest.Id }, interest);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<InterestDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<InterestDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var interest = await interestService.GetByIdAsync(id, true, cancellationToken);
         return Ok(interest);
     }
@@ -27,14 +27,14 @@ public class InterestController(IInterestService interestService) : ControllerBa
         return Ok(interests);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateInterestRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateInterestRequest request, CancellationToken cancellationToken) {
         await interestService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await interestService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

@@ -5,7 +5,7 @@ namespace LearningManagement.Occupation.Domain.Knowledges;
 public class Knowledge : ApprovableEntity {
     public string? Title { get; set; }
 
-    public int KnowledgeTypeId { get; set; }
+    public Guid KnowledgeTypeId { get; set; }
 
     public long Code { get; set; }
 

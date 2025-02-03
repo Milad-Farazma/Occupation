@@ -1,14 +1,14 @@
 namespace LearningManagement.Occupation.Application.Organizations.Dto.Create;
 
 public record CreateOrganizationResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     int ProvinceId,
     string ProvinceTitle,
     int CityId,
     string CityTitle,
-    int OrganTypeId,
+    Guid OrganTypeId,
     string? CertificateCode,
     string? WebsiteUrl,
     string? Email,

@@ -19,13 +19,13 @@ public class EducationDegreeService(IEducationDegreeRepository repo, IUserServic
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<EducationDegreeDto>>();
 
-    public async Task<EducationDegreeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<EducationDegreeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var educationDegree = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (educationDegree is null) throw new NotFoundException(new NotFoundError(id, nameof(EducationDegree)));
         return educationDegree.Adapt<EducationDegreeDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateEducationDegreeRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateEducationDegreeRequest request, CancellationToken cancellationToken = default) {
         var educationDegree = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (educationDegree is null)
             throw new NotFoundException(new NotFoundError(id, nameof(EducationDegree)));
@@ -36,7 +36,7 @@ public class EducationDegreeService(IEducationDegreeRepository repo, IUserServic
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var educationDegree = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (educationDegree is null) throw new NotFoundException(new NotFoundError(id, nameof(EducationDegree)));
 

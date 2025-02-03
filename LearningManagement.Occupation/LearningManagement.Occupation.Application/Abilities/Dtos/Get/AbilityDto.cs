@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Abilities.Dtos.Get;
 
 public record AbilityDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

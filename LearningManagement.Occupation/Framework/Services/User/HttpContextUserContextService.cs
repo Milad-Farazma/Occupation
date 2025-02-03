@@ -4,19 +4,19 @@ using Microsoft.AspNetCore.Http;
 namespace Framework.Services.User;
 
 public sealed class HttpContextUserContextService(IHttpContextAccessor httpContextAccessor) : IUserContextService {
-    public long GetCurrentUserId() {
+    public Guid GetCurrentUserId() {
         var user = httpContextAccessor.HttpContext?.User;
 
         var isAuthenticated = user?.Identity?.IsAuthenticated;
 
         if (!isAuthenticated ?? false) {
-            return 0;
+            return Guid.NewGuid();
         }
 
         var userIdClaim = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        if (string.IsNullOrWhiteSpace(userIdClaim) || !long.TryParse(userIdClaim, out var userId)) {
-            return 0;
+        if (string.IsNullOrWhiteSpace(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId)) {
+            return Guid.Empty;
         }
 
         return userId;

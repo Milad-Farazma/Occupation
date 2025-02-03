@@ -9,7 +9,7 @@ public class Ability : ApprovableEntity {
 
     public string? Description { get; set; }
 
-    public long AbilityTypeId { get; set; }
+    public Guid AbilityTypeId { get; set; }
 
     public AbilityType AbilityType { get; set; } = default!;
 }

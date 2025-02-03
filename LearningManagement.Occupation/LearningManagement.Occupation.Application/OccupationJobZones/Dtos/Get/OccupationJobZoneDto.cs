@@ -1,13 +1,13 @@
 namespace LearningManagement.Occupation.Application.OccupationJobZones.Dtos.Get;
 
 public record OccupationJobZoneDto(
-    long Id,
+    Guid Id,
     string? Description,
-    int JobZoneId,
-    int OccupationId,
+    Guid JobZoneId,
+    Guid OccupationId,
     OccupationJobZoneDto.OccupationResponse Occupation) {
     public record OccupationResponse(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         string? Description,
@@ -18,6 +18,6 @@ public record OccupationJobZoneDto(
         decimal? MinimumSalary,
         decimal? MaximumSalary,
         decimal? ModeSalary,
-        int JobOutlookId,
-        int JobClassificationId);
+        Guid JobOutlookId,
+        Guid JobClassificationId);
 }

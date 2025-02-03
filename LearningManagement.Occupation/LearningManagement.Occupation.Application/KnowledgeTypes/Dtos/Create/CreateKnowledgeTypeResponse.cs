@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.KnowledgeTypes.Dtos.Create;
 
 public record CreateKnowledgeTypeResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description

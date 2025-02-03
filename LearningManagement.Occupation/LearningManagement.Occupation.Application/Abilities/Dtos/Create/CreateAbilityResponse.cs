@@ -1,9 +1,9 @@
 namespace LearningManagement.Occupation.Application.Abilities.Dtos.Create;
 
 public record CreateAbilityResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
-    long AbilityTypeId
+    Guid AbilityTypeId
 );

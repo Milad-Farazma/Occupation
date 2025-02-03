@@ -1,4 +1,4 @@
-namespace LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos.Get;
+namespace LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Get;
 
 public sealed record OccupationSimilaritySearchRequest(
     string? Description = null

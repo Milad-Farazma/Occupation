@@ -6,7 +6,7 @@ using LearningManagement.Occupation.Application.JobOutLooks.Dtos.Get;
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/job-outLooks")]
+[Route("api/v1/job-out-looks")]
 public class JobOutLookController(IJobOutLookService jobOutLookService) : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<CreateJobOutLookResponse>>
@@ -15,8 +15,8 @@ public class JobOutLookController(IJobOutLookService jobOutLookService) : Contro
         return CreatedAtAction(nameof(GetById), new { id = jobOutLook.Id }, jobOutLook);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<JobOutLookDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<JobOutLookDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var jobOutLook = await jobOutLookService.GetByIdAsync(id, true, cancellationToken);
         return Ok(jobOutLook);
     }
@@ -28,14 +28,14 @@ public class JobOutLookController(IJobOutLookService jobOutLookService) : Contro
         return Ok(jobOutLooks);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateJobOutLookRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateJobOutLookRequest request, CancellationToken cancellationToken) {
         await jobOutLookService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await jobOutLookService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

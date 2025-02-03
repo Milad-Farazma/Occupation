@@ -21,13 +21,13 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<OrganizationDto>>();
 
-    public async Task<OrganizationDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<OrganizationDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken: cancellationToken);
         if (organization is null) throw new NotFoundException(new NotFoundError(id, nameof(Organization)));
         return organization.Adapt<OrganizationDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateOrganizationRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateOrganizationRequest request, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (organization is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Organization)));
@@ -38,7 +38,7 @@ public class OrganizationService(IOrganizationRepository repo, IUserService user
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var organization = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (organization is null) throw new NotFoundException(new NotFoundError(id, nameof(organization)));
 

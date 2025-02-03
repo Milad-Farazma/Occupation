@@ -21,13 +21,13 @@ public class OccupationJobZoneService(IOccupationJobZoneRepository repo, IUserSe
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<OccupationJobZoneDto>>();
 
-    public async Task<OccupationJobZoneDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<OccupationJobZoneDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var occupationJobZone = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (occupationJobZone is null) throw new NotFoundException(new NotFoundError(id, nameof(OccupationJobZone)));
         return occupationJobZone.Adapt<OccupationJobZoneDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateOccupationJobZoneRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateOccupationJobZoneRequest request, CancellationToken cancellationToken = default) {
         var occupationJobZone = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (occupationJobZone is null)
             throw new NotFoundException(new NotFoundError(id, nameof(OccupationJobZone)));
@@ -38,7 +38,7 @@ public class OccupationJobZoneService(IOccupationJobZoneRepository repo, IUserSe
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var occupationJobZone = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (occupationJobZone is null) throw new NotFoundException(new NotFoundError(id, nameof(OccupationJobZone)));
 

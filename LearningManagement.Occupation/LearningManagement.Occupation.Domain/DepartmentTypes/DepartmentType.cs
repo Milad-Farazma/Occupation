@@ -9,6 +9,5 @@ public class DepartmentType : ApprovableEntity {
 
     public string? Description { get; set; }
 
-
     public ICollection<Department> Departments { get; set; } = default!;
 }

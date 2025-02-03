@@ -7,7 +7,7 @@ public sealed record OrganizationSearchRequest(
     string? ProvinceTitle = null,
     int? CityId = null,
     string? CityTitle = null,
-    int? OrganizationTypeId = null,
+    Guid? OrganizationTypeId = null,
     string? CertificateCode = null,
     string? WebsiteUrl = null,
     string? Email = null,

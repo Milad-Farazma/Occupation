@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.DepartmentTypes.Dtos.Create;
 
 public record CreateDepartmentTypeResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description

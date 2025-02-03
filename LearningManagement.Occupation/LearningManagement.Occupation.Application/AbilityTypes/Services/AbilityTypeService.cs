@@ -20,13 +20,13 @@ public class AbilityTypeService(IAbilityTypeRepository repo, IUserService userSe
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<AbilityTypeDto>>();
 
-    public async Task<AbilityTypeDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<AbilityTypeDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var abilityType = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (abilityType is null) throw new NotFoundException(new NotFoundError(id, nameof(AbilityType)));
         return abilityType.Adapt<AbilityTypeDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateAbilityTypeRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateAbilityTypeRequest request, CancellationToken cancellationToken = default) {
         var abilityType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (abilityType is null)
             throw new NotFoundException(new NotFoundError(id, nameof(AbilityType)));
@@ -37,7 +37,7 @@ public class AbilityTypeService(IAbilityTypeRepository repo, IUserService userSe
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var abilityType = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (abilityType is null) throw new NotFoundException(new NotFoundError(id, nameof(AbilityType)));
 

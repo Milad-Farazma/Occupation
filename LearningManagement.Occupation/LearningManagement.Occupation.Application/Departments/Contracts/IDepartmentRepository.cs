@@ -7,7 +7,7 @@ public interface IDepartmentRepository {
     Task<PaginatedResult<Department>> GetAllAsync(bool asNoTracking, PaginationRequest request, DepartmentSearchRequest? searchRequest,
         bool loadRelations, CancellationToken cancellationToken = default);
 
-    Task<Department?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<Department?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(Department entity);
     void Update(Department entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

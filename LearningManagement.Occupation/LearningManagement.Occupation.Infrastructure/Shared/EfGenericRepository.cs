@@ -25,7 +25,7 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
     }
 
     public Task<TEntity?> GetByIdAsync
-        (long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default) {
+        (Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default) {
         var query = GetDbSet(asNoTracking);
 
         if (loadRelations) {
@@ -35,10 +35,10 @@ public abstract class EfGenericRepository<TEntity>(ApplicationDbContext context)
             }
         }
 
-        return query.FirstOrDefaultAsync(e => EF.Property<long>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
+        return query.FirstOrDefaultAsync(e => EF.Property<Guid>(e, nameof(BaseEntity.Id)) == id, cancellationToken);
     }
 
-    public async Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default) {
         return await DbSet.FindAsync([id], cancellationToken) != null;
     }
 

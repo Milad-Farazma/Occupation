@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.JobOutLooks.Dtos.Get;
 
 public record JobOutLookDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
@@ -9,7 +9,7 @@ public record JobOutLookDto(
     string? IconTitle,
     IEnumerable<JobOutLookDto.OccupationResponse> Occupations) {
     public record OccupationResponse(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         string? Description,
@@ -20,6 +20,6 @@ public record JobOutLookDto(
         decimal? MinimumSalary,
         decimal? MaximumSalary,
         decimal? ModeSalary,
-        int JobOutlookId,
-        int JobClassificationId);
+        Guid JobOutlookId,
+        Guid JobClassificationId);
 }

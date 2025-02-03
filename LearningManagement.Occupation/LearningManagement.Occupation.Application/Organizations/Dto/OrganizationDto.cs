@@ -1,14 +1,14 @@
 namespace LearningManagement.Occupation.Application.Organizations.Dto;
 
 public record OrganizationDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     int ProvinceId,
     string ProvinceTitle,
     int CityId,
     string CityTitle,
-    int OrganTypeId,
+    Guid OrganTypeId,
     string? CertificateCode,
     string? WebsiteUrl,
     string? Email,
@@ -20,10 +20,10 @@ public record OrganizationDto(
     bool IsPublic,
     ICollection<OrganizationDto.DepartmentResponse> Departments,
     OrganizationDto.OrganizationTypeResponse OrganizationType) {
-    public record DepartmentResponse(long Id, string Title);
+    public record DepartmentResponse(Guid Id, string Title);
 
     public record OrganizationTypeResponse(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         string? Description);

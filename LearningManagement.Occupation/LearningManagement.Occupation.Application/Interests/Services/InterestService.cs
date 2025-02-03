@@ -20,13 +20,13 @@ public class InterestService(IInterestRepository repo, IUserService userService)
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<InterestDto>>();
 
-    public async Task<InterestDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<InterestDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var interest = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (interest is null) throw new NotFoundException(new NotFoundError(id, nameof(Interest)));
         return interest.Adapt<InterestDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateInterestRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateInterestRequest request, CancellationToken cancellationToken = default) {
         var interest = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (interest is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Interest)));
@@ -37,7 +37,7 @@ public class InterestService(IInterestRepository repo, IUserService userService)
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var interest = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (interest is null) throw new NotFoundException(new NotFoundError(id, nameof(Interest)));
 

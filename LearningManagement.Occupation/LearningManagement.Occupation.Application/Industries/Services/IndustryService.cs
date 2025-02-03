@@ -18,13 +18,13 @@ public class IndustryService(IIndustryRepository repo, IUserService userService)
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<IndustryDto>>();
 
-    public async Task<IndustryDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<IndustryDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var industry = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (industry is null) throw new NotFoundException(new NotFoundError(id, nameof(Industry)));
         return industry.Adapt<IndustryDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateIndustryRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateIndustryRequest request, CancellationToken cancellationToken = default) {
         var industry = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (industry is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Industry)));
@@ -35,7 +35,7 @@ public class IndustryService(IIndustryRepository repo, IUserService userService)
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var industry = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (industry is null) throw new NotFoundException(new NotFoundError(id, nameof(Industry)));
 

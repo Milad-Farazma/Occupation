@@ -11,6 +11,6 @@ public record CreateOccupationRequest(
     decimal? MinimumSalary,
     decimal? MaximumSalary,
     decimal? ModeSalary,
-    int JobOutlookId,
-    int JobClassificationId
+    Guid JobOutlookId,
+    Guid JobClassificationId
 );

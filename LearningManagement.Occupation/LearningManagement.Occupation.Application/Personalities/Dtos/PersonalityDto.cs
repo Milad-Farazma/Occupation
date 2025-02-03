@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Personalities.Dtos;
 
 public record PersonalityDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description);

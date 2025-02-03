@@ -14,8 +14,8 @@ public class JobZoneController(IJobZoneService jobZoneService) : ControllerBase 
         return CreatedAtAction(nameof(GetById), new { id = jobZone.Id }, jobZone);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<JobZoneDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<JobZoneDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var jobZone = await jobZoneService.GetByIdAsync(id, true, cancellationToken);
         return Ok(jobZone);
     }
@@ -27,14 +27,14 @@ public class JobZoneController(IJobZoneService jobZoneService) : ControllerBase 
         return Ok(jobZones);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateJobZoneRequest request, CancellationToken cancellationToken) {
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateJobZoneRequest request, CancellationToken cancellationToken) {
         await jobZoneService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await jobZoneService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

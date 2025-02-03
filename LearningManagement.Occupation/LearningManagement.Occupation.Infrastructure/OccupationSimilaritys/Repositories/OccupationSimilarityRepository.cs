@@ -1,5 +1,5 @@
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Contracts;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos.Get;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Contracts;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Get;
 using LearningManagement.Occupation.Domain.OccupationSimilaritys;
 
 namespace LearningManagement.Occupation.Infrastructure.OccupationSimilaritys.Repositories;

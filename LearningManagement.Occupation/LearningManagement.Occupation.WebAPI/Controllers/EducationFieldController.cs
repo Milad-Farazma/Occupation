@@ -16,8 +16,8 @@ public class EducationFieldController(IEducationFieldService educationFieldServi
         return CreatedAtAction(nameof(GetById), new { id = educationField.Id }, educationField);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<EducationFieldDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<EducationFieldDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var educationField = await educationFieldService.GetByIdAsync(id, true, cancellationToken);
         return Ok(educationField);
     }
@@ -29,15 +29,15 @@ public class EducationFieldController(IEducationFieldService educationFieldServi
         return Ok(educationFields);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateEducationFieldRequest request,
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateEducationFieldRequest request,
         CancellationToken cancellationToken) {
         await educationFieldService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await educationFieldService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

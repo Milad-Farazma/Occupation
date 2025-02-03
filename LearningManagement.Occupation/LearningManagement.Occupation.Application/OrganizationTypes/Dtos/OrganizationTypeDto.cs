@@ -1,20 +1,20 @@
 namespace LearningManagement.Occupation.Application.OrganizationTypes.Dtos;
 
 public record OrganizationTypeDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
     IEnumerable<OrganizationTypeDto.OrgDto> Organizations) {
     public record OrgDto(
-        long Id,
+        Guid Id,
         string? Title,
         long Code,
         int ProvinceId,
         string ProvinceTitle,
         int CityId,
         string CityTitle,
-        int OrganTypeId,
+        Guid OrganTypeId,
         string? CertificateCode,
         string? WebsiteUrl,
         string? Email,

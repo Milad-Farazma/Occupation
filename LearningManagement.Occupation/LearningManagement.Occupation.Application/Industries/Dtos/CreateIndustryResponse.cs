@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Industries.Dtos;
 
 public record CreateIndustryResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description

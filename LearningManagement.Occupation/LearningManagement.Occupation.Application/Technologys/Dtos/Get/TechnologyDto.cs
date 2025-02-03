@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Technologys.Dtos.Get;
 
 public record TechnologyDto(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,

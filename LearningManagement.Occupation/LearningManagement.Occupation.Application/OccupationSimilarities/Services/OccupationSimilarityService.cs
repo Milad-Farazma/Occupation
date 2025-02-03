@@ -1,10 +1,10 @@
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Contracts;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos.Create;
-using LearningManagement.Occupation.Application.OccupationSimilaritys.Dtos.Get;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Contracts;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Create;
+using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Get;
 using LearningManagement.Occupation.Domain.OccupationSimilaritys;
 
-namespace LearningManagement.Occupation.Application.OccupationSimilaritys.Services;
+namespace LearningManagement.Occupation.Application.OccupationSimilarities.Services;
 
 public class OccupationSimilarityService(IOccupationSimilarityRepository repo, IUserService userService) : IOccupationSimilarityService {
     public async Task<CreateOccupationSimilarityResponse> CreateAsync(CreateOccupationSimilarityRequest request,
@@ -21,13 +21,13 @@ public class OccupationSimilarityService(IOccupationSimilarityRepository repo, I
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<OccupationSimilarityDto>>();
 
-    public async Task<OccupationSimilarityDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<OccupationSimilarityDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var occupationSimilarity = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (occupationSimilarity is null) throw new NotFoundException(new NotFoundError(id, nameof(OccupationSimilarity)));
         return occupationSimilarity.Adapt<OccupationSimilarityDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateOccupationSimilarityRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateOccupationSimilarityRequest request, CancellationToken cancellationToken = default) {
         var occupationSimilarity = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (occupationSimilarity is null)
             throw new NotFoundException(new NotFoundError(id, nameof(OccupationSimilarity)));
@@ -38,7 +38,7 @@ public class OccupationSimilarityService(IOccupationSimilarityRepository repo, I
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var occupationSimilarity = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (occupationSimilarity is null) throw new NotFoundException(new NotFoundError(id, nameof(OccupationSimilarity)));
 

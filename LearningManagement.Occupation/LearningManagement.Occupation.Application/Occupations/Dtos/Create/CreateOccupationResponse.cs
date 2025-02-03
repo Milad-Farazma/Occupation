@@ -1,7 +1,7 @@
 namespace LearningManagement.Occupation.Application.Occupations.Dtos.Create;
 
 public record CreateOccupationResponse(
-    long Id,
+    Guid Id,
     string? Title,
     long Code,
     string? Description,
@@ -12,6 +12,6 @@ public record CreateOccupationResponse(
     decimal? MinimumSalary,
     decimal? MaximumSalary,
     decimal? ModeSalary,
-    int JobOutlookId,
-    int JobClassificationId
+    Guid JobOutlookId,
+    Guid JobClassificationId
 );

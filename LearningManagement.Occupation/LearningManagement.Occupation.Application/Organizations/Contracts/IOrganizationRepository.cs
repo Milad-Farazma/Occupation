@@ -8,7 +8,7 @@ public interface IOrganizationRepository {
         bool loadRelations,
         CancellationToken cancellationToken = default);
 
-    Task<Organization?> GetByIdAsync(long id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
+    Task<Organization?> GetByIdAsync(Guid id, bool asNoTracking, bool loadRelations, CancellationToken cancellationToken = default);
     void Add(Organization entity);
     void Update(Organization entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

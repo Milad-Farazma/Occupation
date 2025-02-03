@@ -15,8 +15,8 @@ public class JobClassificationController(IJobClassificationService jobClassifica
         return CreatedAtAction(nameof(GetById), new { id = jobClassification.Id }, jobClassification);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<JobClassificationDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<JobClassificationDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var jobClassification = await jobClassificationService.GetByIdAsync(id, true, cancellationToken);
         return Ok(jobClassification);
     }
@@ -28,15 +28,15 @@ public class JobClassificationController(IJobClassificationService jobClassifica
         return Ok(jobClassifications);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateJobClassificationRequest request,
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateJobClassificationRequest request,
         CancellationToken cancellationToken) {
         await jobClassificationService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await jobClassificationService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

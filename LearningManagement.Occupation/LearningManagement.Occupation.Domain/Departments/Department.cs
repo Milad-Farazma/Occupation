@@ -19,9 +19,9 @@ public class Department : ApprovableEntity {
     public string? Email { get; set; }
 
     public int? EducationCenterId { get; set; }
-    public int DepartmentTypeId { get; set; }
+    public Guid DepartmentTypeId { get; set; }
     public DepartmentType DepartmentType { get; set; } = default!;
 
     public Organization Organization { get; set; }
-    public int OrganizationId { get; set; }
+    public Guid OrganizationId { get; set; }
 }

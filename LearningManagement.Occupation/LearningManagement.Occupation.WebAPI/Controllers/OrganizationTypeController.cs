@@ -16,8 +16,8 @@ public class OrganizationTypeController(IOrganizationTypeService organizationTyp
         return CreatedAtAction(nameof(GetById), new { id = organizationType.Id }, organizationType);
     }
 
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<OrganizationTypeDto>> GetById(long id, CancellationToken cancellationToken) {
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<OrganizationTypeDto>> GetById(Guid id, CancellationToken cancellationToken) {
         var organizationType = await organizationTypeService.GetByIdAsync(id, true, cancellationToken);
         return Ok(organizationType);
     }
@@ -29,15 +29,15 @@ public class OrganizationTypeController(IOrganizationTypeService organizationTyp
         return Ok(organizationTypes);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<IActionResult> Update([FromRoute] long id, [FromBody] UpdateOrganizationTypeRequest request,
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateOrganizationTypeRequest request,
         CancellationToken cancellationToken) {
         await organizationTypeService.UpdateAsync(id, request, cancellationToken);
         return NoContent(); // 204 - Successful update with no content
     }
 
-    [HttpDelete("{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken) {
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken) {
         await organizationTypeService.DeleteAsync(id, cancellationToken);
         return NoContent(); // 204 - Successful deletion with no content
     }

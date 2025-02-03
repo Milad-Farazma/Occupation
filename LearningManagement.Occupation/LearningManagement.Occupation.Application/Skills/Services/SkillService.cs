@@ -18,13 +18,13 @@ public class SkillService(ISkillRepository repo, IUserService userService) : ISk
         CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
         .Adapt<PaginatedResult<SkillDto>>();
 
-    public async Task<SkillDto> GetByIdAsync(long id, bool loadRelations, CancellationToken cancellationToken = default) {
+    public async Task<SkillDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var skill = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
         if (skill is null) throw new NotFoundException(new NotFoundError(id, nameof(Skill)));
         return skill.Adapt<SkillDto>();
     }
 
-    public async Task UpdateAsync(long id, UpdateSkillRequest request, CancellationToken cancellationToken = default) {
+    public async Task UpdateAsync(Guid id, UpdateSkillRequest request, CancellationToken cancellationToken = default) {
         var skill = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (skill is null)
             throw new NotFoundException(new NotFoundError(id, nameof(Skill)));
@@ -35,7 +35,7 @@ public class SkillService(ISkillRepository repo, IUserService userService) : ISk
         await repo.SaveChangesAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task DeleteAsync(long id, CancellationToken cancellationToken = default) {
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default) {
         var skill = await repo.GetByIdAsync(id, false, false, cancellationToken: cancellationToken);
         if (skill is null) throw new NotFoundException(new NotFoundError(id, nameof(Skill)));
 
