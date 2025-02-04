@@ -1,4 +1,5 @@
 using LearningManagement.Occupation.Domain.Departments;
+using LearningManagement.Occupation.Domain.JobPositions;
 using LearningManagement.Occupation.Domain.OrganizationTypes;
 
 namespace LearningManagement.Occupation.Domain.Organizations.Models;
@@ -37,4 +38,7 @@ public class Organization : ApprovableEntity {
     public ICollection<Department> Departments { get; set; } = [];
     public Guid OrganizationTypeId { get; set; }
     public OrganizationType OrganizationType { get; set; } = default!;
+
+    public JobPosition? Chart { get; set; }
+    public Guid? ChartId { get; set; }
 }

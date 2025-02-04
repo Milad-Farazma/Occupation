@@ -1,5 +1,6 @@
 using LearningManagement.Occupation.Domain.JobClassifications;
 using LearningManagement.Occupation.Domain.JobOutLooks;
+using LearningManagement.Occupation.Domain.JobPositions;
 using LearningManagement.Occupation.Domain.OccupationJobZones;
 using LearningManagement.Occupation.Domain.OccupationSimilaritys;
 
@@ -38,4 +39,5 @@ public class Occupation : ApprovableEntity {
     public ICollection<OccupationSimilarity> OccupationSimilarityOccupationId1Navigations { get; set; } = default!;
 
     public ICollection<OccupationSimilarity> OccupationSimilarityOccupationId2Navigations { get; set; } = default!;
+    public ICollection<JobPosition> JobPositions { get; set; } = default!;
 }
