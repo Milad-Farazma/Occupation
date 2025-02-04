@@ -40,4 +40,8 @@ public class Occupation : ApprovableEntity {
 
     public ICollection<OccupationSimilarity> OccupationSimilarityOccupationId2Navigations { get; set; } = default!;
     public ICollection<JobPosition> JobPositions { get; set; } = default!;
+    public ICollection<OccupationSkill> OccupationSkills { get; set; } = default!;
+    public ICollection<OccupationAbility> OccupationAbilities { get; set; } = default!;
+    public ICollection<OccupationTechnology> OccupationTechnologies { get; set; } = default!;
+    public ICollection<OccupationActivity> OccupationActivities { get; set; } = default!;
 }

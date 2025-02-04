@@ -1,3 +1,4 @@
+using LearningManagement.Occupation.Domain.Occupations;
 using LearningManagement.Occupation.Domain.SkillTypes;
 
 namespace LearningManagement.Occupation.Domain.Skills;
@@ -13,4 +14,6 @@ public class Skill : ApprovableEntity {
     public Guid SkillTypeId { get; set; }
 
     public SkillType SkillType { get; set; } = default!;
+    
+    public ICollection<OccupationSkill> OccupationSkills { get; set; } = default!;
 }
