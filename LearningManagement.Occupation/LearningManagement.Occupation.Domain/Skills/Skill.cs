@@ -14,6 +14,6 @@ public class Skill : ApprovableEntity {
     public Guid SkillTypeId { get; set; }
 
     public SkillType SkillType { get; set; } = default!;
-    
+
     public ICollection<OccupationSkill> OccupationSkills { get; set; } = default!;
 }

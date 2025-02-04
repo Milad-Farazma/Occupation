@@ -17,7 +17,7 @@ public class OccupationSimilarityConfiguration : IEntityTypeConfiguration<Occupa
         builder.HasOne(e => e.LeftOccupation)
             .WithMany(o => o.OccupationSimilarity)
             .HasForeignKey(e => e.LeftOccupationId);
-        
+
         builder.HasOne(e => e.RightOccupation)
             .WithMany()
             .HasForeignKey(e => e.RightOccupationId);
