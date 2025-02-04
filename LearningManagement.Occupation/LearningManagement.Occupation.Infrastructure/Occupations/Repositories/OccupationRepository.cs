@@ -42,8 +42,8 @@ public class OccupationRepository(ApplicationDbContext context)
             query = query.Where(item => item.BriefActivities!.Contains(searchRequest.BriefActivities));
         }
 
-        if (!string.IsNullOrWhiteSpace(searchRequest.VideoDescription)) {
-            query = query.Where(item => item.VideoDescription!.Contains(searchRequest.VideoDescription));
+        if (!string.IsNullOrWhiteSpace(searchRequest.IntroductionVideoUrl)) {
+            query = query.Where(item => item.IntroductionVideoUrl!.Contains(searchRequest.IntroductionVideoUrl));
         }
 
         if (!string.IsNullOrWhiteSpace(searchRequest.BriefPersonality)) {

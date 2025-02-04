@@ -5,6 +5,6 @@ public sealed record OccupationSearchRequest(
     long? Code = null,
     string? Description = null,
     string? BriefActivities = null,
-    string? VideoDescription = null,
+    string? IntroductionVideoUrl = null,
     string? BriefPersonality = null
 );

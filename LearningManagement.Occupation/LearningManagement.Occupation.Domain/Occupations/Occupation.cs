@@ -15,9 +15,9 @@ public class Occupation : ApprovableEntity {
 
     public string? BriefActivities { get; set; }
 
-    public string? BannerImage { get; set; }
+    public string? BannerUrl { get; set; }
 
-    public string? VideoDescription { get; set; }
+    public string? IntroductionVideoUrl { get; set; }
 
     public string? BriefPersonality { get; set; }
 
