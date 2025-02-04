@@ -42,16 +42,6 @@ public class OccupationConfiguration : IEntityTypeConfiguration<Domain.Occupatio
             .HasForeignKey(entity => entity.OccupationId)
             .IsRequired();
 
-        builder.HasMany(entity => entity.OccupationSimilarityOccupationId1Navigations)
-            .WithOne(entity => entity.OccupationId1Navigation)
-            .HasForeignKey(entity => entity.OccupationId1)
-            .IsRequired();
-
-        builder.HasMany(entity => entity.OccupationSimilarityOccupationId2Navigations)
-            .WithOne(entity => entity.OccupationId2Navigation)
-            .HasForeignKey(entity => entity.OccupationId2)
-            .IsRequired();
-
         #endregion
 
         #region Audit and SoftDelete

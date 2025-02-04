@@ -14,15 +14,13 @@ public class OccupationSimilarityConfiguration : IEntityTypeConfiguration<Occupa
 
         #region Relations
 
-        builder.HasOne(d => d.OccupationId1Navigation)
-            .WithMany(p => p.OccupationSimilarityOccupationId1Navigations)
-            .HasForeignKey(d => d.OccupationId1)
-            .OnDelete(DeleteBehavior.ClientSetNull);
-
-        builder.HasOne(d => d.OccupationId2Navigation)
-            .WithMany(p => p.OccupationSimilarityOccupationId2Navigations)
-            .HasForeignKey(d => d.OccupationId2)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+        builder.HasOne(e => e.LeftOccupation)
+            .WithMany(o => o.OccupationSimilarity)
+            .HasForeignKey(e => e.LeftOccupationId);
+        
+        builder.HasOne(e => e.RightOccupation)
+            .WithMany()
+            .HasForeignKey(e => e.RightOccupationId);
 
         #endregion
 
