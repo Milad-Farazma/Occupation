@@ -43,4 +43,5 @@ public class Occupation : ApprovableEntity {
     public ICollection<OccupationTechnology> OccupationTechnologies { get; set; } = default!;
     public ICollection<OccupationActivity> OccupationActivities { get; set; } = default!;
     public ICollection<OccupationKnowledge> OccupationKnowledge { get; set; } = default!;
+    public ICollection<OccupationPersonality> OccupationPersonality { get; set; } = default!;
 }
