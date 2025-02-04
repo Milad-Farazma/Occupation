@@ -498,46 +498,6 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Organizations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Code = table.Column<long>(type: "bigint", nullable: false),
-                    ProvinceId = table.Column<int>(type: "int", nullable: false),
-                    ProvinceTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    CityTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CertificateCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    WebsiteUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LogoImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    Accepted = table.Column<bool>(type: "bit", nullable: false),
-                    AcceptedDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    AcceptedUserId = table.Column<int>(type: "int", nullable: true),
-                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
-                    OrganizationTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Organizations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Organizations_OrganizationTypes_OrganizationTypeId",
-                        column: x => x.OrganizationTypeId,
-                        principalTable: "OrganizationTypes",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Skills",
                 columns: table => new
                 {
@@ -591,6 +551,36 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         column: x => x.TechnologyTypeId,
                         principalTable: "TechnologyTypes",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobPositions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OccupationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobPositions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobPositions_Occupations_OccupationId",
+                        column: x => x.OccupationId,
+                        principalTable: "Occupations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -654,6 +644,53 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         name: "FK_OccupationSimilarities_Occupations_OccupationId2",
                         column: x => x.OccupationId2,
                         principalTable: "Occupations",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Organizations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Code = table.Column<long>(type: "bigint", nullable: false),
+                    ProvinceId = table.Column<int>(type: "int", nullable: false),
+                    ProvinceTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    CityTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CertificateCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    WebsiteUrl = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LogoImg = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Accepted = table.Column<bool>(type: "bit", nullable: false),
+                    AcceptedDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    AcceptedUserId = table.Column<int>(type: "int", nullable: true),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ChartId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ChartId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Organizations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Organizations_JobPositions_ChartId1",
+                        column: x => x.ChartId1,
+                        principalTable: "JobPositions",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Organizations_OrganizationTypes_OrganizationTypeId",
+                        column: x => x.OrganizationTypeId,
+                        principalTable: "OrganizationTypes",
                         principalColumn: "Id");
                 });
 
@@ -723,6 +760,11 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 column: "InterestTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JobPositions_OccupationId",
+                table: "JobPositions",
+                column: "OccupationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Knowledges_KnowledgeTypeId",
                 table: "Knowledges",
                 column: "KnowledgeTypeId");
@@ -756,6 +798,11 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 name: "IX_OccupationSimilarities_OccupationId2",
                 table: "OccupationSimilarities",
                 column: "OccupationId2");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Organizations_ChartId1",
+                table: "Organizations",
+                column: "ChartId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Organizations_OrganizationTypeId",
@@ -837,16 +884,19 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 name: "JobZones");
 
             migrationBuilder.DropTable(
-                name: "Occupations");
-
-            migrationBuilder.DropTable(
                 name: "SkillTypes");
 
             migrationBuilder.DropTable(
                 name: "TechnologyTypes");
 
             migrationBuilder.DropTable(
+                name: "JobPositions");
+
+            migrationBuilder.DropTable(
                 name: "OrganizationTypes");
+
+            migrationBuilder.DropTable(
+                name: "Occupations");
 
             migrationBuilder.DropTable(
                 name: "JobClassifications");

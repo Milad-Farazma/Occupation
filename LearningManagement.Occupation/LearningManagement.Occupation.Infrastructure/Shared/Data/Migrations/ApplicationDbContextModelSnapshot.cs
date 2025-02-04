@@ -401,6 +401,37 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.ToTable("JobOutLooks", (string)null);
                 });
 
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobPositions.JobPosition", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OccupationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OccupationId");
+
+                    b.ToTable("JobPositions", (string)null);
+                });
+
             modelBuilder.Entity("LearningManagement.Occupation.Domain.JobZones.JobZone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -641,6 +672,12 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<Guid?>("ChartId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ChartId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
@@ -690,6 +727,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChartId1");
 
                     b.HasIndex("OrganizationTypeId");
 
@@ -1685,6 +1724,77 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.JobPositions.JobPosition", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.Occupations.Occupation", "Occupation")
+                        .WithMany("JobPositions")
+                        .HasForeignKey("OccupationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobPositionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("JobPositionId");
+
+                            b1.ToTable("JobPositions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobPositionId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("JobPositionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("JobPositionId");
+
+                            b1.ToTable("JobPositions");
+
+                            b1.WithOwner()
+                                .HasForeignKey("JobPositionId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("Occupation");
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LearningManagement.Occupation.Domain.JobZones.JobZone", b =>
                 {
                     b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
@@ -2179,6 +2289,10 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Organizations.Models.Organization", b =>
                 {
+                    b.HasOne("LearningManagement.Occupation.Domain.JobPositions.JobPosition", "Chart")
+                        .WithMany()
+                        .HasForeignKey("ChartId1");
+
                     b.HasOne("LearningManagement.Occupation.Domain.OrganizationTypes.OrganizationType", "OrganizationType")
                         .WithMany("Organizations")
                         .HasForeignKey("OrganizationTypeId")
@@ -2240,6 +2354,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.Navigation("AuditInfo")
                         .IsRequired();
+
+                    b.Navigation("Chart");
 
                     b.Navigation("OrganizationType");
 
@@ -2618,6 +2734,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.Occupations.Occupation", b =>
                 {
+                    b.Navigation("JobPositions");
+
                     b.Navigation("OccupationJobZons");
 
                     b.Navigation("OccupationSimilarityOccupationId1Navigations");
