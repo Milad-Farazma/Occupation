@@ -8,7 +8,6 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department> {
         builder.ToTable("Departments");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         builder.Property(e => e.Address).HasMaxLength(250);
         builder.Property(e => e.Description).HasMaxLength(250);

@@ -8,7 +8,6 @@ public class JobActivityConfiguration : IEntityTypeConfiguration<JobActivity> {
         builder.ToTable("JobActivities");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         builder.Property(e => e.Description).HasMaxLength(250);
 

@@ -8,7 +8,6 @@ public class EducationFieldConfiguration : IEntityTypeConfiguration<EducationFie
         builder.ToTable("EducationFields");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         builder.Property(e => e.Description).HasMaxLength(250);
         builder.Property(e => e.Title).HasMaxLength(50);

@@ -11,7 +11,6 @@ public class EducationDegreeConfiguration : IEntityTypeConfiguration<EducationDe
         builder.Property(e => e.Title).HasMaxLength(50);
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         #region Audit and SoftDelete
 

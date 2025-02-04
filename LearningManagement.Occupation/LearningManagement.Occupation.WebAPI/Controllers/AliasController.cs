@@ -6,7 +6,7 @@ using LearningManagement.Occupation.Application.Aliases.Dtos.Get;
 namespace LearningManagement.Occupation.WebAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/$aliases")]
+[Route("api/v1/aliases")]
 public class AliasController(IAliasService aliasService) : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<CreateAliasResponse>> Create([FromBody] CreateAliasRequest request, CancellationToken cancellationToken) {
@@ -23,8 +23,8 @@ public class AliasController(IAliasService aliasService) : ControllerBase {
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<AliasDto>>> GetAll([FromQuery] PaginationRequest request,
         [FromQuery] AliasSearchRequest? searchRequest, CancellationToken cancellationToken) {
-        var aliass = await aliasService.GetAllAsync(request, searchRequest, true, cancellationToken);
-        return Ok(aliass);
+        var alias = await aliasService.GetAllAsync(request, searchRequest, true, cancellationToken);
+        return Ok(alias);
     }
 
     [HttpPut("{id:guid}")]

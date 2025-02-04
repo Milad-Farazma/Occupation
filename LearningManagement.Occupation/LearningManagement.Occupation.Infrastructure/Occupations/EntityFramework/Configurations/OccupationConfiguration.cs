@@ -7,7 +7,6 @@ public class OccupationConfiguration : IEntityTypeConfiguration<Domain.Occupatio
         builder.ToTable("Occupations");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         builder.Property(e => e.BannerUrl).HasMaxLength(250);
         builder.Property(e => e.BriefActivities).HasMaxLength(250);

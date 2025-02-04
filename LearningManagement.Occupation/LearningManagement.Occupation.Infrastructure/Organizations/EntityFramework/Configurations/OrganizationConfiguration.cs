@@ -8,7 +8,6 @@ public class OrganizationConfiguration : IEntityTypeConfiguration<Organization> 
         builder.ToTable("Organizations");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         builder.Property(e => e.CertificateCode).HasMaxLength(50);
         builder.Property(e => e.CityTitle).HasMaxLength(50);

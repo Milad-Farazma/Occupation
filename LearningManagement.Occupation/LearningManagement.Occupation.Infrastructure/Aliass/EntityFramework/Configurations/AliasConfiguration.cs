@@ -8,7 +8,6 @@ public class AliasConfiguration : IEntityTypeConfiguration<Alias> {
         builder.ToTable("Aliases");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         #region Audit and SoftDelete
 

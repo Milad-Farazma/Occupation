@@ -8,7 +8,6 @@ public class OccupationSeniorityLevelConfiguration : IEntityTypeConfiguration<Oc
         builder.ToTable("OccupationSeniorityLevels");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         builder.Property(e => e.Description).HasMaxLength(250);
 

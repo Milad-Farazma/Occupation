@@ -8,7 +8,6 @@ public class JobPositionConfiguration : IEntityTypeConfiguration<JobPosition> {
         builder.ToTable("JobPositions");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         #region Relations
 

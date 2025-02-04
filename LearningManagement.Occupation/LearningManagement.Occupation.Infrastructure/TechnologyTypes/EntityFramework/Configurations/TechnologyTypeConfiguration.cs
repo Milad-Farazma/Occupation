@@ -8,7 +8,6 @@ public class TechnologyTypeConfiguration : IEntityTypeConfiguration<TechnologyTy
         builder.ToTable("TechnologyTypes");
 
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
 
         #region Relations
 
