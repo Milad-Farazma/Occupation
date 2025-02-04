@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250204132924_Init")]
+    [Migration("20250204135824_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -565,6 +565,13 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<Guid?>("ExternalSourceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ExternalSourceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IntroductionVideoUrl")
                         .HasMaxLength(250)

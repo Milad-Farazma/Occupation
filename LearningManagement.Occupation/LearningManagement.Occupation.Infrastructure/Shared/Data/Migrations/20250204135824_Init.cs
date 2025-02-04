@@ -441,6 +441,8 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     MinimumSalary = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
                     MaximumSalary = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
                     ModeSalary = table.Column<decimal>(type: "decimal(18,4)", nullable: true),
+                    ExternalSourceType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExternalSourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     JobClassificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     JobOutlookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),

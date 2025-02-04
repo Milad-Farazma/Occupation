@@ -26,6 +26,8 @@ public class Occupation : ApprovableEntity {
 
     public decimal? ModeSalary { get; set; }
 
+    public ExternalSourceTypes ExternalSourceType { get; set; }
+    public Guid? ExternalSourceId { get; set; }
 
     public Guid JobClassificationId { get; set; }
     public JobClassification JobClassification { get; set; } = default!;

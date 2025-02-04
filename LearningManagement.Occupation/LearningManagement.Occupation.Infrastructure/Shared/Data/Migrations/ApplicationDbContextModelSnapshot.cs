@@ -563,6 +563,13 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<Guid?>("ExternalSourceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ExternalSourceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("IntroductionVideoUrl")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");

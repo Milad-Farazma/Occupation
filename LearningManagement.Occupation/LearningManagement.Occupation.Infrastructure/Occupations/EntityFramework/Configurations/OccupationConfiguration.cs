@@ -1,4 +1,6 @@
+using LearningManagement.Occupation.Domain.Occupations;
 using LearningManagement.Occupation.Domain.Shared;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearningManagement.Occupation.Infrastructure.Occupations.EntityFramework.Configurations;
 
@@ -23,6 +25,12 @@ public class OccupationConfiguration : IEntityTypeConfiguration<Domain.Occupatio
 
         builder.Property(o => o.MinimumSalary)
             .HasColumnType("decimal(18,4)");
+
+        builder.Property(o => o.ExternalSourceType)
+            .HasConversion(new ValueConverter<ExternalSourceTypes, string>(
+                v => v.ToString(), // Convert enum to string when saving to the database
+                v => (ExternalSourceTypes)Enum.Parse(typeof(ExternalSourceTypes), v) // Convert string back to enum when reading from the database
+            ));
 
         #region Relations
 
