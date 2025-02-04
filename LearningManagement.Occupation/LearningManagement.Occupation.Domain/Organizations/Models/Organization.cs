@@ -39,6 +39,6 @@ public class Organization : ApprovableEntity {
     public Guid OrganizationTypeId { get; set; }
     public OrganizationType OrganizationType { get; set; } = default!;
 
-    public JobPosition? Chart { get; set; }
-    public Guid? ChartId { get; set; }
+    public JobPosition? JobPosition { get; set; }
+    public Guid? JobPositionId { get; set; }
 }

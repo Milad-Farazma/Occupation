@@ -16,7 +16,7 @@ public class OccupationRepository(ApplicationDbContext context)
         if (loadRelations) {
             query = query.Include(item => item.JobClassification)
                 .Include(item => item.JobOutlook)
-                .Include(item => item.OccupationJobZons);
+                .Include(item => item.OccupationSeniorityLevels);
         }
 
         return query

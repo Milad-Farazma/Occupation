@@ -37,7 +37,7 @@ public class OccupationConfiguration : IEntityTypeConfiguration<Domain.Occupatio
             .HasForeignKey(entity => entity.JobOutlookId)
             .IsRequired();
 
-        builder.HasMany(entity => entity.OccupationJobZons)
+        builder.HasMany(entity => entity.OccupationSeniorityLevels)
             .WithOne(entity => entity.Occupation)
             .HasForeignKey(entity => entity.OccupationId)
             .IsRequired();

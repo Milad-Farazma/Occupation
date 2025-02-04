@@ -1,8 +1,7 @@
 using LearningManagement.Occupation.Domain.JobClassifications;
 using LearningManagement.Occupation.Domain.JobOutLooks;
 using LearningManagement.Occupation.Domain.JobPositions;
-using LearningManagement.Occupation.Domain.OccupationJobZones;
-using LearningManagement.Occupation.Domain.OccupationSimilaritys;
+using LearningManagement.Occupation.Domain.OccupationSimilarities;
 
 namespace LearningManagement.Occupation.Domain.Occupations;
 
@@ -34,7 +33,7 @@ public class Occupation : ApprovableEntity {
     public Guid JobOutlookId { get; set; }
     public JobOutLook JobOutlook { get; set; } = default!;
 
-    public ICollection<OccupationJobZone> OccupationJobZons { get; set; } = default!;
+    public ICollection<OccupationSeniorityLevel> OccupationSeniorityLevels { get; set; } = default!;
 
     public ICollection<OccupationSimilarity> OccupationSimilarity { get; set; } = default!;
     public ICollection<JobPosition> JobPositions { get; set; } = default!;

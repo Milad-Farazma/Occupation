@@ -2,7 +2,7 @@ using LearningManagement.Occupation.Domain.Skills;
 
 namespace LearningManagement.Occupation.Domain.Occupations;
 
-public class OccupationSkill {
+public class OccupationSkill : BaseAuditableAndSoftDeletableEntity {
     public Guid OccupationId { get; set; }
     public Occupation Occupation { get; set; } = default!;
 

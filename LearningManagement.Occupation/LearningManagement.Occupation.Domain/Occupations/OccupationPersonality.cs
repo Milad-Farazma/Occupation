@@ -2,7 +2,7 @@ using LearningManagement.Occupation.Domain.Personalities;
 
 namespace LearningManagement.Occupation.Domain.Occupations;
 
-public class OccupationPersonality {
+public class OccupationPersonality : BaseAuditableAndSoftDeletableEntity {
     public Guid OccupationId { get; set; }
     public Occupation Occupation { get; set; } = default!;
 

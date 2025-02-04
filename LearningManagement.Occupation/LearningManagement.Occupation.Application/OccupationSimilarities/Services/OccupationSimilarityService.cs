@@ -2,7 +2,7 @@ using LearningManagement.Occupation.Application.OccupationSimilarities.Contracts
 using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos;
 using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Create;
 using LearningManagement.Occupation.Application.OccupationSimilarities.Dtos.Get;
-using LearningManagement.Occupation.Domain.OccupationSimilaritys;
+using LearningManagement.Occupation.Domain.OccupationSimilarities;
 
 namespace LearningManagement.Occupation.Application.OccupationSimilarities.Services;
 
