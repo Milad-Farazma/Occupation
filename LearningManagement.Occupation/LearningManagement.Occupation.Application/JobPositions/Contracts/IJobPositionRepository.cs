@@ -1,4 +1,3 @@
-using LearningManagement.Occupation.Application.JobPositions.Dtos;
 using LearningManagement.Occupation.Application.JobPositions.Dtos.Get;
 using LearningManagement.Occupation.Domain.JobPositions;
 
