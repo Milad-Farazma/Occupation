@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250204125818_Init")]
+    [Migration("20250204132924_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -78,6 +78,29 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AbilityTypes", (string)null);
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Aliases.Alias", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AlternativeTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("OccupationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OccupationId");
+
+                    b.ToTable("Aliases", (string)null);
                 });
 
             modelBuilder.Entity("LearningManagement.Occupation.Domain.DepartmentTypes.DepartmentType", b =>
@@ -1133,6 +1156,77 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 
                     b.Navigation("AuditInfo")
                         .IsRequired();
+
+                    b.Navigation("SoftDeleteInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LearningManagement.Occupation.Domain.Aliases.Alias", b =>
+                {
+                    b.HasOne("LearningManagement.Occupation.Domain.Occupations.Occupation", "Occupation")
+                        .WithMany()
+                        .HasForeignKey("OccupationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Framework.Data.Audit.AuditInfo", "AuditInfo", b1 =>
+                        {
+                            b1.Property<Guid>("AliasId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime>("CreatedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("CreatedAtUtcDateTime");
+
+                            b1.Property<Guid?>("CreatedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("CreatedByUserId");
+
+                            b1.Property<DateTime?>("ModifiedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("ModifiedAtUtcDateTime");
+
+                            b1.Property<Guid?>("ModifiedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("ModifiedByUserId");
+
+                            b1.HasKey("AliasId");
+
+                            b1.ToTable("Aliases");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AliasId");
+                        });
+
+                    b.OwnsOne("Framework.Data.SoftDelete.SoftDeleteInfo", "SoftDeleteInfo", b1 =>
+                        {
+                            b1.Property<Guid>("AliasId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DeletedAtUtcDateTime")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("DeletedAtUtcDateTime");
+
+                            b1.Property<Guid?>("DeletedByUserId")
+                                .HasColumnType("uniqueidentifier")
+                                .HasColumnName("DeletedByUserId");
+
+                            b1.Property<bool>("IsDeleted")
+                                .HasColumnType("bit")
+                                .HasColumnName("IsDeleted");
+
+                            b1.HasKey("AliasId");
+
+                            b1.ToTable("Aliases");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AliasId");
+                        });
+
+                    b.Navigation("AuditInfo")
+                        .IsRequired();
+
+                    b.Navigation("Occupation");
 
                     b.Navigation("SoftDeleteInfo")
                         .IsRequired();

@@ -554,6 +554,33 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Aliases",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AlternativeTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OccupationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Aliases", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Aliases_Occupations_OccupationId",
+                        column: x => x.OccupationId,
+                        principalTable: "Occupations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JobPositions",
                 columns: table => new
                 {
@@ -934,6 +961,11 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 column: "AbilityTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Aliases_OccupationId",
+                table: "Aliases",
+                column: "OccupationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Departments_DepartmentTypeId",
                 table: "Departments",
                 column: "DepartmentTypeId");
@@ -1077,6 +1109,9 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Aliases");
+
             migrationBuilder.DropTable(
                 name: "Departments");
 
