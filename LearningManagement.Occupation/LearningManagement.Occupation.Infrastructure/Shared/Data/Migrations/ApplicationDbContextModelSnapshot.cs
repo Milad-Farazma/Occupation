@@ -500,6 +500,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -939,6 +940,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

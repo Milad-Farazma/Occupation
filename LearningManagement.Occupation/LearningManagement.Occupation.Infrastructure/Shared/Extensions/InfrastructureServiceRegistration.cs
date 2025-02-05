@@ -1,6 +1,7 @@
 using Framework.Services.User;
 using LearningManagement.Occupation.Application.Abilities.Contracts;
 using LearningManagement.Occupation.Application.AbilityTypes.Contracts;
+using LearningManagement.Occupation.Application.Aliases.Contracts;
 using LearningManagement.Occupation.Application.Departments.Contracts;
 using LearningManagement.Occupation.Application.DepartmentTypes.Contracts;
 using LearningManagement.Occupation.Application.EducationDegrees.Contracts;
@@ -12,9 +13,11 @@ using LearningManagement.Occupation.Application.InterestTypes.Contracts;
 using LearningManagement.Occupation.Application.JobActivities.Contracts;
 using LearningManagement.Occupation.Application.JobClassifications.Contracts;
 using LearningManagement.Occupation.Application.JobOutLooks.Contracts;
+using LearningManagement.Occupation.Application.JobPositions.Contracts;
 using LearningManagement.Occupation.Application.SeniorityLevels.Contracts;
 using LearningManagement.Occupation.Application.Knowledges.Contracts;
 using LearningManagement.Occupation.Application.KnowledgeTypes.Contracts;
+using LearningManagement.Occupation.Application.Occupations.Contracts;
 using LearningManagement.Occupation.Application.OccupationSeniorityLevels.Contracts;
 using LearningManagement.Occupation.Application.OccupationSimilarities.Contracts;
 using LearningManagement.Occupation.Application.Organizations.Contracts;
@@ -22,9 +25,11 @@ using LearningManagement.Occupation.Application.OrganizationTypes.Contracts;
 using LearningManagement.Occupation.Application.Personalities.Contracts;
 using LearningManagement.Occupation.Application.Skills.Contracts;
 using LearningManagement.Occupation.Application.SkillTypes.Contracts;
+using LearningManagement.Occupation.Application.Technologys.Contracts;
 using LearningManagement.Occupation.Application.TechnologyTypes.Contracts;
 using LearningManagement.Occupation.Infrastructure.Abilitys.Repositories;
 using LearningManagement.Occupation.Infrastructure.AbilityTypes.Repositories;
+using LearningManagement.Occupation.Infrastructure.Aliases.Repositories;
 using LearningManagement.Occupation.Infrastructure.Departments.Repositories;
 using LearningManagement.Occupation.Infrastructure.DepartmentTypes.Repositories;
 using LearningManagement.Occupation.Infrastructure.EducationDegrees.Repositories;
@@ -36,9 +41,11 @@ using LearningManagement.Occupation.Infrastructure.InterestTypes.Repositories;
 using LearningManagement.Occupation.Infrastructure.JobActivities.Repositories;
 using LearningManagement.Occupation.Infrastructure.JobClassifications.Repositories;
 using LearningManagement.Occupation.Infrastructure.JobOutLooks.Repositories;
+using LearningManagement.Occupation.Infrastructure.JobPositions.Repositories;
 using LearningManagement.Occupation.Infrastructure.SeniorityLevels.Repositories;
 using LearningManagement.Occupation.Infrastructure.Knowledges.Repositories;
 using LearningManagement.Occupation.Infrastructure.KnowledgeTypes.Repositories;
+using LearningManagement.Occupation.Infrastructure.Occupations.Repositories;
 using LearningManagement.Occupation.Infrastructure.OccupationSeniorityLevels.Repositories;
 using LearningManagement.Occupation.Infrastructure.OccupationSimilarities.Repositories;
 using LearningManagement.Occupation.Infrastructure.Organizations.EntityFramework.Repositories;
@@ -46,6 +53,7 @@ using LearningManagement.Occupation.Infrastructure.OrganizationTypes.Repositorie
 using LearningManagement.Occupation.Infrastructure.Personalities.Repositories;
 using LearningManagement.Occupation.Infrastructure.Skills.Repositories;
 using LearningManagement.Occupation.Infrastructure.SkillTypes.Repositories;
+using LearningManagement.Occupation.Infrastructure.Technologys.Repositories;
 using LearningManagement.Occupation.Infrastructure.TechnologyTypes.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,6 +73,7 @@ public static class InfrastructureServiceRegistration {
     private static void AddRepositories(IServiceCollection services) {
         services.AddScoped<IAbilityRepository, AbilityRepository>();
         services.AddScoped<IAbilityTypeRepository, AbilityTypeRepository>();
+        services.AddScoped<IAliasRepository, AliasRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IDepartmentTypeRepository, DepartmentTypeRepository>();
         services.AddScoped<IEducationDegreeRepository, EducationDegreeRepository>();
@@ -76,17 +85,20 @@ public static class InfrastructureServiceRegistration {
         services.AddScoped<IJobActivityRepository, JobActivityRepository>();
         services.AddScoped<IJobClassificationRepository, JobClassificationRepository>();
         services.AddScoped<IJobOutLookRepository, JobOutLookRepository>();
-        services.AddScoped<ISeniorityLevelRepository, SeniorityLevelRepository>();
+        services.AddScoped<IJobPositionRepository, JobPositionRepository>();
         services.AddScoped<IKnowledgeRepository, KnowledgeRepository>();
         services.AddScoped<IKnowledgeTypeRepository, KnowledgeTypeRepository>();
+        services.AddScoped<IOccupationRepository, OccupationRepository>();
         services.AddScoped<IOccupationSeniorityLevelRepository, OccupationSeniorityLevelRepository>();
         services.AddScoped<IOccupationSimilarityRepository, OccupationSimilarityRepository>();
         services.AddScoped<IOrganizationRepository, OrganizationRepository>();
         services.AddScoped<IOrganizationTypeRepository, OrganizationTypeRepository>();
         services.AddScoped<IPersonalityRepository, PersonalityRepository>();
+        services.AddScoped<ISeniorityLevelRepository, SeniorityLevelRepository>();
         services.AddScoped<ISkillRepository, SkillRepository>();
         services.AddScoped<ISkillTypeRepository, SkillTypeRepository>();
         services.AddScoped<ITechnologyTypeRepository, TechnologyTypeRepository>();
+        services.AddScoped<ITechnologyRepository, TechnologyRepository>();
     }
 
     private static void AddMappers() {

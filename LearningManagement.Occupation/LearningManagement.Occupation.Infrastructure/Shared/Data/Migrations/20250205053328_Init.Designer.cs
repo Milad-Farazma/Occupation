@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250204135824_Init")]
+    [Migration("20250205053328_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -503,6 +503,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -942,6 +943,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

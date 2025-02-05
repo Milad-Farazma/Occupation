@@ -3,7 +3,7 @@ using LearningManagement.Occupation.Domain.Skills;
 namespace LearningManagement.Occupation.Domain.SkillTypes;
 
 public class SkillType : ApprovableEntity {
-    public string? Title { get; set; }
+    public string Title { get; set; } = default!;
 
     public long Code { get; set; }
 

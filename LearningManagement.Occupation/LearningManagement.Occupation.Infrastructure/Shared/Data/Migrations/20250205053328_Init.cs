@@ -303,7 +303,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Code = table.Column<long>(type: "bigint", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -476,10 +476,10 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    KnowledgeTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Code = table.Column<long>(type: "bigint", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    KnowledgeTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAtUtcDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),

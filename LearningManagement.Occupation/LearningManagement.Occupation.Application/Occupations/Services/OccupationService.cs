@@ -16,8 +16,10 @@ public class OccupationService(IOccupationRepository repo, IUserService userServ
 
     public async Task<PaginatedResult<OccupationDto>> GetAllAsync(PaginationRequest request,
         OccupationSearchRequest? searchRequest, bool loadRelations,
-        CancellationToken cancellationToken = default) => (await repo.GetAllAsync(false, request, searchRequest, loadRelations, cancellationToken))
-        .Adapt<PaginatedResult<OccupationDto>>();
+        CancellationToken cancellationToken = default) {
+        var query = await repo.GetAllAsync(true, request, searchRequest, loadRelations, cancellationToken);
+        return query.Adapt<PaginatedResult<OccupationDto>>();
+    }
 
     public async Task<OccupationDto> GetByIdAsync(Guid id, bool loadRelations, CancellationToken cancellationToken = default) {
         var occupation = await repo.GetByIdAsync(id, true, loadRelations, cancellationToken);
