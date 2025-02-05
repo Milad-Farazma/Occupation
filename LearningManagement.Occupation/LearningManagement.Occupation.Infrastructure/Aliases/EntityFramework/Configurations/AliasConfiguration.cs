@@ -1,7 +1,7 @@
 using LearningManagement.Occupation.Domain.Aliases;
 using LearningManagement.Occupation.Domain.Shared;
 
-namespace LearningManagement.Occupation.Infrastructure.Aliass.EntityFramework.Configurations;
+namespace LearningManagement.Occupation.Infrastructure.Aliases.EntityFramework.Configurations;
 
 public class AliasConfiguration : IEntityTypeConfiguration<Alias> {
     public void Configure(EntityTypeBuilder<Alias> builder) {

@@ -2,7 +2,7 @@ using LearningManagement.Occupation.Application.Aliases.Contracts;
 using LearningManagement.Occupation.Application.Aliases.Dtos.Get;
 using LearningManagement.Occupation.Domain.Aliases;
 
-namespace LearningManagement.Occupation.Infrastructure.Aliass.Repositories;
+namespace LearningManagement.Occupation.Infrastructure.Aliases.Repositories;
 
 public class AliasRepository(ApplicationDbContext context)
     : EfGenericRepository<Alias>(context: context), IAliasRepository {
@@ -21,6 +21,10 @@ public class AliasRepository(ApplicationDbContext context)
     private static IQueryable<Alias> AddSearchQueries(AliasSearchRequest searchRequest, IQueryable<Alias> query) {
         if (!string.IsNullOrWhiteSpace(searchRequest.AlternativeTitle)) {
             query = query.Where(item => item.AlternativeTitle.Contains(searchRequest.AlternativeTitle));
+        }
+
+        if (searchRequest.OccupationId is not null) {
+            query = query.Where(item => item.OccupationId == searchRequest.OccupationId);
         }
 
         return query;
