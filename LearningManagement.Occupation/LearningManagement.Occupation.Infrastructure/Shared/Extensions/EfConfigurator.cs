@@ -8,12 +8,12 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
 public static class EfConfigurator {
     public static IServiceCollection AddEfConfig(this IServiceCollection services, IConfiguration configuration, bool useInMemoryDb) {
-        var connectionString = configuration.GetConnectionString("Occupation")
-                               ?? throw new ArgumentException("Can not find database connection string.");
         if (useInMemoryDb) {
-            ConfigureInMemoryDb<ApplicationDbContext>(services, connectionString);
+            ConfigureInMemoryDb<ApplicationDbContext>(services, "AppDb");
         }
         else {
+            var connectionString = configuration.GetConnectionString("Occupation")
+                                   ?? throw new ArgumentException("Can not find database connection string.");
             var thresholdMilliseconds = configuration.GetSection("SlowQueryThresholdMilliseconds").Get<int?>() ?? 1000;
             ConfigurePhysicalDb<ApplicationDbContext>(services, connectionString, thresholdMilliseconds);
         }

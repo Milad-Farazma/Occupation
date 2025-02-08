@@ -62,7 +62,7 @@ namespace LearningManagement.Occupation.Infrastructure.Shared.Extensions;
 
 public static class InfrastructureServiceRegistration {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
-        services.AddEfConfig(configuration, false);
+        services.AddEfConfig(configuration, true);
         AddRepositories(services);
         AddMappers();
 

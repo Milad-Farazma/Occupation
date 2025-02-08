@@ -7,7 +7,7 @@ services:
       - "5001:5001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=LearningDb;User=sa;Password=YourStrong@Passw0rd
+      - ConnectionStrings__Occupation=Server=db,1533;Database=LearningDb;User=sa;Password=YourStrong@Passw0rd
     depends_on:
       - db
 
@@ -15,7 +15,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
     ports:
-      - "1433:1433"
+      - "1533:1433"
     environment:
       SA_PASSWORD: "YourStrong@Passw0rd"
       ACCEPT_EULA: "Y"
