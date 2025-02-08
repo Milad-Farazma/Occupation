@@ -14,8 +14,8 @@ public static class SwaggerExtensions {
     }
 
     public static IApplicationBuilder UseSwaggerAndUi(this WebApplication app) {
-        if (app.Environment.IsProduction())
-            return app;
+        // if (app.Environment.IsProduction())
+        //     return app;
 
         app.UseSwagger();
         app.UseSwaggerUI();
